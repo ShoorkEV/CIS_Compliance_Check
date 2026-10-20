@@ -1,0 +1,37 @@
+# /etc/cis-audit/site.conf  (copy from etc/site.conf.example)
+#
+# Site values for cis-audit.sh. Plain KEY=value lines, parsed as data (never sourced).
+# Unknown keys, bad syntax, or a value WEAKER than the benchmark stop the run with
+# exit code 3. A site value may only be stricter; record an accepted weaker setting
+# in exceptions.conf instead.
+#
+# The default shown for each threshold is the benchmark value; the control ID names
+# the recommendation of the CIS Ubuntu Linux 26.04 LTS Benchmark v1.0.0 it comes from.
+
+# --- time synchronisation and logging: applicability overrides ----------------
+TIME_DAEMON=auto                          # auto | chrony | timesyncd   (2.3.1.1, 2.3.2.x, 2.3.3.x)
+LOGGER=auto                               # auto | journald | rsyslog    (6.1.1.1.3, 6.1.2.x)
+
+# --- evidence for manual or text-comparison controls -------------------------
+#BANNER_FILE=/etc/cis-audit/banner.txt    # exact text expected in /etc/issue and /etc/issue.net (1.6.2, 1.6.3, 1.6.5, 5.1.6)
+#APPROVED_LISTENERS=tcp:22,tcp:80,tcp:443 # proto:port pairs allowed to listen (2.1.23, evidence only)
+#APPROVED_SUID_FILE=/etc/cis-audit/suid.allow  # one path per line (7.1.13, evidence only)
+
+# --- sshd --------------------------------------------------------------------
+SSH_ALLOW_DIRECTIVE_REQUIRED=1            # 5.1.5: AllowUsers/AllowGroups/DenyUsers/DenyGroups must be set (only 1 is valid)
+SSH_MAX_AUTH_TRIES=4                      # 5.1.18: 4 or less
+SSH_MAX_SESSIONS=10                       # 5.1.19: 10 or less
+SSH_LOGIN_GRACE_TIME=60                   # 5.1.15: 1 to 60 seconds
+
+# --- password policy ---------------------------------------------------------
+PASS_MAX_DAYS=365                         # 5.4.1.1: 1 to 365
+PASS_WARN_AGE=7                           # 5.4.1.3: 7 or more
+INACTIVE=45                               # 5.4.1.5: 0 to 45
+PWQ_MINLEN=14                             # 5.3.3.2.2: 14 or more
+PWQ_DIFOK=2                               # 5.3.3.2.1: 2 or more
+FAILLOCK_DENY=5                           # 5.3.3.1.1: 1 to 5
+FAILLOCK_UNLOCK_TIME=900                  # 5.3.3.1.2: 0 (never) or 900 or more
+PWHISTORY_REMEMBER=24                     # 5.3.3.3.1: 24 or more
+
+# --- shell environment -------------------------------------------------------
+TMOUT_MAX=900                             # 5.4.3.2: 900 seconds or less

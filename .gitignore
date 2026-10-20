@@ -1,0 +1,5 @@
+cis-audit-reports/
+tools/work/
+tools/__pycache__/
+*.swp
+*.tmp

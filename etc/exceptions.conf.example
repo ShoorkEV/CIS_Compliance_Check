@@ -1,0 +1,13 @@
+# /etc/cis-audit/exceptions.conf  (copy from etc/exceptions.conf.example)
+#
+# Accepted deviations, one per line:
+#   id | justification | approved_by | expires (YYYY-MM-DD)
+#
+# - Exactly three '|' separators; no '|' inside the text.
+# - The id must exist in the catalog, otherwise the run stops with exit code 3.
+# - An exception only turns a FAIL into EXCEPTION. It never changes ERROR or MANUAL.
+# - After the expiry date the control is reported as FAIL again, with a note.
+# - A control that passes although an exception exists keeps PASS and a note
+#   "exception no longer needed".
+
+2.1.19 | Host is the production web server (nginx on 80/443) | V. Hoeck | 2027-10-31
