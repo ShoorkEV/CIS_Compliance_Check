@@ -1,0 +1,50 @@
+id	note
+1.1.1.11	Manual in the PDF. The audit lists mounted filesystem types, loaded filesystem modules and the number of filesystem modules that are not both deny listed and set to /bin/false or /bin/true.
+1.2.1.1	Manual in the PDF. The audit reports the lines and stanzas the PDF's two commands would report as evidence.
+1.2.1.3	Port of both PDF steps. Key files named by Signed-By are checked with a maximum mode of 0644 (the PDF's pattern accepts 0600, 0604, 0640, 0644).
+1.2.1.10	STRICTER THAN THE PDF: the PDF greps only '^\s*deb\s+http://'. This port also catches deb-src lines and an options bracket in front of the URI (deb [signed-by=...] http://).
+1.2.1.11	STRICTER THAN THE PDF: as 1.2.1.10 for .list files; for deb822 .sources files every token on a URIs: line (including continuation lines) is checked, not just the first.
+1.2.1.12	The PDF says the output must include the setting. A setting that does not appear in 'apt-config dump' is therefore a FAIL, also for 1.2.1.13 to 1.2.1.15. The values 0/false/no are accepted for the three Allow* settings, true/1/yes for Check-Date.
+1.2.2.1	Manual in the PDF and needs 'apt update' (network). The audit never runs it; it only reports whether a reboot-required marker exists.
+1.3.1.2	Also fails when the running kernel was booted with apparmor=0 (/proc/cmdline); the PDF checks grub.cfg and /etc/default/grub.d/apparmor.cfg.
+1.5.10	The PDF only asks that no returned value is above 0. This port also fails when no '* hard core' line exists, because the title requires the limit to be configured.
+1.5.11	Follows the PDF: an unset option takes the commented vendor default; ProcessSizeMax therefore fails unless it is set to 0 explicitly.
+1.6.3	A missing /etc/issue.net passes (the PDF notes it may not exist by default). The optional BANNER_FILE from site.conf is compared byte for byte when set.
+1.6.4	Follows the PDF script literally: only pam_motd lines with motd=<file> are examined; lines without motd= are not reported.
+1.6.6	LITERAL READING FAILS ON A DEFAULT INSTALL: the PDF lists /etc/update-motd.d/* with the 0644 maximum, but Ubuntu ships those scripts as 0755. Not relaxed; decision for the owner (docs/OPEN_QUESTIONS.md).
+1.6.9	A missing pam_motd file (for example /run/motd.dynamic before the first login) passes.
+1.7.1	GDM rules are N/A without gdm3 and MANUAL when gdm3 is installed (plan decision for v1); the gsettings commands are not automated.
+2.1.3	The PDF matches any installed package name containing 'kea'; this port matches the package names kea and kea-*.
+2.1.22	DEVIATION FROM THE PDF SCRIPT: its interface test accepts 0.0.0.0 and rejects 127.0.0.1, which is inverted. This port accepts loopback values only (loopback-only, localhost, 127.x, ::1) and uses 'postconf inet_interfaces' (effective value; Postfix defaults to all) instead of 'postconf -n'.
+2.1.23	Manual in the PDF. The audit lists the listening sockets and flags those outside APPROVED_LISTENERS from site.conf.
+2.3.1.1	A daemon is 'in use' when enabled or active, as in the PDF script.
+2.3.2.1	Passes when NTP or FallbackNTP is set (uncommented) in the effective configuration; the servers themselves must be checked against site policy.
+2.3.3.2	Only processes whose command is chronyd are considered; the PDF's pattern also matches any process with 'chronyd' in its arguments.
+2.4.1.2	'Access does not grant permissions to group or other' is applied as a maximum mode of 0700 for /etc/crontab and the cron directories (2.4.1.2 to 2.4.1.8).
+3.1.2	Wireless driver modules come from /sys/class/net/*/wireless; they must be not loadable (install ... /bin/true|false), not loaded and deny listed.
+3.1.1	Manual in the PDF. Evidence: whether IPv6 counts as enabled by the PDF's rule.
+5.1.2	'No access for group or other' is applied as a maximum mode of 0700 for /etc/ssh/sshd_config.d.
+5.1.3	The PDF only reports key files for which 'ssh-keygen -lf' succeeds. This port checks every hostkey listed by 'sshd -T' that exists; a listed key that does not exist is noted, not failed.
+5.1.5	Passes when at least one of AllowUsers, AllowGroups, DenyUsers, DenyGroups is set. Match blocks are evaluated with 'sshd -T -C user=root,host=localhost,addr=127.0.0.1' when sshd_config has a Match block.
+5.1.14	Manual in the PDF. Evidence: the advertised KexAlgorithms and whether sntrup761x25519-sha512 and mlkem768x25519-sha256 are offered.
+5.2.2	On sudo-rs use_pty is the default, but the PDF still requires an explicit 'Defaults use_pty'. Only files sudo reads (including #include and @includedir targets) can satisfy the rule; all files in /etc/sudoers.d are searched for '!use_pty'.
+5.2.3	The PDF asks to generate a test event. The audit is read-only and never runs sudo, so it looks for existing sudo/sudo-rs entries in the journal (journalctl -t sudo -t sudo-rs) and /var/log/auth.log. A host where sudo was never used FAILS with a hint.
+5.3.1.1	'Latest version' uses 'apt-cache policy' (local data); no 'apt update' and no network access.
+5.3.3.2.1	Precedence follows the PDF note: the main pwquality.conf overrides the .conf.d drop-ins, which are read in name order; a module argument on the pam_pwquality line overrides both. Settings the PDF requires to be explicit (difok, minlen, maxrepeat, maxsequence, enforce_for_root) FAIL when absent; dictcheck and enforcing PASS when absent.
+5.3.3.2.3	Manual in the PDF. Evidence: the minclass and *credit settings found.
+5.3.3.3.1	Remember/enforce_for_root/use_authtok may be configured in /etc/security/pwhistory.conf or on the pam_pwhistory line, but not in both (PDF note).
+5.4.1.5	INACTIVE is read from /etc/default/useradd (what 'useradd -D' prints) instead of running useradd.
+5.4.1.6	The last-change day is compared with today's day number from /etc/shadow instead of running 'chage --list'.
+5.4.2.4	The status P/L/NP is derived from /etc/shadow the way passwd -S prints it; passwd is not run.
+5.4.2.5	Root's PATH comes from a clean login shell ('env -i ... bash -l -c printenv PATH'), not from 'sudo su - root', to avoid opening a PAM session and writing to the auth log.
+5.4.3.2	The PDF script is garbled by the extraction. This port implements its stated intent: at least one file sets TMOUT (1 to TMOUT_MAX), marks it readonly and exports it in the same file; a file with a wrong value, or a TMOUT mention without a value, fails.
+5.4.3.3	The regular expression is made possessive (\s++): with plain \s+ the PDF's pattern also reports a compliant 'umask   027' because the engine backtracks into the blanks. /etc/profile.d/*.sh and /etc/bash.bashrc are checked as files (the PDF names /etc/profile.d/ as a directory without -r).
+6.1.1.1.3	Applies only when rsyslog is the logger. Also requires systemd-journald.service and rsyslog.service to be active.
+6.1.2.3	Applies only when rsyslog is the logger. Without a $FileCreateMode directive the default 0644 applies and the control fails.
+6.1.3.1	Port of the PDF script. File names decide the allowed mode, owner and group; owner and group alternatives are matched in full (the PDF's unanchored regular expression would also accept 'rootx').
+6.3.2	Follows the PDF: dailyaidecheck.timer enabled and active, dailyaidecheck.service static or enabled. An AIDE cron job is not accepted (the plan mentions one; the PDF does not).
+7.1.2	The backup files /etc/passwd-, /etc/group-, /etc/shadow-, /etc/gshadow- pass when they do not exist.
+7.1.7	/etc/gshadow is required (PDF note: best practice is to create it); a missing file fails.
+7.1.11	World-writable walk: local mounts only, -xdev, /run /tmp /var/tmp and network or pseudo filesystems excluded, as in the PDF. FAIL when any world-writable file, or any world-writable directory without the sticky bit, is found.
+7.1.13	Manual in the PDF. The audit lists SUID and SGID files (slow=1) and marks those listed in APPROVED_SUID_FILE.
+7.2.10	Home directories on nfs, cifs, sshfs and similar filesystems are skipped, as in the PDF.

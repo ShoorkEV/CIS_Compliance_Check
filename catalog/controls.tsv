@@ -1,0 +1,351 @@
+id	title	assessment	srv_level	ws_level	check_type	params	applies_if	slow	status
+1.1.1.1	Ensure cramfs kernel module is not available	Automated	1	1	kmod_unavailable	name=cramfs;dir=fs/cramfs	-	0	done
+1.1.1.2	Ensure freevxfs kernel module is not available	Automated	1	1	kmod_unavailable	name=freevxfs;dir=fs/freevxfs	-	0	done
+1.1.1.3	Ensure hfs kernel module is not available	Automated	1	1	kmod_unavailable	name=hfs;dir=fs/hfs	-	0	done
+1.1.1.4	Ensure hfsplus kernel module is not available	Automated	1	1	kmod_unavailable	name=hfsplus;dir=fs/hfsplus	-	0	done
+1.1.1.5	Ensure jffs2 kernel module is not available	Automated	1	1	kmod_unavailable	name=jffs2;dir=fs/jffs2	-	0	done
+1.1.1.6	Ensure overlay kernel module is not available	Automated	2	2	-	-	-	0	todo
+1.1.1.7	Ensure squashfs kernel module is not available	Automated	2	2	-	-	-	0	todo
+1.1.1.8	Ensure udf kernel module is not available	Automated	2	2	-	-	-	0	todo
+1.1.1.9	Ensure firewire-core kernel module is not available	Automated	1	2	kmod_unavailable	name=firewire_core;dir=drivers/firewire	-	0	done
+1.1.1.10	Ensure usb-storage kernel module is not available	Automated	1	2	kmod_unavailable	name=usb_storage;dir=drivers/usb/storage	-	0	done
+1.1.1.11	Ensure unused filesystems kernel modules are not available	Manual	1	1	manual	hint=Review the filesystem kernel modules available, loaded and mounted on this host and confirm every unused one is blacklisted and set to /bin/false or /bin/true; disabling a module in use can be fatal	-	0	done
+1.1.2.1.1	Ensure /tmp is tmpfs or a separate partition	Automated	1	1	mount_tmpfs_or_separate	path=/tmp;unit=tmp.mount	-	0	done
+1.1.2.1.2	Ensure nodev option set on /tmp partition	Automated	1	1	mount_opt	path=/tmp;opt=nodev	-	0	done
+1.1.2.1.3	Ensure nosuid option set on /tmp partition	Automated	1	1	mount_opt	path=/tmp;opt=nosuid	-	0	done
+1.1.2.1.4	Ensure noexec option set on /tmp partition	Automated	1	1	mount_opt	path=/tmp;opt=noexec	-	0	done
+1.1.2.2.1	Ensure /dev/shm is tmpfs or a separate partition	Automated	1	1	mount_tmpfs_or_separate	path=/dev/shm	-	0	done
+1.1.2.2.2	Ensure nodev option set on /dev/shm partition	Automated	1	1	mount_opt	path=/dev/shm;opt=nodev	-	0	done
+1.1.2.2.3	Ensure nosuid option set on /dev/shm partition	Automated	1	1	mount_opt	path=/dev/shm;opt=nosuid	-	0	done
+1.1.2.2.4	Ensure noexec option set on /dev/shm partition	Automated	1	1	mount_opt	path=/dev/shm;opt=noexec	-	0	done
+1.1.2.3.1	Ensure separate partition exists for /home	Automated	2	2	-	-	-	0	todo
+1.1.2.3.2	Ensure nodev option set on /home partition	Automated	1	1	mount_opt	path=/home;opt=nodev	-	0	done
+1.1.2.3.3	Ensure nosuid option set on /home partition	Automated	1	1	mount_opt	path=/home;opt=nosuid	-	0	done
+1.1.2.4.1	Ensure separate partition exists for /var	Automated	2	2	-	-	-	0	todo
+1.1.2.4.2	Ensure nodev option set on /var partition	Automated	1	1	mount_opt	path=/var;opt=nodev	-	0	done
+1.1.2.4.3	Ensure nosuid option set on /var partition	Automated	1	1	mount_opt	path=/var;opt=nosuid	-	0	done
+1.1.2.5.1	Ensure separate partition exists for /var/tmp	Automated	2	2	-	-	-	0	todo
+1.1.2.5.2	Ensure nodev option set on /var/tmp partition	Automated	1	1	mount_opt	path=/var/tmp;opt=nodev	-	0	done
+1.1.2.5.3	Ensure nosuid option set on /var/tmp partition	Automated	1	1	mount_opt	path=/var/tmp;opt=nosuid	-	0	done
+1.1.2.5.4	Ensure noexec option set on /var/tmp partition	Automated	1	1	mount_opt	path=/var/tmp;opt=noexec	-	0	done
+1.1.2.6.1	Ensure separate partition exists for /var/log	Automated	2	2	-	-	-	0	todo
+1.1.2.6.2	Ensure nodev option set on /var/log partition	Automated	1	1	mount_opt	path=/var/log;opt=nodev	-	0	done
+1.1.2.6.3	Ensure nosuid option set on /var/log partition	Automated	1	1	mount_opt	path=/var/log;opt=nosuid	-	0	done
+1.1.2.6.4	Ensure noexec option set on /var/log partition	Automated	1	1	mount_opt	path=/var/log;opt=noexec	-	0	done
+1.1.2.7.1	Ensure separate partition exists for /var/log/audit	Automated	2	2	-	-	-	0	todo
+1.1.2.7.2	Ensure nodev option set on /var/log/audit partition	Automated	1	1	mount_opt	path=/var/log/audit;opt=nodev	-	0	done
+1.1.2.7.3	Ensure nosuid option set on /var/log/audit partition	Automated	1	1	mount_opt	path=/var/log/audit;opt=nosuid	-	0	done
+1.1.2.7.4	Ensure noexec option set on /var/log/audit partition	Automated	1	1	mount_opt	path=/var/log/audit;opt=noexec	-	0	done
+1.2.1.1	Ensure the source.list and .source files use the Signed-By option	Manual	1	1	manual	hint=Confirm every deb/deb-src entry and every deb822 stanza names a Signed-By key	-	0	done
+1.2.1.2	Ensure weak dependencies are configured	Automated	2	2	-	-	-	0	todo
+1.2.1.3	Ensure access to gpg key files are configured	Automated	1	1	custom	-	-	0	done
+1.2.1.4	Ensure access to /etc/apt/trusted.gpg.d directory is configured	Automated	1	1	file_perm	path=/etc/apt/trusted.gpg.d;mode=755;owner=root;group=root;missing=fail	-	0	done
+1.2.1.5	Ensure access to /etc/apt/auth.conf.d directory is configured	Automated	1	1	file_perm	path=/etc/apt/auth.conf.d;mode=755;owner=root;group=root;missing=pass	-	0	done
+1.2.1.6	Ensure access to files in the /etc/apt/auth.conf.d/ directory is configured	Automated	1	1	file_perm_glob	dir=/etc/apt/auth.conf.d;pattern=*;mode=640;owner=root;group=root;missing=pass	-	0	done
+1.2.1.7	Ensure access to /usr/share/keyrings directory is configured	Automated	1	1	file_perm	path=/usr/share/keyrings;mode=755;owner=root;group=root;missing=fail	-	0	done
+1.2.1.8	Ensure access to /etc/apt/sources.list.d directory is configured	Automated	1	1	file_perm	path=/etc/apt/sources.list.d;mode=755;owner=root;group=root;missing=fail	-	0	done
+1.2.1.9	Ensure access to files in /etc/apt/sources.list.d are configured	Automated	1	1	file_perm_glob	dir=/etc/apt/sources.list.d;pattern=*;mode=644;owner=root;group=root;missing=pass	-	0	done
+1.2.1.10	Ensure repositories are set to https in /etc/apt/sources.list	Automated	1	1	custom	-	-	0	done
+1.2.1.11	Ensure repositories are set to https in /etc/apt/sources.list.d directory	Automated	1	1	custom	-	-	0	done
+1.2.1.12	Ensure AllowInsecureRepositories is configured	Automated	1	1	apt_config	key=Acquire::AllowInsecureRepositories;value=0;accept=0,false,no	-	0	done
+1.2.1.13	Ensure AllowWeakRepositories is configured	Automated	1	1	apt_config	key=Acquire::AllowWeakRepositories;value=0;accept=0,false,no	-	0	done
+1.2.1.14	Ensure AllowDowngradeToInsecureRepositories is configured	Automated	1	1	apt_config	key=Acquire::AllowDowngradeToInsecureRepositories;value=0;accept=0,false,no	-	0	done
+1.2.1.15	Ensure Acquire::Check-Date is configured	Automated	1	1	apt_config	key=Acquire::Check-Date;value=true;accept=true,1,yes	-	0	done
+1.2.2.1	Ensure updates, patches, and additional security software are installed	Manual	1	1	manual	hint=Confirm no updates are pending and no reboot is required; this audit does not run apt update (no network access)	-	0	done
+1.3.1.1	Ensure apparmor packages are installed	Automated	1	1	pkg_installed	pkgs=apparmor,apparmor-utils	-	0	done
+1.3.1.2	Ensure AppArmor is enabled	Automated	1	1	custom	-	-	0	done
+1.3.1.3	Ensure all AppArmor Profiles are enforcing	Automated	2	2	-	-	-	0	todo
+1.3.1.4	Ensure kernel.apparmor_restrict_unprivileged_unconfined is enabled	Automated	1	1	sysctl	key=kernel.apparmor_restrict_unprivileged_unconfined;value=1	-	0	done
+1.4.1	Ensure bootloader password is set	Automated	1	1	custom	-	-	0	done
+1.4.2	Ensure access to bootloader config is configured	Automated	1	1	file_perm	path=/boot/grub/grub.cfg;mode=600;owner=root;group=root;missing=fail	-	0	done
+1.5.1	Ensure fs.protected_hardlinks is configured	Automated	1	1	sysctl	key=fs.protected_hardlinks;value=1	-	0	done
+1.5.2	Ensure fs.protected_symlinks is configured	Automated	2	2	-	-	-	0	todo
+1.5.3	Ensure kernel.yama.ptrace_scope is configured	Automated	1	1	sysctl	key=kernel.yama.ptrace_scope;values=1,2,3	-	0	done
+1.5.4	Ensure fs.suid_dumpable is configured	Automated	1	1	sysctl	key=fs.suid_dumpable;value=0	-	0	done
+1.5.5	Ensure kernel.dmesg_restrict is configured	Automated	1	1	sysctl	key=kernel.dmesg_restrict;value=1	-	0	done
+1.5.6	Ensure prelink is not installed	Automated	1	1	pkg_absent	pkgs=prelink	-	0	done
+1.5.7	Ensure Automatic Error Reporting is configured	Automated	1	1	custom	-	-	0	done
+1.5.8	Ensure kernel.kptr_restrict is configured	Automated	1	1	sysctl	key=kernel.kptr_restrict;values=1,2	-	0	done
+1.5.9	Ensure kernel.randomize_va_space is configured	Automated	1	1	sysctl	key=kernel.randomize_va_space;value=2	-	0	done
+1.5.10	Ensure core file size is configured	Automated	1	1	custom	-	-	0	done
+1.5.11	Ensure systemd-coredump ProcessSizeMax is configured	Automated	1	1	conf_kv	src=catcfg:systemd/coredump.conf;section=Coredump;key=ProcessSizeMax;op=eq;value=0;absent=default	HAS_COREDUMP=1	0	done
+1.5.12	Ensure systemd-coredump Storage is configured	Automated	1	1	conf_kv	src=catcfg:systemd/coredump.conf;section=Coredump;key=Storage;op=eq;value=none;absent=default	HAS_COREDUMP=1	0	done
+1.6.1	Ensure /etc/motd is configured	Automated	1	1	custom	-	-	0	done
+1.6.2	Ensure /etc/issue is configured	Automated	1	1	custom	-	-	0	done
+1.6.3	Ensure /etc/issue.net is configured	Automated	1	1	custom	-	-	0	done
+1.6.4	Ensure pam_motd is configured	Automated	1	1	custom	-	-	0	done
+1.6.5	Ensure sshd warning Banner is configured	Automated	1	1	sshd_param	key=banner;op=banner	-	0	done
+1.6.6	Ensure access to /etc/motd is configured	Automated	1	1	file_perm	path=/etc/motd,/run/motd,/usr/lib/motd,/etc/motd.d/*,/run/motd.d/*,/usr/lib/motd.d/*,/etc/update-motd.d/*;mode=644;owner=root;group=root;missing=pass	-	0	done
+1.6.7	Ensure access to /etc/issue is configured	Automated	1	1	file_perm	path=/etc/issue,/usr/lib/issue.d/*,/etc/issue.d/*,/run/issue.d/*;mode=644;owner=root;group=root;missing=pass	-	0	done
+1.6.8	Ensure access to /etc/issue.net is configured	Automated	1	1	file_perm	path=/etc/issue.net;mode=644;owner=root;group=root;missing=pass	-	0	done
+1.6.9	Ensure access to pam_motd file is configured	Automated	1	1	file_perm	dyn=pam_motd;mode=644;owner=root;group=root;missing=pass	-	0	done
+1.6.10	Ensure access to sshd warning banner is configured	Automated	1	1	file_perm	dyn=sshd_banner;mode=644;owner=root;group=root;missing=pass	-	0	done
+1.6.11	Ensure update-notifier-motd.service is not in use	Automated	1	1	svc_not_in_use	units=update-notifier-motd.service	-	0	done
+1.6.12	Ensure update-notifier-motd.timer is not in use	Automated	1	-	svc_not_in_use	units=update-notifier-motd.timer	-	0	done
+1.7.1	Ensure GDM login banner is configured	Automated	1	1	gdm	key=gdm_1	HAS_GDM=1	0	done
+1.7.2	Ensure GDM disable-user-list is configured	Automated	1	1	gdm	key=gdm_2	HAS_GDM=1	0	done
+1.7.3	Ensure GDM screen lock is configured	Automated	1	1	gdm	key=gdm_3	HAS_GDM=1	0	done
+1.7.4	Ensure GDM automount is configured	Automated	1	2	gdm	key=gdm_4	HAS_GDM=1	0	done
+1.7.5	Ensure GDM autorun-never is configured	Automated	1	1	gdm	key=gdm_5	HAS_GDM=1	0	done
+1.7.6	Ensure XDMCP is not enabled	Automated	1	1	gdm	key=gdm_6	HAS_GDM=1	0	done
+1.7.7	Ensure Xwayland is configured	Automated	2	2	-	-	-	0	todo
+2.1.1	Ensure autofs services are not in use	Automated	1	2	svc_not_in_use	pkgs=autofs;units=autofs.service	-	0	done
+2.1.2	Ensure avahi daemon services are not in use	Automated	1	2	svc_not_in_use	pkgs=avahi-daemon;units=avahi-daemon.socket,avahi-daemon.service	-	0	done
+2.1.3	Ensure dhcp server services are not in use	Automated	1	1	svc_not_in_use	pkgs=kea,kea-*;units=kea-dhcp-ddns-server.service,kea-dhcp4-server.service,kea-dhcp6-server.service	-	0	done
+2.1.4	Ensure dns server services are not in use	Automated	1	1	svc_not_in_use	pkgs=bind9;units=named.service	-	0	done
+2.1.5	Ensure dnsmasq services are not in use	Automated	1	1	svc_not_in_use	pkgs=dnsmasq;units=dnsmasq.service	-	0	done
+2.1.6	Ensure ftp server services are not in use	Automated	1	1	svc_not_in_use	pkgs=vsftpd;units=vsftpd.service	-	0	done
+2.1.7	Ensure ldap server services are not in use	Automated	1	1	svc_not_in_use	pkgs=slapd;units=slapd.service	-	0	done
+2.1.8	Ensure message access server services are not in use	Automated	1	1	svc_not_in_use	pkgs=dovecot-imapd,dovecot-pop3d;units=dovecot.socket,dovecot.service	-	0	done
+2.1.9	Ensure network file system services are not in use	Automated	1	1	svc_not_in_use	pkgs=nfs-kernel-server;units=nfs-server.service	-	0	done
+2.1.10	Ensure nis server services are not in use	Automated	1	1	svc_not_in_use	pkgs=ypserv;units=ypserv.service	-	0	done
+2.1.11	Ensure print server services are not in use	Automated	1	2	svc_not_in_use	pkgs=cups;units=cups.socket,cups.service	-	0	done
+2.1.12	Ensure rpcbind services are not in use	Automated	1	1	svc_not_in_use	pkgs=rpcbind;units=rpcbind.socket,rpcbind.service	-	0	done
+2.1.13	Ensure rsync services are not in use	Automated	1	1	svc_not_in_use	pkgs=rsync;units=rsync.service	-	0	done
+2.1.14	Ensure samba file server services are not in use	Automated	1	1	svc_not_in_use	pkgs=samba;units=smbd.service	-	0	done
+2.1.15	Ensure snmp services are not in use	Automated	1	1	svc_not_in_use	pkgs=snmpd;units=snmpd.service	-	0	done
+2.1.16	Ensure telnet server services are not in use	Automated	1	1	svc_not_in_use	pkgs=telnetd,telnetd-ssl;units=inetutils-inetd.service	-	0	done
+2.1.17	Ensure tftp server services are not in use	Automated	1	1	svc_not_in_use	pkgs=tftpd-hpa;units=tftpd-hpa.service	-	0	done
+2.1.18	Ensure web proxy server services are not in use	Automated	1	1	svc_not_in_use	pkgs=squid;units=squid.service	-	0	done
+2.1.19	Ensure web server services are not in use	Automated	1	1	svc_not_in_use	pkgs=apache2,nginx;units=apache2.socket,apache2.service,nginx.service	-	0	done
+2.1.20	Ensure xinetd services are not in use	Automated	1	1	svc_not_in_use	pkgs=xinetd;units=xinetd.service	-	0	done
+2.1.21	Ensure X window server services are not in use	Automated	2	-	-	-	-	0	todo
+2.1.22	Ensure mail transfer agents are configured for local-only mode	Automated	1	1	custom	-	-	0	done
+2.1.23	Ensure only approved services are listening on a network interface	Manual	1	1	manual	hint=List the listening sockets (ss -plntu) and confirm each service, port and interface is required and approved by site policy; compare with APPROVED_LISTENERS in site.conf	-	0	done
+2.2.1	Ensure nis client is not installed	Automated	1	1	pkg_absent	pkgs=nis	-	0	done
+2.2.2	Ensure rsh client is not installed	Automated	1	1	pkg_absent	pkgs=rsh-client	-	0	done
+2.2.3	Ensure talk client is not installed	Automated	1	1	pkg_absent	pkgs=talk	-	0	done
+2.2.4	Ensure telnet client is not installed	Automated	1	1	pkg_absent	pkgs=telnet,inetutils-telnet,telnet-ssl	-	0	done
+2.2.5	Ensure ldap client is not installed	Automated	1	1	pkg_absent	pkgs=ldap-utils	-	0	done
+2.2.6	Ensure ftp client is not installed	Automated	1	1	pkg_absent	pkgs=ftp,tnftp,atftp,inetutils-ftp,ftp-ssl	-	0	done
+2.3.1.1	Ensure a single time synchronization daemon is in use	Automated	1	1	custom	-	-	0	done
+2.3.2.1	Ensure systemd-timesyncd configured with authorized timeserver	Automated	1	1	conf_kv	src=catcfg:systemd/timesyncd.conf;section=Time;key=NTP;altkey=NTP,FallbackNTP;op=set	TIME_DAEMON~timesyncd	0	done
+2.3.2.2	Ensure systemd-timesyncd is enabled and running	Automated	1	1	svc_enabled_active	unit=systemd-timesyncd.service;need=enabled,active	TIME_DAEMON~timesyncd	0	done
+2.3.3.1	Ensure chrony is configured	Automated	1	1	custom	-	TIME_DAEMON~chrony	0	done
+2.3.3.2	Ensure chrony is running as user _chrony	Automated	1	1	custom	-	TIME_DAEMON~chrony	0	done
+2.3.3.3	Ensure chrony is enabled and running	Automated	1	1	svc_enabled_active	unit=chrony.service;need=enabled,active	TIME_DAEMON~chrony	0	done
+2.4.1.1	Ensure cron daemon is enabled and active	Automated	1	1	svc_enabled_active	unit=cron.service|crond.service;need=enabled,active	HAS_CRON=1	0	done
+2.4.1.2	Ensure access to /etc/crontab is configured	Automated	1	1	file_perm	path=/etc/crontab;mode=700;owner=root;group=root;missing=fail	HAS_CRON=1	0	done
+2.4.1.3	Ensure access to /etc/cron.hourly is configured	Automated	1	1	file_perm	path=/etc/cron.hourly;mode=700;owner=root;group=root;missing=fail	HAS_CRON=1	0	done
+2.4.1.4	Ensure access to /etc/cron.daily is configured	Automated	1	1	file_perm	path=/etc/cron.daily;mode=700;owner=root;group=root;missing=fail	HAS_CRON=1	0	done
+2.4.1.5	Ensure access to /etc/cron.weekly is configured	Automated	1	1	file_perm	path=/etc/cron.weekly;mode=700;owner=root;group=root;missing=fail	HAS_CRON=1	0	done
+2.4.1.6	Ensure access to /etc/cron.monthly is configured	Automated	1	1	file_perm	path=/etc/cron.monthly;mode=700;owner=root;group=root;missing=fail	HAS_CRON=1	0	done
+2.4.1.7	Ensure access to /etc/cron.yearly is configured	Automated	1	1	file_perm	path=/etc/cron.yearly;mode=700;owner=root;group=root;missing=pass	HAS_CRON=1	0	done
+2.4.1.8	Ensure access to /etc/cron.d is configured	Automated	1	1	file_perm	path=/etc/cron.d;mode=700;owner=root;group=root;missing=fail	HAS_CRON=1	0	done
+2.4.1.9	Ensure access to crontab is configured	Automated	1	1	custom	-	HAS_CRON=1	0	done
+2.4.2.1	Ensure access to at is configured	Automated	1	1	custom	-	HAS_AT=1	0	done
+3.1.1	Ensure IPv6 status is identified	Manual	1	1	manual	hint=Confirm whether IPv6 is meant to be enabled on this host; the sysctl rules 3.3.2.x apply only when it is	-	0	done
+3.1.2	Ensure wireless interfaces are not available	Automated	1	-	custom	-	-	0	done
+3.1.3	Ensure bluetooth services are not in use	Automated	1	2	svc_not_in_use	pkgs=bluez;units=bluetooth.service	-	0	done
+3.2.1	Ensure atm kernel module is not available	Automated	1	1	kmod_unavailable	name=atm;dir=net/atm	-	0	done
+3.2.2	Ensure can kernel module is not available	Automated	1	1	kmod_unavailable	name=can;dir=net/can	-	0	done
+3.2.3	Ensure dccp kernel module is not available	Automated	1	1	kmod_unavailable	name=dccp;dir=net/dccp	-	0	done
+3.2.4	Ensure rds kernel module is not available	Automated	1	1	kmod_unavailable	name=rds;dir=net/rds	-	0	done
+3.2.5	Ensure sctp kernel module is not available	Automated	1	1	kmod_unavailable	name=sctp;dir=net/sctp	-	0	done
+3.2.6	Ensure tipc kernel module is not available	Automated	1	1	kmod_unavailable	name=tipc;dir=net/tipc	-	0	done
+3.2.7	Ensure unneeded network protocol kernel modules are not available	Manual	1	1	manual	hint=Compare the network protocol modules available to the running kernel with the site's documented list of unneeded protocols and confirm each is blacklisted and set to /bin/false or /bin/true	-	0	done
+3.3.1.1	Ensure net.ipv4.ip_forward is configured	Automated	1	1	sysctl	key=net.ipv4.ip_forward;value=0	-	0	done
+3.3.1.2	Ensure net.ipv4.conf.all.forwarding is configured	Automated	1	1	sysctl	key=net.ipv4.conf.all.forwarding;value=0	-	0	done
+3.3.1.3	Ensure net.ipv4.conf.default.forwarding is configured	Automated	1	1	sysctl	key=net.ipv4.conf.default.forwarding;value=0	-	0	done
+3.3.1.4	Ensure net.ipv4.conf.all.send_redirects is configured	Automated	1	1	sysctl	key=net.ipv4.conf.all.send_redirects;value=0	-	0	done
+3.3.1.5	Ensure net.ipv4.conf.default.send_redirects is configured	Automated	1	1	sysctl	key=net.ipv4.conf.default.send_redirects;value=0	-	0	done
+3.3.1.6	Ensure net.ipv4.icmp_ignore_bogus_error_responses is configured	Automated	1	1	sysctl	key=net.ipv4.icmp_ignore_bogus_error_responses;value=1	-	0	done
+3.3.1.7	Ensure net.ipv4.icmp_echo_ignore_broadcasts is configured	Automated	1	1	sysctl	key=net.ipv4.icmp_echo_ignore_broadcasts;value=1	-	0	done
+3.3.1.8	Ensure net.ipv4.conf.all.accept_redirects is configured	Automated	1	1	sysctl	key=net.ipv4.conf.all.accept_redirects;value=0	-	0	done
+3.3.1.9	Ensure net.ipv4.conf.default.accept_redirects is configured	Automated	1	1	sysctl	key=net.ipv4.conf.default.accept_redirects;value=0	-	0	done
+3.3.1.10	Ensure net.ipv4.conf.all.secure_redirects is configured	Automated	1	1	sysctl	key=net.ipv4.conf.all.secure_redirects;value=0	-	0	done
+3.3.1.11	Ensure net.ipv4.conf.default.secure_redirects is configured	Automated	1	1	sysctl	key=net.ipv4.conf.default.secure_redirects;value=0	-	0	done
+3.3.1.12	Ensure net.ipv4.conf.all.rp_filter is configured	Automated	1	1	sysctl	key=net.ipv4.conf.all.rp_filter;value=1	-	0	done
+3.3.1.13	Ensure net.ipv4.conf.default.rp_filter is configured	Automated	1	1	sysctl	key=net.ipv4.conf.default.rp_filter;value=1	-	0	done
+3.3.1.14	Ensure net.ipv4.conf.all.accept_source_route is configured	Automated	1	1	sysctl	key=net.ipv4.conf.all.accept_source_route;value=0	-	0	done
+3.3.1.15	Ensure net.ipv4.conf.default.accept_source_route is configured	Automated	1	1	sysctl	key=net.ipv4.conf.default.accept_source_route;value=0	-	0	done
+3.3.1.16	Ensure net.ipv4.conf.all.log_martians is configured	Automated	1	1	sysctl	key=net.ipv4.conf.all.log_martians;value=1	-	0	done
+3.3.1.17	Ensure net.ipv4.conf.default.log_martians is configured	Automated	1	1	sysctl	key=net.ipv4.conf.default.log_martians;value=1	-	0	done
+3.3.1.18	Ensure net.ipv4.tcp_syncookies is configured	Automated	1	1	sysctl	key=net.ipv4.tcp_syncookies;value=1	-	0	done
+3.3.1.19	Ensure net.ipv4.conf.all.route_localnet is configured	Automated	1	1	sysctl	key=net.ipv4.conf.all.route_localnet;value=0	-	0	done
+3.3.2.1	Ensure net.ipv6.conf.all.forwarding is configured	Automated	1	1	sysctl	key=net.ipv6.conf.all.forwarding;value=0	IPV6_ENABLED=1	0	done
+3.3.2.2	Ensure net.ipv6.conf.default.forwarding is configured	Automated	1	1	sysctl	key=net.ipv6.conf.default.forwarding;value=0	IPV6_ENABLED=1	0	done
+3.3.2.3	Ensure net.ipv6.conf.all.accept_redirects is configured	Automated	1	1	sysctl	key=net.ipv6.conf.all.accept_redirects;value=0	IPV6_ENABLED=1	0	done
+3.3.2.4	Ensure net.ipv6.conf.default.accept_redirects is configured	Automated	1	1	sysctl	key=net.ipv6.conf.default.accept_redirects;value=0	IPV6_ENABLED=1	0	done
+3.3.2.5	Ensure net.ipv6.conf.all.accept_source_route is configured	Automated	1	1	sysctl	key=net.ipv6.conf.all.accept_source_route;value=0	IPV6_ENABLED=1	0	done
+3.3.2.6	Ensure net.ipv6.conf.default.accept_source_route is configured	Automated	1	1	sysctl	key=net.ipv6.conf.default.accept_source_route;value=0	IPV6_ENABLED=1	0	done
+3.3.2.7	Ensure net.ipv6.conf.all.accept_ra is configured	Automated	1	1	sysctl	key=net.ipv6.conf.all.accept_ra;value=0	IPV6_ENABLED=1	0	done
+3.3.2.8	Ensure net.ipv6.conf.default.accept_ra is configured	Automated	1	1	sysctl	key=net.ipv6.conf.default.accept_ra;value=0	IPV6_ENABLED=1	0	done
+4.1.1	Ensure ufw is installed	Automated	1	1	pkg_installed	pkgs=ufw	-	0	done
+4.1.2	Ensure ufw service is configured	Automated	1	1	custom	-	-	0	done
+4.1.3	Ensure ufw incoming default is configured	Automated	1	1	custom	-	-	0	done
+4.1.4	Ensure ufw outgoing default is configured	Automated	2	2	-	-	-	0	todo
+4.1.5	Ensure ufw routed default is configured	Automated	1	1	custom	-	-	0	done
+5.1.1	Ensure access to /etc/ssh/sshd_config is configured	Automated	1	1	file_perm	path=/etc/ssh/sshd_config,/etc/ssh/sshd_config.d/*.conf;mode=600;owner=root;group=root;missing=fail	-	0	done
+5.1.2	Ensure access to /etc/ssh/sshd_config.d/ directory is configured	Automated	1	1	file_perm	path=/etc/ssh/sshd_config.d;mode=700;owner=root;group=root;missing=fail	-	0	done
+5.1.3	Ensure access to SSH private host key files is configured	Automated	1	1	file_perm_glob	source=sshd_hostkey;mode=600;owner=root;group=root	-	0	done
+5.1.4	Ensure access to SSH public host key files is configured	Automated	1	1	file_perm_glob	source=sshd_hostkey;suffix=.pub;mode=644;owner=root;group=root	-	0	done
+5.1.5	Ensure sshd access is configured	Automated	1	1	sshd_param	key=allowusers,allowgroups,denyusers,denygroups;op=anyset	-	0	done
+5.1.6	Ensure sshd Banner is configured	Automated	1	1	sshd_param	key=banner;op=banner	-	0	done
+5.1.7	Ensure sshd Ciphers are configured	Automated	1	1	sshd_param	key=ciphers;op=none_of;value=3des-cbc,blowfish-cbc,cast128-cbc,aes128-cbc,aes192-cbc,aes256-cbc,arcfour,arcfour128,arcfour256,rijndael-cbc@lysator.liu.se	-	0	done
+5.1.8	Ensure sshd ClientAliveInterval and ClientAliveCountMax are configured	Automated	1	1	sshd_param	key=clientaliveinterval;op=gt;value=0;key2=clientalivecountmax;op2=gt;value2=0	-	0	done
+5.1.9	Ensure sshd DisableForwarding is enabled	Automated	1	1	sshd_param	key=disableforwarding;op=eq;value=yes	-	0	done
+5.1.10	Ensure sshd GSSAPIAuthentication is disabled	Automated	1	1	sshd_param	key=gssapiauthentication;op=eq;value=no	-	0	done
+5.1.11	Ensure sshd HostbasedAuthentication is disabled	Automated	1	1	sshd_param	key=hostbasedauthentication;op=eq;value=no	-	0	done
+5.1.12	Ensure sshd IgnoreRhosts is enabled	Automated	1	1	sshd_param	key=ignorerhosts;op=eq;value=yes	-	0	done
+5.1.13	Ensure sshd KexAlgorithms is configured	Automated	1	1	sshd_param	key=kexalgorithms;op=none_of;value=diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1	-	0	done
+5.1.14	Ensure sshd post-quantum cryptography key exchange algorithms are configured	Manual	1	1	manual	hint=Confirm the post-quantum key exchange algorithms sntrup761x25519-sha512 (and mlkem768x25519-sha256 from OpenSSH 9.9) are offered in KexAlgorithms	-	0	done
+5.1.15	Ensure sshd LoginGraceTime is configured	Automated	1	1	sshd_param	key=logingracetime;op=range1;value=@SSH_LOGIN_GRACE_TIME:60	-	0	done
+5.1.16	Ensure sshd LogLevel is configured	Automated	1	1	sshd_param	key=loglevel;op=oneof;value=verbose,info	-	0	done
+5.1.17	Ensure sshd MACs are configured	Automated	1	1	sshd_param	key=macs;op=none_of;value=hmac-md5,hmac-md5-96,hmac-ripemd160,hmac-sha1-96,umac-64@openssh.com,hmac-md5-etm@openssh.com,hmac-md5-96-etm@openssh.com,hmac-ripemd160-etm@openssh.com,hmac-sha1-96-etm@openssh.com,umac-64-etm@openssh.com,umac-128-etm@openssh.com	-	0	done
+5.1.18	Ensure sshd MaxAuthTries is configured	Automated	1	1	sshd_param	key=maxauthtries;op=le;value=@SSH_MAX_AUTH_TRIES:4	-	0	done
+5.1.19	Ensure sshd MaxSessions is configured	Automated	1	1	sshd_param	key=maxsessions;op=le;value=@SSH_MAX_SESSIONS:10	-	0	done
+5.1.20	Ensure sshd MaxStartups is configured	Automated	1	1	sshd_param	key=maxstartups;op=maxstartups;value=10:30:60	-	0	done
+5.1.21	Ensure sshd PermitEmptyPasswords is disabled	Automated	1	1	sshd_param	key=permitemptypasswords;op=eq;value=no	-	0	done
+5.1.22	Ensure sshd PermitRootLogin is disabled	Automated	1	1	sshd_param	key=permitrootlogin;op=eq;value=no	-	0	done
+5.1.23	Ensure sshd PermitUserEnvironment is disabled	Automated	1	1	sshd_param	key=permituserenvironment;op=eq;value=no	-	0	done
+5.1.24	Ensure sshd UsePAM is enabled	Automated	1	1	sshd_param	key=usepam;op=eq;value=yes	-	0	done
+5.2.1	Ensure sudo is installed	Automated	1	1	pkg_installed	pkgs=sudo-rs|sudo;alt=libsss-sudo,sssd	-	0	done
+5.2.2	Ensure sudo commands use pty	Automated	1	1	custom	-	-	0	done
+5.2.3	Ensure sudo log file exists	Automated	1	1	custom	-	-	0	done
+5.2.4	Ensure users must provide password for escalation	Automated	2	2	-	-	-	0	todo
+5.2.5	Ensure re-authentication for privilege escalation is not disabled globally	Automated	1	1	custom	-	-	0	done
+5.2.6	Ensure sudo timestamp_timeout is configured	Automated	1	1	custom	-	-	0	done
+5.2.7	Ensure access to the su command is restricted	Automated	1	1	custom	-	-	0	done
+5.3.1.1	Ensure latest version of pam is installed	Automated	1	1	pkg_installed	pkgs=libpam-runtime;latest=1	-	0	done
+5.3.1.2	Ensure latest version of libpam-modules is installed	Automated	1	1	pkg_installed	pkgs=libpam-modules;latest=1	-	0	done
+5.3.1.3	Ensure latest version of libpam-pwquality is installed	Automated	1	1	pkg_installed	pkgs=libpam-pwquality;latest=1	-	0	done
+5.3.1.4	Ensure latest version of cracklib-runtime is installed	Automated	1	1	pkg_installed	pkgs=cracklib-runtime;latest=1	-	0	done
+5.3.2.1	Ensure pam_unix module is enabled	Automated	1	1	pam_module	mode=present_all;module=pam_unix.so;files=common-account,common-auth,common-password,common-session,common-session-noninteractive	-	0	done
+5.3.2.2	Ensure pam_faillock module is enabled	Automated	1	1	pam_module	mode=present_all;module=pam_faillock.so;files=common-auth,common-account;args=common-auth:preauth|common-auth:authfail	-	0	done
+5.3.2.3	Ensure pam_pwquality module is enabled	Automated	1	1	pam_module	mode=present_all;module=pam_pwquality.so;files=common-password	-	0	done
+5.3.2.4	Ensure pam_pwhistory module is enabled	Automated	1	1	pam_module	mode=present_all;module=pam_pwhistory.so;files=common-password	-	0	done
+5.3.3.1.1	Ensure password failed attempts lockout is configured	Automated	1	1	conf_kv	src=files:/etc/security/faillock.conf;pam_file=common-auth;pam_mod=pam_faillock.so;pam_type=auth;key=deny;op=range1;value=@FAILLOCK_DENY:5;absent=fail	-	0	done
+5.3.3.1.2	Ensure password unlock time is configured	Automated	1	1	conf_kv	src=files:/etc/security/faillock.conf;pam_file=common-auth;pam_mod=pam_faillock.so;pam_type=auth;key=unlock_time;op=zero_or_ge;value=@FAILLOCK_UNLOCK_TIME:900;absent=fail	-	0	done
+5.3.3.1.3	Ensure password failed attempts lockout includes root account	Automated	2	2	-	-	-	0	todo
+5.3.3.2.1	Ensure password number of changed characters is configured	Automated	1	1	conf_kv	src=files:/etc/security/pwquality.conf.d/*.conf,/etc/security/pwquality.conf;pam_file=common-password;pam_mod=pam_pwquality.so;pam_type=password;key=difok;op=ge;value=@PWQ_DIFOK:2;absent=fail	-	0	done
+5.3.3.2.2	Ensure password length is configured	Automated	1	1	conf_kv	src=files:/etc/security/pwquality.conf.d/*.conf,/etc/security/pwquality.conf;pam_file=common-password;pam_mod=pam_pwquality.so;pam_type=password;key=minlen;op=ge;value=@PWQ_MINLEN:14;absent=fail	-	0	done
+5.3.3.2.3	Ensure password complexity is configured	Manual	1	1	manual	hint=Confirm minclass and the dcredit/ucredit/lcredit/ocredit settings (none greater than 0) follow site policy and are not overridden on the pam_pwquality line	-	0	done
+5.3.3.2.4	Ensure password same consecutive characters is configured	Automated	1	1	conf_kv	src=files:/etc/security/pwquality.conf.d/*.conf,/etc/security/pwquality.conf;pam_file=common-password;pam_mod=pam_pwquality.so;pam_type=password;key=maxrepeat;op=range;value=1-3;absent=fail	-	0	done
+5.3.3.2.5	Ensure password maximum sequential characters is configured	Automated	1	1	conf_kv	src=files:/etc/security/pwquality.conf.d/*.conf,/etc/security/pwquality.conf;pam_file=common-password;pam_mod=pam_pwquality.so;pam_type=password;key=maxsequence;op=range;value=1-3;absent=fail	-	0	done
+5.3.3.2.6	Ensure password dictionary check is enabled	Automated	1	1	conf_kv	src=files:/etc/security/pwquality.conf.d/*.conf,/etc/security/pwquality.conf;pam_file=common-password;pam_mod=pam_pwquality.so;pam_type=password;key=dictcheck;op=ne;value=0;absent=pass	-	0	done
+5.3.3.2.7	Ensure password quality checking is enforced	Automated	1	1	conf_kv	src=files:/etc/security/pwquality.conf.d/*.conf,/etc/security/pwquality.conf;pam_file=common-password;pam_mod=pam_pwquality.so;pam_type=password;key=enforcing;op=ne;value=0;absent=pass	-	0	done
+5.3.3.2.8	Ensure password quality is enforced for the root user	Automated	1	1	conf_kv	src=files:/etc/security/pwquality.conf.d/*.conf,/etc/security/pwquality.conf;key=enforce_for_root;op=flag;absent=fail	-	0	done
+5.3.3.3.1	Ensure password history remember is configured	Automated	1	1	pam_module	mode=conf_or_arg;module=pam_pwhistory.so;conf=/etc/security/pwhistory.conf;key=remember;op=ge;value=@PWHISTORY_REMEMBER:24	-	0	done
+5.3.3.3.2	Ensure password history is enforced for the root user	Automated	1	1	pam_module	mode=conf_or_arg;module=pam_pwhistory.so;conf=/etc/security/pwhistory.conf;key=enforce_for_root;op=flag	-	0	done
+5.3.3.3.3	Ensure pam_pwhistory includes use_authtok	Automated	1	1	pam_module	mode=conf_or_arg;module=pam_pwhistory.so;conf=/etc/security/pwhistory.conf;key=use_authtok;op=flag	-	0	done
+5.3.3.4.1	Ensure pam_unix does not include nullok	Automated	1	1	pam_module	mode=forbid_arg;module=pam_unix.so;files=common-password,common-auth,common-account,common-session,common-session-noninteractive;argre=nullok	-	0	done
+5.3.3.4.2	Ensure pam_unix does not include remember	Automated	1	1	pam_module	mode=forbid_arg;module=pam_unix.so;files=common-password,common-auth,common-account,common-session,common-session-noninteractive;argre=remember=\d+	-	0	done
+5.3.3.4.3	Ensure pam_unix includes a strong password hashing algorithm	Automated	1	1	pam_module	mode=require_arg;module=pam_unix.so;files=common-password;type=password;argre=sha512|yescrypt	-	0	done
+5.3.3.4.4	Ensure pam_unix includes use_authtok	Automated	1	1	pam_module	mode=require_arg;module=pam_unix.so;files=common-password;type=password;argre=use_authtok	-	0	done
+5.4.1.1	Ensure password expiration is configured	Automated	1	1	custom	-	-	0	done
+5.4.1.2	Ensure minimum password days is configured	Manual	2	2	-	-	-	0	todo
+5.4.1.3	Ensure password expiration warning days is configured	Automated	1	1	custom	-	-	0	done
+5.4.1.4	Ensure strong password hashing algorithm is configured	Automated	1	1	custom	-	-	0	done
+5.4.1.5	Ensure inactive password lock is configured	Automated	1	1	custom	-	-	0	done
+5.4.1.6	Ensure all users last password change date is in the past	Automated	1	1	custom	-	-	0	done
+5.4.2.1	Ensure root is the only UID 0 account	Automated	1	1	custom	-	-	0	done
+5.4.2.2	Ensure root is the only GID 0 account	Automated	1	1	custom	-	-	0	done
+5.4.2.3	Ensure group root is the only GID 0 group	Automated	1	1	custom	-	-	0	done
+5.4.2.4	Ensure root account access is controlled	Automated	1	1	custom	-	-	0	done
+5.4.2.5	Ensure root path integrity	Automated	1	1	custom	-	-	0	done
+5.4.2.6	Ensure root user umask is configured	Automated	1	1	custom	-	-	0	done
+5.4.2.7	Ensure system accounts do not have a valid login shell	Automated	1	1	custom	-	-	0	done
+5.4.2.8	Ensure accounts without a valid login shell are locked	Automated	1	1	custom	-	-	0	done
+5.4.3.1	Ensure nologin is not listed in /etc/shells	Automated	2	2	-	-	-	0	todo
+5.4.3.2	Ensure default user shell timeout is configured	Automated	1	1	custom	-	-	0	done
+5.4.3.3	Ensure default user umask is configured	Automated	1	1	custom	-	-	0	done
+6.1.1.1.1	Ensure journald service is active	Automated	1	1	svc_enabled_active	unit=systemd-journald.service;need=active	-	0	done
+6.1.1.1.2	Ensure systemd-journal-remote service is not in use	Automated	1	1	svc_not_in_use	units=systemd-journal-remote.socket,systemd-journal-remote.service	-	0	done
+6.1.1.1.3	Ensure journald is configured to send logs to rsyslog	Automated	1	1	conf_kv	src=catcfg:systemd/journald.conf;section=Journal;key=ForwardToSyslog;op=eq;value=yes;units_active=systemd-journald.service,rsyslog.service	LOGGER=rsyslog	0	done
+6.1.1.1.4	Ensure journald log file access is configured	Manual	1	1	manual	hint=Review the journald log file modes defined through tmpfiles.d (0640 or more restrictive) against site policy	-	0	done
+6.1.1.1.5	Ensure journald log file rotation is configured	Manual	1	1	manual	hint=Confirm journald log rotation limits (SystemMaxUse, SystemKeepFree, RuntimeMaxUse, RuntimeKeepFree, MaxFileSec) follow site policy	-	0	done
+6.1.1.1.6	Ensure journald Storage is configured	Automated	1	1	conf_kv	src=catcfg:systemd/journald.conf;section=Journal;key=Storage;op=eq;value=persistent;absent=default	-	0	done
+6.1.1.1.7	Ensure journald Compress is configured	Automated	1	1	conf_kv	src=catcfg:systemd/journald.conf;section=Journal;key=Compress;op=eq;value=yes;absent=default	-	0	done
+6.1.2.1	Ensure rsyslog is installed	Automated	1	1	pkg_installed	pkgs=rsyslog	LOGGER=rsyslog	0	done
+6.1.2.2	Ensure rsyslog service is enabled and active	Automated	1	1	svc_enabled_active	unit=rsyslog.service;need=enabled,active	LOGGER=rsyslog	0	done
+6.1.2.3	Ensure rsyslog log file creation mode is configured	Automated	1	1	custom	-	LOGGER=rsyslog	0	done
+6.1.2.4	Ensure rsyslog logging is configured	Manual	1	1	manual	hint=Review /etc/rsyslog.conf and /etc/rsyslog.d/*.conf and the files in /var/log to confirm the logging rules match site policy	LOGGER=rsyslog	0	done
+6.1.2.5	Ensure rsyslog is configured to send logs to a remote log host	Manual	1	1	manual	hint=Confirm logs are forwarded to the central log host required by site policy (basic or advanced rsyslog action)	LOGGER=rsyslog	0	done
+6.1.2.6	Ensure rsyslog is not configured to receive logs from a remote client	Automated	1	1	custom	-	LOGGER=rsyslog	0	done
+6.1.2.7	Ensure logrotate is configured	Manual	1	1	manual	hint=Review /etc/logrotate.conf and /etc/logrotate.d/* and confirm log rotation follows site policy	LOGGER=rsyslog	0	done
+6.1.2.8	Ensure rsyslog-gnutls is installed	Automated	2	2	-	-	-	0	todo
+6.1.2.9	Ensure rsyslog forwarding uses gtls	Automated	2	2	-	-	-	0	todo
+6.1.2.10	Ensure rsyslog CA certificates are configured	Manual	2	2	-	-	-	0	todo
+6.1.3.1	Ensure access to all logfiles has been configured	Automated	1	1	custom	-	-	1	done
+6.2.1.1	Ensure auditd packages are installed	Automated	2	2	-	-	-	0	todo
+6.2.1.2	Ensure auditd service is enabled and active	Automated	2	2	-	-	-	0	todo
+6.2.1.3	Ensure auditing for processes that start prior to auditd is enabled	Automated	2	2	-	-	-	0	todo
+6.2.1.4	Ensure audit_backlog_limit is configured	Automated	2	2	-	-	-	0	todo
+6.2.2.1	Ensure audit log storage size is configured	Automated	2	2	-	-	-	0	todo
+6.2.2.2	Ensure audit logs are not automatically deleted	Automated	2	2	-	-	-	0	todo
+6.2.2.3	Ensure system is disabled when audit logs are full	Automated	2	2	-	-	-	0	todo
+6.2.2.4	Ensure system warns when audit logs are low on space	Automated	2	2	-	-	-	0	todo
+6.2.3.1	Ensure modification of the /etc/sudoers file is collected	Automated	2	2	-	-	-	0	todo
+6.2.3.2	Ensure actions as another user are always logged	Automated	2	2	-	-	-	0	todo
+6.2.3.3	Ensure events that modify the sudo log file are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.4	Ensure events that modify date and time information are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.5	Ensure events that modify sethostname and setdomainname are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.6	Ensure events that modify /etc/issue and /etc/issue.net are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.7	Ensure events that modify /etc/hosts and /etc/hostname are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.8	Ensure events that modify the system's network environment are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.9	Ensure events that modify /etc/NetworkManager directory are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.10	Ensure use of privileged commands are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.11	Ensure unsuccessful file access attempts are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.12	Ensure events that modify /etc/group information are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.13	Ensure events that modify /etc/passwd information are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.14	Ensure events that modify /etc/shadow and /etc/gshadow are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.15	Ensure events that modify /etc/security/opasswd are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.16	Ensure events that modify /etc/nsswitch.conf file are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.17	Ensure events that modify /etc/pam.conf and /etc/pam.d/ information are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.18	Ensure discretionary access control permission modification events chmod,fchmod,fchmodat,fchmodat2 are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.19	Ensure discretionary access control permission modification events chown,fchown,lchown,fchownat are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.20	Ensure discretionary access control permission modification events setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr collected	Automated	2	2	-	-	-	0	todo
+6.2.3.21	Ensure successful file system mounts are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.22	Ensure session initiation information is collected	Automated	2	2	-	-	-	0	todo
+6.2.3.23	Ensure login and logout events are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.24	Ensure unlink file deletion events by users are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.25	Ensure rename file deletion events by users are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.26	Ensure events that modify the system's Mandatory Access Controls are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.27	Ensure successful and unsuccessful attempts to use the chcon command are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.28	Ensure successful and unsuccessful attempts to use the setfacl command are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.29	Ensure successful and unsuccessful attempts to use the chacl command are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.30	Ensure successful and unsuccessful attempts to use the usermod command are collected	Automated	2	2	-	-	-	0	todo
+6.2.3.31	Ensure kernel module loading unloading and modification is collected	Automated	2	2	-	-	-	0	todo
+6.2.3.32	Ensure kernel "init_module" and "finit_module" loading unloading and modification is collected	Automated	2	2	-	-	-	0	todo
+6.2.3.33	Ensure kernel "delete_module" loading unloading and modification is collected	Automated	2	2	-	-	-	0	todo
+6.2.3.34	Ensure the audit configuration is loaded regardless of errors	Automated	2	2	-	-	-	0	todo
+6.2.3.35	Ensure the audit configuration is immutable	Automated	2	2	-	-	-	0	todo
+6.2.3.36	Ensure the running and on disk configuration is the same	Manual	2	2	-	-	-	0	todo
+6.2.4.1	Ensure audit log files mode is configured	Automated	2	2	-	-	-	0	todo
+6.2.4.2	Ensure audit log files owner is configured	Automated	2	2	-	-	-	0	todo
+6.2.4.3	Ensure audit log files group owner is configured	Automated	2	2	-	-	-	0	todo
+6.2.4.4	Ensure the audit log file directory mode is configured	Automated	2	2	-	-	-	0	todo
+6.2.4.5	Ensure audit configuration files mode is configured	Automated	2	2	-	-	-	0	todo
+6.2.4.6	Ensure audit configuration files owner is configured	Automated	2	2	-	-	-	0	todo
+6.2.4.7	Ensure audit configuration files group owner is configured	Automated	2	2	-	-	-	0	todo
+6.2.4.8	Ensure audit tools mode is configured	Automated	2	2	-	-	-	0	todo
+6.2.4.9	Ensure audit tools owner is configured	Automated	2	2	-	-	-	0	todo
+6.2.4.10	Ensure audit tools group owner is configured	Automated	2	2	-	-	-	0	todo
+6.3.1	Ensure AIDE is installed	Automated	1	1	pkg_installed	pkgs=aide,aide-common	-	0	done
+6.3.2	Ensure filesystem integrity is regularly checked	Automated	1	1	custom	-	-	0	done
+6.3.3	Ensure cryptographic mechanisms are used to protect the integrity of audit tools	Automated	2	2	-	-	-	0	todo
+7.1.1	Ensure access to /etc/passwd is configured	Automated	1	1	file_perm	path=/etc/passwd;mode=644;owner=root;group=root;missing=fail	-	0	done
+7.1.2	Ensure access to /etc/passwd- is configured	Automated	1	1	file_perm	path=/etc/passwd-;mode=644;owner=root;group=root;missing=pass	-	0	done
+7.1.3	Ensure access to /etc/group is configured	Automated	1	1	file_perm	path=/etc/group;mode=644;owner=root;group=root;missing=fail	-	0	done
+7.1.4	Ensure access to /etc/group- is configured	Automated	1	1	file_perm	path=/etc/group-;mode=644;owner=root;group=root;missing=pass	-	0	done
+7.1.5	Ensure access to /etc/shadow is configured	Automated	1	1	file_perm	path=/etc/shadow;mode=640;owner=root;group=root|shadow;missing=fail	-	0	done
+7.1.6	Ensure access to /etc/shadow- is configured	Automated	1	1	file_perm	path=/etc/shadow-;mode=640;owner=root;group=root|shadow;missing=pass	-	0	done
+7.1.7	Ensure access to /etc/gshadow is configured	Automated	1	1	file_perm	path=/etc/gshadow;mode=640;owner=root;group=root|shadow;missing=fail	-	0	done
+7.1.8	Ensure access to /etc/gshadow- is configured	Automated	1	1	file_perm	path=/etc/gshadow-;mode=640;owner=root;group=root|shadow;missing=pass	-	0	done
+7.1.9	Ensure access to /etc/shells is configured	Automated	1	1	file_perm	path=/etc/shells;mode=644;owner=root;group=root;missing=fail	-	0	done
+7.1.10	Ensure access to /etc/security/opasswd is configured	Automated	1	1	file_perm	path=/etc/security/opasswd,/etc/security/opasswd.old;mode=600;owner=root;group=root;missing=pass	-	0	done
+7.1.11	Ensure world writable files and directories are secured	Automated	1	1	custom	-	-	1	done
+7.1.12	Ensure no files or directories without an owner and a group exist	Automated	1	1	custom	-	-	1	done
+7.1.13	Ensure SUID and SGID files are reviewed	Manual	1	1	manual	hint=Review the list of SUID and SGID files for programs that are not expected on this host; APPROVED_SUID_FILE in site.conf can hold the approved list	-	1	done
+7.2.1	Ensure accounts in /etc/passwd use shadowed passwords	Automated	1	1	custom	-	-	0	done
+7.2.2	Ensure /etc/shadow password fields are not empty	Automated	1	1	custom	-	-	0	done
+7.2.3	Ensure all groups in /etc/passwd exist in /etc/group	Automated	1	1	custom	-	-	0	done
+7.2.4	Ensure shadow group is empty	Automated	1	1	custom	-	-	0	done
+7.2.5	Ensure no duplicate UIDs exist	Automated	1	1	custom	-	-	0	done
+7.2.6	Ensure no duplicate GIDs exist	Automated	1	1	custom	-	-	0	done
+7.2.7	Ensure no duplicate user names exist	Automated	1	1	custom	-	-	0	done
+7.2.8	Ensure no duplicate group names exist	Automated	1	1	custom	-	-	0	done
+7.2.9	Ensure local interactive user home directories are configured	Automated	1	1	custom	-	-	0	done
+7.2.10	Ensure local interactive user dot files access is configured	Automated	1	1	custom	-	-	0	done
+7.2.11	Ensure local interactive user dot directories access is configured	Automated	1	1	custom	-	-	0	done
