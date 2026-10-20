@@ -52,3 +52,7 @@ python3 tools/gen_controls_md.py > docs/CONTROLS.md
 
 Audit logic and thresholds come only from the benchmark PDF. No logic or text from the Tenable
 `.audit` file is used.
+
+## CI
+
+`docs/ci-workflow.yml` is the GitHub Actions workflow (shellcheck, bats, coverage, forbidden-command scan, build check). It is shipped under docs/ because the token used for the first push had no `workflow` scope; copy it to `.github/workflows/ci.yml` to enable it.

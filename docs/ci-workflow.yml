@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shellcheck and bats
+        run: sudo apt-get update && sudo apt-get install -y shellcheck bats
+      - name: Syntax
+        run: |
+          bash -n cis-audit.sh
+          for f in lib/*.sh lib/checks_custom/*.sh tools/*.sh tests/*.sh; do bash -n "$f"; done
+      - name: shellcheck
+        run: shellcheck -x cis-audit.sh lib/*.sh lib/checks_custom/*.sh tools/*.sh tests/*.sh
+      - name: Catalog coverage
+        run: bash tools/coverage.sh
+      - name: Forbidden commands in runtime code
+        run: |
+          bash tests/forbidden_commands.sh --selftest
+          bash tests/forbidden_commands.sh
+      - name: Unit tests
+        run: bats tests/unit
+      - name: Single-file build is current and runs on its own
+        run: |
+          bash tools/build_single.sh /tmp/cis-audit.sh
+          diff -q /tmp/cis-audit.sh dist/cis-audit.sh
+          cd "$(mktemp -d)" && bash /tmp/cis-audit.sh --list | wc -l | grep -qx 274
+      - name: CONTROLS.md is current
+        run: |
+          python3 tools/gen_controls_md.py | diff -q - docs/CONTROLS.md

@@ -1,0 +1,1431 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CIS audit cis-hardened</title>
+<style>
+:root{--bg:#fff;--fg:#1d2330;--mut:#5b6475;--bd:#d6dae3;--card:#f5f6f9;--pass:#1a7f37;--fail:#c4262e;--exc:#8250df;--man:#b36b00;--na:#6e7781;--skip:#6e7781;--err:#c4262e}
+@media (prefers-color-scheme:dark){:root{--bg:#14171d;--fg:#e4e7ee;--mut:#98a1b3;--bd:#30363f;--card:#1c2028;--pass:#3fb950;--fail:#ff6b6b;--exc:#b392f0;--man:#e3a53a;--na:#9aa3b2;--skip:#9aa3b2;--err:#ff6b6b}}
+*{box-sizing:border-box}
+body{margin:0;padding:16px;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto}
+h1{font-size:1.4rem;margin:.2rem 0 .6rem}h2{font-size:1.1rem;margin:1.6rem 0 .5rem;border-bottom:1px solid var(--bd);padding-bottom:.2rem}
+table{border-collapse:collapse;width:100%;margin:.4rem 0}th,td{border:1px solid var(--bd);padding:.3rem .5rem;text-align:left;vertical-align:top}th{background:var(--card)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.meta td:first-child{width:14rem;color:var(--mut)}
+.cards{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0}.card{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:.4rem .8rem;min-width:7rem}
+.card b{display:block;font-size:1.3rem}
+.tools{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.6rem 0}
+button,input{font:inherit;color:inherit;background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:.25rem .6rem}
+button.on{outline:2px solid var(--fg)}input{min-width:14rem}
+.ctl{border:1px solid var(--bd);border-radius:6px;margin:.35rem 0;background:var(--card)}
+.ctl>summary{cursor:pointer;padding:.35rem .6rem;list-style:none}
+.ctl>summary::-webkit-details-marker{display:none}
+.st{display:inline-block;min-width:5.6rem;font-weight:700;font-size:.85rem}
+.s-PASS .st{color:var(--pass)}.s-FAIL .st,.s-ERROR .st{color:var(--fail)}.s-EXCEPTION .st{color:var(--exc)}.s-MANUAL .st{color:var(--man)}.s-NA .st,.s-SKIPPED .st{color:var(--na)}
+.id{font-family:ui-monospace,Consolas,monospace;margin-right:.5rem}
+.ev{margin:0;padding:.3rem .8rem .6rem 2rem}.ev li{margin:.1rem 0;word-break:break-word;white-space:pre-wrap}
+.note{color:var(--mut);font-style:italic}
+.hide{display:none}
+@media print{.tools{display:none}.ctl{break-inside:avoid}.ctl>summary{display:block}details.ctl:not([open])>*:not(summary){display:block}body{background:#fff;color:#000}}
+</style></head><body><main>
+<h1>CIS Ubuntu Linux 26.04 LTS Benchmark v1.0.0 &ndash; Level 1 Server audit</h1>
+<p class="note">Internal compliance check, not an official CIS-CAT result.</p>
+<h2>Run</h2>
+<table class="meta">
+<tr><td>Host</td><td>cis-hardened</td></tr>
+<tr><td>FQDN</td><td>cis-hardened.example.org</td></tr>
+<tr><td>OS release</td><td>Ubuntu 26.04 LTS</td></tr>
+<tr><td>Kernel</td><td>Linux 6.14.0-30-generic</td></tr>
+<tr><td>Run started</td><td>2026-10-20 16:35:40</td></tr>
+<tr><td>Run finished</td><td>2026-10-20 16:35:56</td></tr>
+<tr><td>Duration</td><td>17s</td></tr>
+<tr><td>Benchmark</td><td>CIS Ubuntu Linux 26.04 LTS Benchmark v1.0.0</td></tr>
+<tr><td>Profile / level</td><td>Server / Level 1 (cumulative)</td></tr>
+<tr><td>Script version</td><td>cis-audit 1.0.0</td></tr>
+<tr><td>Catalog SHA-256</td><td>55466936a6add5a940ccbbbfe6c7d5c0cddb081f0922133030481d5d82c88b1f</td></tr>
+<tr><td>site.conf SHA-256</td><td>(not used)</td></tr>
+<tr><td>exceptions.conf SHA-256</td><td>(not used)</td></tr>
+<tr><td>Options</td><td>--output /tmp/tmp.mj2juskT0o/hardened --no-color --quiet --exceptions /tmp/tmp.mj2juskT0o/exceptions.conf</td></tr>
+</table>
+<h2>Summary</h2>
+<div class="cards">
+<div class="card"><b>245</b>PASS</div>
+<div class="card"><b>0</b>FAIL</div>
+<div class="card"><b>1</b>EXCEPTION</div>
+<div class="card"><b>11</b>MANUAL</div>
+<div class="card"><b>17</b>N/A</div>
+<div class="card"><b>0</b>SKIPPED</div>
+<div class="card"><b>0</b>ERROR</div>
+<div class="card"><b>100.0%</b>Score (PASS / (PASS + FAIL))</div>
+</div>
+<table><thead><tr><th>Section</th><th class="n">PASS</th><th class="n">FAIL</th><th class="n">EXCEPTION</th><th class="n">MANUAL</th><th class="n">N/A</th><th class="n">SKIPPED</th><th class="n">ERROR</th><th class="n">Score</th></tr></thead><tbody>
+<tr><td>1 Initial Setup</td><td class="n">69</td><td class="n">0</td><td class="n">0</td><td class="n">3</td><td class="n">6</td><td class="n">0</td><td class="n">0</td><td class="n">100.0%</td></tr>
+<tr><td>2 Services</td><td class="n">39</td><td class="n">0</td><td class="n">1</td><td class="n">1</td><td class="n">3</td><td class="n">0</td><td class="n">0</td><td class="n">100.0%</td></tr>
+<tr><td>3 Network</td><td class="n">35</td><td class="n">0</td><td class="n">0</td><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">100.0%</td></tr>
+<tr><td>4 Host Based Firewall</td><td class="n">4</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">100.0%</td></tr>
+<tr><td>5 Access, Authentication and Authorization</td><td class="n">68</td><td class="n">0</td><td class="n">0</td><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">100.0%</td></tr>
+<tr><td>6 Logging and Auditing</td><td class="n">7</td><td class="n">0</td><td class="n">0</td><td class="n">2</td><td class="n">8</td><td class="n">0</td><td class="n">0</td><td class="n">100.0%</td></tr>
+<tr><td>7 System Maintenance</td><td class="n">23</td><td class="n">0</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">100.0%</td></tr>
+</tbody></table>
+<h2>Findings (FAIL and ERROR)</h2>
+<p>none</p>
+<h2>Manual review</h2>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">1.1.1.11</span>Ensure unused filesystems kernel modules are not available</summary>
+<ul class="ev">
+<li>filesystem types currently mounted:  ext4 tmpfs </li>
+<li>loaded filesystem module: ext4</li>
+<li>filesystem modules without both blacklist and install override: 1 (first: ext4)</li>
+<li>Decision required: Review the filesystem kernel modules available, loaded and mounted on this host and confirm every unused one is blacklisted and set to /bin/false or /bin/true</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">1.2.1.1</span>Ensure the source.list and .source files use the Signed-By option</summary>
+<ul class="ev">
+<li>Decision required: Confirm every deb/deb-src entry and every deb822 stanza names a Signed-By key</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">1.2.2.1</span>Ensure updates, patches, and additional security software are installed</summary>
+<ul class="ev">
+<li>pending updates are not checked: that needs apt update (network)</li>
+<li>Decision required: Confirm no updates are pending and no reboot is required</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">2.1.23</span>Ensure only approved services are listening on a network interface</summary>
+<ul class="ev">
+<li>listening sockets (ss -plntu): 4</li>
+<li>tcp 0.0.0.0:22 users:((&quot;sshd&quot;,pid=801,fd=3))</li>
+<li>tcp 0.0.0.0:80 users:((&quot;nginx&quot;,pid=905,fd=5))</li>
+<li>tcp 0.0.0.0:443 users:((&quot;nginx&quot;,pid=905,fd=6))</li>
+<li>udp 127.0.0.1:323 users:((&quot;chronyd&quot;,pid=700,fd=5))</li>
+<li>APPROVED_LISTENERS is not set in site.conf; compare the list with site policy by hand</li>
+<li>Decision required: List the listening sockets (ss -plntu) and confirm each service, port and interface is required and approved by site policy</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">3.1.1</span>Ensure IPv6 status is identified</summary>
+<ul class="ev">
+<li>IPv6 is enabled</li>
+<li>Decision required: Confirm whether IPv6 is meant to be enabled on this host</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">3.2.7</span>Ensure unneeded network protocol kernel modules are not available</summary>
+<ul class="ev">
+<li>network modules available to the running kernel: 3</li>
+<li>Decision required: Compare the network protocol modules available to the running kernel with the site&#39;s documented list of unneeded protocols and confirm each is blacklisted and set to /bin/false or /bin/true</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">5.1.14</span>Ensure sshd post-quantum cryptography key exchange algorithms are configured</summary>
+<ul class="ev">
+<li>kexalgorithms: mlkem768x25519-sha256,sntrup761x25519-sha512,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512</li>
+<li>sntrup761x25519-sha512 is offered</li>
+<li>mlkem768x25519-sha256 is offered</li>
+<li>Decision required: Confirm the post-quantum key exchange algorithms sntrup761x25519-sha512 (and mlkem768x25519-sha256 from OpenSSH 9.9) are offered in KexAlgorithms</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">5.3.3.2.3</span>Ensure password complexity is configured</summary>
+<ul class="ev">
+<li>/etc/security/pwquality.conf.d/50-cis.conf: minclass = 3</li>
+<li>Decision required: Confirm minclass and the dcredit/ucredit/lcredit/ocredit settings (none greater than 0) follow site policy and are not overridden on the pam_pwquality line</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">6.1.1.1.4</span>Ensure journald log file access is configured</summary>
+<ul class="ev">
+<li>Decision required: Review the journald log file modes defined through tmpfiles.d (0640 or more restrictive) against site policy</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">6.1.1.1.5</span>Ensure journald log file rotation is configured</summary>
+<ul class="ev">
+<li>Decision required: Confirm journald log rotation limits (SystemMaxUse, SystemKeepFree, RuntimeMaxUse, RuntimeKeepFree, MaxFileSec) follow site policy</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">7.1.13</span>Ensure SUID and SGID files are reviewed</summary>
+<ul class="ev">
+<li>suid: /usr/bin/sudo</li>
+<li>suid: /usr/bin/passwd</li>
+<li>sgid: /usr/bin/crontab</li>
+<li>2 SUID and 1 SGID files found</li>
+<li>Decision required: Review the list of SUID and SGID files for programs that are not expected on this host</li>
+</ul></details>
+<h2>Exceptions</h2>
+<table><thead><tr><th>ID</th><th>State</th><th>Justification</th><th>Approved by</th><th>Expires</th><th>Days left</th></tr></thead><tbody>
+<tr><td>2.1.19</td><td>EXCEPTION</td><td>Host is the production web server (nginx on 80/443)</td><td>V. Hoeck</td><td>2999-12-31</td><td>355453</td></tr>
+</tbody></table>
+<h2>Full results</h2>
+<div class="tools">
+<button data-filter="ALL">All</button>
+<button data-filter="PASS">PASS</button>
+<button data-filter="FAIL">FAIL</button>
+<button data-filter="EXCEPTION">EXCEPTION</button>
+<button data-filter="MANUAL">MANUAL</button>
+<button data-filter="NA">N/A</button>
+<button data-filter="SKIPPED">SKIPPED</button>
+<button data-filter="ERROR">ERROR</button>
+<input id="q" type="search" placeholder="Search ID or title" aria-label="Search ID or title">
+<button id="expand">Expand all</button><button id="collapse">Collapse all</button>
+</div>
+<div id="full">
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.1.1</span>Ensure cramfs kernel module is not available</summary>
+<ul class="ev">
+<li>module files for cramfs exist under kernel/fs/cramfs; checking that it is not loaded and not loadable</li>
+<li>cramfs is not loaded (lsmod)</li>
+<li>blacklist cramfs is configured</li>
+<li>install cramfs /bin/false is configured</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.1.2</span>Ensure freevxfs kernel module is not available</summary>
+<ul class="ev">
+<li>module files for freevxfs exist under kernel/fs/freevxfs; checking that it is not loaded and not loadable</li>
+<li>freevxfs is not loaded (lsmod)</li>
+<li>blacklist freevxfs is configured</li>
+<li>install freevxfs /bin/false is configured</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.1.3</span>Ensure hfs kernel module is not available</summary>
+<ul class="ev">
+<li>no kernel/fs/hfs module directory under /usr/lib/modules: hfs is built in or absent</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.1.4</span>Ensure hfsplus kernel module is not available</summary>
+<ul class="ev">
+<li>no kernel/fs/hfsplus module directory under /usr/lib/modules: hfsplus is built in or absent</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.1.5</span>Ensure jffs2 kernel module is not available</summary>
+<ul class="ev">
+<li>module files for jffs2 exist under kernel/fs/jffs2; checking that it is not loaded and not loadable</li>
+<li>jffs2 is not loaded (lsmod)</li>
+<li>blacklist jffs2 is configured</li>
+<li>install jffs2 /bin/false is configured</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.1.9</span>Ensure firewire-core kernel module is not available</summary>
+<ul class="ev">
+<li>module files for firewire_core exist under kernel/drivers/firewire; checking that it is not loaded and not loadable</li>
+<li>firewire_core is not loaded (lsmod)</li>
+<li>blacklist firewire_core is configured</li>
+<li>install firewire_core /bin/false is configured</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.1.10</span>Ensure usb-storage kernel module is not available</summary>
+<ul class="ev">
+<li>module files for usb_storage exist under kernel/drivers/usb/storage; checking that it is not loaded and not loadable</li>
+<li>usb_storage is not loaded (lsmod)</li>
+<li>blacklist usb_storage is configured</li>
+<li>install usb_storage /bin/false is configured</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">1.1.1.11</span>Ensure unused filesystems kernel modules are not available</summary>
+<ul class="ev">
+<li>filesystem types currently mounted:  ext4 tmpfs </li>
+<li>loaded filesystem module: ext4</li>
+<li>filesystem modules without both blacklist and install override: 1 (first: ext4)</li>
+<li>Decision required: Review the filesystem kernel modules available, loaded and mounted on this host and confirm every unused one is blacklisted and set to /bin/false or /bin/true</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.1.1</span>Ensure /tmp is tmpfs or a separate partition</summary>
+<ul class="ev">
+<li>/tmp is mounted: tmpfs (tmpfs) rw,nosuid,nodev,noexec,relatime</li>
+<li>tmp.mount unit state: generated (not masked or disabled)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.1.2</span>Ensure nodev option set on /tmp partition</summary>
+<ul class="ev">
+<li>/tmp (tmpfs): options rw,nosuid,nodev,noexec,relatime include nodev</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.1.3</span>Ensure nosuid option set on /tmp partition</summary>
+<ul class="ev">
+<li>/tmp (tmpfs): options rw,nosuid,nodev,noexec,relatime include nosuid</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.1.4</span>Ensure noexec option set on /tmp partition</summary>
+<ul class="ev">
+<li>/tmp (tmpfs): options rw,nosuid,nodev,noexec,relatime include noexec</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.2.1</span>Ensure /dev/shm is tmpfs or a separate partition</summary>
+<ul class="ev">
+<li>/dev/shm is mounted: tmpfs (tmpfs) rw,nosuid,nodev,noexec,relatime</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.2.2</span>Ensure nodev option set on /dev/shm partition</summary>
+<ul class="ev">
+<li>/dev/shm (tmpfs): options rw,nosuid,nodev,noexec,relatime include nodev</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.2.3</span>Ensure nosuid option set on /dev/shm partition</summary>
+<ul class="ev">
+<li>/dev/shm (tmpfs): options rw,nosuid,nodev,noexec,relatime include nosuid</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.2.4</span>Ensure noexec option set on /dev/shm partition</summary>
+<ul class="ev">
+<li>/dev/shm (tmpfs): options rw,nosuid,nodev,noexec,relatime include noexec</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.3.2</span>Ensure nodev option set on /home partition</summary>
+<ul class="ev">
+<li>/home (ext4): options rw,nosuid,nodev,relatime include nodev</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.3.3</span>Ensure nosuid option set on /home partition</summary>
+<ul class="ev">
+<li>/home (ext4): options rw,nosuid,nodev,relatime include nosuid</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.4.2</span>Ensure nodev option set on /var partition</summary>
+<ul class="ev">
+<li>/var (ext4): options rw,nosuid,nodev,relatime include nodev</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.4.3</span>Ensure nosuid option set on /var partition</summary>
+<ul class="ev">
+<li>/var (ext4): options rw,nosuid,nodev,relatime include nosuid</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.5.2</span>Ensure nodev option set on /var/tmp partition</summary>
+<ul class="ev">
+<li>/var/tmp (ext4): options rw,nosuid,nodev,noexec,relatime include nodev</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.5.3</span>Ensure nosuid option set on /var/tmp partition</summary>
+<ul class="ev">
+<li>/var/tmp (ext4): options rw,nosuid,nodev,noexec,relatime include nosuid</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.5.4</span>Ensure noexec option set on /var/tmp partition</summary>
+<ul class="ev">
+<li>/var/tmp (ext4): options rw,nosuid,nodev,noexec,relatime include noexec</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.6.2</span>Ensure nodev option set on /var/log partition</summary>
+<ul class="ev">
+<li>/var/log (ext4): options rw,nosuid,nodev,noexec,relatime include nodev</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.6.3</span>Ensure nosuid option set on /var/log partition</summary>
+<ul class="ev">
+<li>/var/log (ext4): options rw,nosuid,nodev,noexec,relatime include nosuid</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.6.4</span>Ensure noexec option set on /var/log partition</summary>
+<ul class="ev">
+<li>/var/log (ext4): options rw,nosuid,nodev,noexec,relatime include noexec</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.7.2</span>Ensure nodev option set on /var/log/audit partition</summary>
+<ul class="ev">
+<li>/var/log/audit (ext4): options rw,nosuid,nodev,noexec,relatime include nodev</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.7.3</span>Ensure nosuid option set on /var/log/audit partition</summary>
+<ul class="ev">
+<li>/var/log/audit (ext4): options rw,nosuid,nodev,noexec,relatime include nosuid</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.1.2.7.4</span>Ensure noexec option set on /var/log/audit partition</summary>
+<ul class="ev">
+<li>/var/log/audit (ext4): options rw,nosuid,nodev,noexec,relatime include noexec</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">1.2.1.1</span>Ensure the source.list and .source files use the Signed-By option</summary>
+<ul class="ev">
+<li>Decision required: Confirm every deb/deb-src entry and every deb822 stanza names a Signed-By key</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.3</span>Ensure access to gpg key files are configured</summary>
+<ul class="ev">
+<li>step 1: all *gpg files in /usr/share/keyrings and /etc/apt/trusted.gpg.d are 0644 or stricter, root:root</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.4</span>Ensure access to /etc/apt/trusted.gpg.d directory is configured</summary>
+<ul class="ev">
+<li>/etc/apt/trusted.gpg.d: mode 0755 owner root group root (max 0755, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.5</span>Ensure access to /etc/apt/auth.conf.d directory is configured</summary>
+<ul class="ev">
+<li>/etc/apt/auth.conf.d: mode 0755 owner root group root (max 0755, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.6</span>Ensure access to files in the /etc/apt/auth.conf.d/ directory is configured</summary>
+<ul class="ev">
+<li>/etc/apt/auth.conf.d/*: does not exist</li>
+<li>(nothing to check; benchmark treats a missing path as passing)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.7</span>Ensure access to /usr/share/keyrings directory is configured</summary>
+<ul class="ev">
+<li>/usr/share/keyrings: mode 0755 owner root group root (max 0755, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.8</span>Ensure access to /etc/apt/sources.list.d directory is configured</summary>
+<ul class="ev">
+<li>/etc/apt/sources.list.d: mode 0755 owner root group root (max 0755, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.9</span>Ensure access to files in /etc/apt/sources.list.d are configured</summary>
+<ul class="ev">
+<li>/etc/apt/sources.list.d/ubuntu.sources: mode 0644 owner root group root (max 0644, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.10</span>Ensure repositories are set to https in /etc/apt/sources.list</summary>
+<ul class="ev">
+<li>/etc/apt/sources.list does not exist; nothing to check</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.11</span>Ensure repositories are set to https in /etc/apt/sources.list.d directory</summary>
+<ul class="ev">
+<li>no plain http:// repository in: /etc/apt/sources.list.d/ubuntu.sources</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.12</span>Ensure AllowInsecureRepositories is configured</summary>
+<ul class="ev">
+<li>Acquire::AllowInsecureRepositories &quot;0&quot;; (expected 0)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.13</span>Ensure AllowWeakRepositories is configured</summary>
+<ul class="ev">
+<li>Acquire::AllowWeakRepositories &quot;0&quot;; (expected 0)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.14</span>Ensure AllowDowngradeToInsecureRepositories is configured</summary>
+<ul class="ev">
+<li>Acquire::AllowDowngradeToInsecureRepositories &quot;0&quot;; (expected 0)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.2.1.15</span>Ensure Acquire::Check-Date is configured</summary>
+<ul class="ev">
+<li>Acquire::Check-Date &quot;true&quot;; (expected true)</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">1.2.2.1</span>Ensure updates, patches, and additional security software are installed</summary>
+<ul class="ev">
+<li>pending updates are not checked: that needs apt update (network)</li>
+<li>Decision required: Confirm no updates are pending and no reboot is required</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.3.1.1</span>Ensure apparmor packages are installed</summary>
+<ul class="ev">
+<li>apparmor 4.1.0-1 installed; apparmor-utils 4.1.0-1 installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.3.1.2</span>Ensure AppArmor is enabled</summary>
+<ul class="ev">
+<li>/boot/grub/grub.cfg: no linux line contains apparmor=0</li>
+<li>apparmor.service: enabled/active (enabled/active)</li>
+<li>42 AppArmor profiles are loaded</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.3.1.4</span>Ensure kernel.apparmor_restrict_unprivileged_unconfined is enabled</summary>
+<ul class="ev">
+<li>kernel.apparmor_restrict_unprivileged_unconfined: running=1, expected 1</li>
+<li>kernel.apparmor_restrict_unprivileged_unconfined: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.4.1</span>Ensure bootloader password is set</summary>
+<ul class="ev">
+<li>grub.cfg: set superusers=&quot;grubadmin&quot;</li>
+<li>grub.cfg: password_pbkdf2 grubadmin grub.pbkdf2.sha512.1... (hash shortened)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.4.2</span>Ensure access to bootloader config is configured</summary>
+<ul class="ev">
+<li>/boot/grub/grub.cfg: mode 0600 owner root group root (max 0600, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.1</span>Ensure fs.protected_hardlinks is configured</summary>
+<ul class="ev">
+<li>fs.protected_hardlinks: running=1, expected 1</li>
+<li>fs.protected_hardlinks: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.3</span>Ensure kernel.yama.ptrace_scope is configured</summary>
+<ul class="ev">
+<li>kernel.yama.ptrace_scope: running=1, expected 1 or 2 or 3</li>
+<li>kernel.yama.ptrace_scope: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1 or 2 or 3</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.4</span>Ensure fs.suid_dumpable is configured</summary>
+<ul class="ev">
+<li>fs.suid_dumpable: running=0, expected 0</li>
+<li>fs.suid_dumpable: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.5</span>Ensure kernel.dmesg_restrict is configured</summary>
+<ul class="ev">
+<li>kernel.dmesg_restrict: running=1, expected 1</li>
+<li>kernel.dmesg_restrict: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.6</span>Ensure prelink is not installed</summary>
+<ul class="ev">
+<li>none of prelink is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.7</span>Ensure Automatic Error Reporting is configured</summary>
+<ul class="ev">
+<li>apport is not installed</li>
+<li>apport.service is not active</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.8</span>Ensure kernel.kptr_restrict is configured</summary>
+<ul class="ev">
+<li>kernel.kptr_restrict: running=1, expected 1 or 2</li>
+<li>kernel.kptr_restrict: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1 or 2</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.9</span>Ensure kernel.randomize_va_space is configured</summary>
+<ul class="ev">
+<li>kernel.randomize_va_space: running=2, expected 2</li>
+<li>kernel.randomize_va_space: persisted=2 (/etc/sysctl.d/60-cis.conf), expected 2</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.10</span>Ensure core file size is configured</summary>
+<ul class="ev">
+<li>/etc/security/limits.d/60-cis.conf: * hard core 0</li>
+<li>effective value (last line wins): hard core 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.11</span>Ensure systemd-coredump ProcessSizeMax is configured</summary>
+<ul class="ev">
+<li>ProcessSizeMax=0 (/etc/systemd/coredump.conf.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.5.12</span>Ensure systemd-coredump Storage is configured</summary>
+<ul class="ev">
+<li>Storage=none (/etc/systemd/coredump.conf.d/60-cis.conf), expected none</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.1</span>Ensure /etc/motd is configured</summary>
+<ul class="ev">
+<li>no motd files exist (a message of the day is optional)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.2</span>Ensure /etc/issue is configured</summary>
+<ul class="ev">
+<li>no OS information in: /etc/issue</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.3</span>Ensure /etc/issue.net is configured</summary>
+<ul class="ev">
+<li>/etc/issue.net has no OS information; review the text against site policy</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.4</span>Ensure pam_motd is configured</summary>
+<ul class="ev">
+<li>no pam_motd.so line with an explicit motd= argument found in sshd, login, su or gdm-password</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.5</span>Ensure sshd warning Banner is configured</summary>
+<ul class="ev">
+<li>banner /etc/issue.net: set, no OS information; content must still match site policy</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.6</span>Ensure access to /etc/motd is configured</summary>
+<ul class="ev">
+<li>/etc/motd: does not exist</li>
+<li>/run/motd: does not exist</li>
+<li>/usr/lib/motd: does not exist</li>
+<li>/etc/motd.d/*: does not exist</li>
+<li>/run/motd.d/*: does not exist</li>
+<li>/usr/lib/motd.d/*: does not exist</li>
+<li>/etc/update-motd.d/*: does not exist</li>
+<li>(nothing to check; benchmark treats a missing path as passing)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.7</span>Ensure access to /etc/issue is configured</summary>
+<ul class="ev">
+<li>/etc/issue: mode 0644 owner root group root (max 0644, root:root)</li>
+<li>/usr/lib/issue.d/*: does not exist</li>
+<li>/etc/issue.d/*: does not exist</li>
+<li>/run/issue.d/*: does not exist</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.8</span>Ensure access to /etc/issue.net is configured</summary>
+<ul class="ev">
+<li>/etc/issue.net: mode 0644 owner root group root (max 0644, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.9</span>Ensure access to pam_motd file is configured</summary>
+<ul class="ev">
+<li>/run/motd.dynamic: does not exist</li>
+<li>(nothing to check; benchmark treats a missing path as passing)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.10</span>Ensure access to sshd warning banner is configured</summary>
+<ul class="ev">
+<li>/etc/issue.net: mode 0644 owner root group root (max 0644, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.11</span>Ensure update-notifier-motd.service is not in use</summary>
+<ul class="ev">
+<li>no package; the service units are neither enabled nor active</li>
+<li>update-notifier-motd.service: disabled/inactive (not enabled, not active)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">1.6.12</span>Ensure update-notifier-motd.timer is not in use</summary>
+<ul class="ev">
+<li>no package; the service units are neither enabled nor active</li>
+<li>update-notifier-motd.timer: disabled/inactive (not enabled, not active)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">1.7.1</span>Ensure GDM login banner is configured</summary>
+<ul class="ev">
+<li>not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">1.7.2</span>Ensure GDM disable-user-list is configured</summary>
+<ul class="ev">
+<li>not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">1.7.3</span>Ensure GDM screen lock is configured</summary>
+<ul class="ev">
+<li>not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">1.7.4</span>Ensure GDM automount is configured</summary>
+<ul class="ev">
+<li>not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">1.7.5</span>Ensure GDM autorun-never is configured</summary>
+<ul class="ev">
+<li>not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">1.7.6</span>Ensure XDMCP is not enabled</summary>
+<ul class="ev">
+<li>not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.1</span>Ensure autofs services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (autofs) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.2</span>Ensure avahi daemon services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (avahi-daemon) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.3</span>Ensure dhcp server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (kea, kea-*) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.4</span>Ensure dns server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (bind9) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.5</span>Ensure dnsmasq services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (dnsmasq) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.6</span>Ensure ftp server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (vsftpd) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.7</span>Ensure ldap server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (slapd) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.8</span>Ensure message access server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (dovecot-imapd, dovecot-pop3d) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.9</span>Ensure network file system services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (nfs-kernel-server) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.10</span>Ensure nis server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (ypserv) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.11</span>Ensure print server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (cups) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.12</span>Ensure rpcbind services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (rpcbind) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.13</span>Ensure rsync services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (rsync) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.14</span>Ensure samba file server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (samba) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.15</span>Ensure snmp services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (snmpd) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.16</span>Ensure telnet server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (telnetd, telnetd-ssl) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.17</span>Ensure tftp server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (tftpd-hpa) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.18</span>Ensure web proxy server services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (squid) is installed</li>
+</ul></details>
+<details class="ctl s-EXCEPTION" data-state="EXCEPTION"><summary><span class="st">EXCEPTION</span><span class="id">2.1.19</span>Ensure web server services are not in use</summary>
+<ul class="ev">
+<li>installed: nginx</li>
+<li>nginx.service: enabled/active (enabled-state/active-state), expected neither enabled nor active</li>
+<li>apache2.socket: not-found/inactive (not enabled, not active)</li>
+<li>apache2.service: not-found/inactive (not enabled, not active)</li>
+<li class="note">exception: Host is the production web server (nginx on 80/443) (approved by V. Hoeck, expires 2999-12-31, 355453 days left)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.20</span>Ensure xinetd services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (xinetd) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.1.22</span>Ensure mail transfer agents are configured for local-only mode</summary>
+<ul class="ev">
+<li>nothing listens on port 25</li>
+<li>nothing listens on port 465</li>
+<li>nothing listens on port 587</li>
+<li>no MTA configuration found (MTA not detected or not in use)</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">2.1.23</span>Ensure only approved services are listening on a network interface</summary>
+<ul class="ev">
+<li>listening sockets (ss -plntu): 4</li>
+<li>tcp 0.0.0.0:22 users:((&quot;sshd&quot;,pid=801,fd=3))</li>
+<li>tcp 0.0.0.0:80 users:((&quot;nginx&quot;,pid=905,fd=5))</li>
+<li>tcp 0.0.0.0:443 users:((&quot;nginx&quot;,pid=905,fd=6))</li>
+<li>udp 127.0.0.1:323 users:((&quot;chronyd&quot;,pid=700,fd=5))</li>
+<li>APPROVED_LISTENERS is not set in site.conf; compare the list with site policy by hand</li>
+<li>Decision required: List the listening sockets (ss -plntu) and confirm each service, port and interface is required and approved by site policy</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.2.1</span>Ensure nis client is not installed</summary>
+<ul class="ev">
+<li>none of nis is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.2.2</span>Ensure rsh client is not installed</summary>
+<ul class="ev">
+<li>none of rsh-client is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.2.3</span>Ensure talk client is not installed</summary>
+<ul class="ev">
+<li>none of talk is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.2.4</span>Ensure telnet client is not installed</summary>
+<ul class="ev">
+<li>none of telnet, inetutils-telnet, telnet-ssl is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.2.5</span>Ensure ldap client is not installed</summary>
+<ul class="ev">
+<li>none of ldap-utils is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.2.6</span>Ensure ftp client is not installed</summary>
+<ul class="ev">
+<li>none of ftp, tnftp, atftp, inetutils-ftp, ftp-ssl is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.3.1.1</span>Ensure a single time synchronization daemon is in use</summary>
+<ul class="ev">
+<li>only one time sync daemon is in use: chrony.service</li>
+<li>systemd-timesyncd.service is not enabled and not active (not-found/inactive)</li>
+<li>chrony.service is in use (enabled/active enabled-state/active-state)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">2.3.2.1</span>Ensure systemd-timesyncd configured with authorized timeserver</summary>
+<ul class="ev">
+<li>not applicable: condition TIME_DAEMON~timesyncd is false (TIME_DAEMON=chrony)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">2.3.2.2</span>Ensure systemd-timesyncd is enabled and running</summary>
+<ul class="ev">
+<li>not applicable: condition TIME_DAEMON~timesyncd is false (TIME_DAEMON=chrony)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.3.3.1</span>Ensure chrony is configured</summary>
+<ul class="ev">
+<li>time source configured:</li>
+<li>/etc/chrony/chrony.conf: pool ntp.example.org iburst maxsources 4</li>
+<li>verify the servers against site policy</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.3.3.2</span>Ensure chrony is running as user _chrony</summary>
+<ul class="ev">
+<li>chronyd runs as _chrony</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.3.3.3</span>Ensure chrony is enabled and running</summary>
+<ul class="ev">
+<li>chrony.service: enabled/active (enabled-state/active-state), expected enabled and active</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.4.1.1</span>Ensure cron daemon is enabled and active</summary>
+<ul class="ev">
+<li>cron.service: enabled/active (enabled-state/active-state), expected enabled and active</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.4.1.2</span>Ensure access to /etc/crontab is configured</summary>
+<ul class="ev">
+<li>/etc/crontab: mode 0600 owner root group root (max 0700, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.4.1.3</span>Ensure access to /etc/cron.hourly is configured</summary>
+<ul class="ev">
+<li>/etc/cron.hourly: mode 0700 owner root group root (max 0700, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.4.1.4</span>Ensure access to /etc/cron.daily is configured</summary>
+<ul class="ev">
+<li>/etc/cron.daily: mode 0700 owner root group root (max 0700, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.4.1.5</span>Ensure access to /etc/cron.weekly is configured</summary>
+<ul class="ev">
+<li>/etc/cron.weekly: mode 0700 owner root group root (max 0700, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.4.1.6</span>Ensure access to /etc/cron.monthly is configured</summary>
+<ul class="ev">
+<li>/etc/cron.monthly: mode 0700 owner root group root (max 0700, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.4.1.7</span>Ensure access to /etc/cron.yearly is configured</summary>
+<ul class="ev">
+<li>/etc/cron.yearly: does not exist</li>
+<li>(nothing to check; benchmark treats a missing path as passing)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.4.1.8</span>Ensure access to /etc/cron.d is configured</summary>
+<ul class="ev">
+<li>/etc/cron.d: mode 0700 owner root group root (max 0700, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">2.4.1.9</span>Ensure access to crontab is configured</summary>
+<ul class="ev">
+<li>/etc/cron.allow: mode 0640 owner root group crontab (max 0640, root:root or crontab)</li>
+<li>/etc/cron.deny does not exist</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">2.4.2.1</span>Ensure access to at is configured</summary>
+<ul class="ev">
+<li>not applicable: condition HAS_AT=1 is false (HAS_AT=0)</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">3.1.1</span>Ensure IPv6 status is identified</summary>
+<ul class="ev">
+<li>IPv6 is enabled</li>
+<li>Decision required: Confirm whether IPv6 is meant to be enabled on this host</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.1.2</span>Ensure wireless interfaces are not available</summary>
+<ul class="ev">
+<li>the system has no wireless interfaces</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.1.3</span>Ensure bluetooth services are not in use</summary>
+<ul class="ev">
+<li>none of the packages (bluez) is installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.2.1</span>Ensure atm kernel module is not available</summary>
+<ul class="ev">
+<li>no kernel/net/atm module directory under /usr/lib/modules: atm is built in or absent</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.2.2</span>Ensure can kernel module is not available</summary>
+<ul class="ev">
+<li>no kernel/net/can module directory under /usr/lib/modules: can is built in or absent</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.2.3</span>Ensure dccp kernel module is not available</summary>
+<ul class="ev">
+<li>module files for dccp exist under kernel/net/dccp; checking that it is not loaded and not loadable</li>
+<li>dccp is not loaded (lsmod)</li>
+<li>blacklist dccp is configured</li>
+<li>install dccp /bin/false is configured</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.2.4</span>Ensure rds kernel module is not available</summary>
+<ul class="ev">
+<li>no kernel/net/rds module directory under /usr/lib/modules: rds is built in or absent</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.2.5</span>Ensure sctp kernel module is not available</summary>
+<ul class="ev">
+<li>module files for sctp exist under kernel/net/sctp; checking that it is not loaded and not loadable</li>
+<li>sctp is not loaded (lsmod)</li>
+<li>blacklist sctp is configured</li>
+<li>install sctp /bin/false is configured</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.2.6</span>Ensure tipc kernel module is not available</summary>
+<ul class="ev">
+<li>module files for tipc exist under kernel/net/tipc; checking that it is not loaded and not loadable</li>
+<li>tipc is not loaded (lsmod)</li>
+<li>blacklist tipc is configured</li>
+<li>install tipc /bin/false is configured</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">3.2.7</span>Ensure unneeded network protocol kernel modules are not available</summary>
+<ul class="ev">
+<li>network modules available to the running kernel: 3</li>
+<li>Decision required: Compare the network protocol modules available to the running kernel with the site&#39;s documented list of unneeded protocols and confirm each is blacklisted and set to /bin/false or /bin/true</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.1</span>Ensure net.ipv4.ip_forward is configured</summary>
+<ul class="ev">
+<li>net.ipv4.ip_forward: running=0, expected 0</li>
+<li>net.ipv4.ip_forward: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.2</span>Ensure net.ipv4.conf.all.forwarding is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.all.forwarding: running=0, expected 0</li>
+<li>net.ipv4.conf.all.forwarding: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.3</span>Ensure net.ipv4.conf.default.forwarding is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.default.forwarding: running=0, expected 0</li>
+<li>net.ipv4.conf.default.forwarding: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.4</span>Ensure net.ipv4.conf.all.send_redirects is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.all.send_redirects: running=0, expected 0</li>
+<li>net.ipv4.conf.all.send_redirects: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.5</span>Ensure net.ipv4.conf.default.send_redirects is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.default.send_redirects: running=0, expected 0</li>
+<li>net.ipv4.conf.default.send_redirects: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.6</span>Ensure net.ipv4.icmp_ignore_bogus_error_responses is configured</summary>
+<ul class="ev">
+<li>net.ipv4.icmp_ignore_bogus_error_responses: running=1, expected 1</li>
+<li>net.ipv4.icmp_ignore_bogus_error_responses: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.7</span>Ensure net.ipv4.icmp_echo_ignore_broadcasts is configured</summary>
+<ul class="ev">
+<li>net.ipv4.icmp_echo_ignore_broadcasts: running=1, expected 1</li>
+<li>net.ipv4.icmp_echo_ignore_broadcasts: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.8</span>Ensure net.ipv4.conf.all.accept_redirects is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.all.accept_redirects: running=0, expected 0</li>
+<li>net.ipv4.conf.all.accept_redirects: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.9</span>Ensure net.ipv4.conf.default.accept_redirects is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.default.accept_redirects: running=0, expected 0</li>
+<li>net.ipv4.conf.default.accept_redirects: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.10</span>Ensure net.ipv4.conf.all.secure_redirects is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.all.secure_redirects: running=0, expected 0</li>
+<li>net.ipv4.conf.all.secure_redirects: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.11</span>Ensure net.ipv4.conf.default.secure_redirects is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.default.secure_redirects: running=0, expected 0</li>
+<li>net.ipv4.conf.default.secure_redirects: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.12</span>Ensure net.ipv4.conf.all.rp_filter is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.all.rp_filter: running=1, expected 1</li>
+<li>net.ipv4.conf.all.rp_filter: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.13</span>Ensure net.ipv4.conf.default.rp_filter is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.default.rp_filter: running=1, expected 1</li>
+<li>net.ipv4.conf.default.rp_filter: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.14</span>Ensure net.ipv4.conf.all.accept_source_route is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.all.accept_source_route: running=0, expected 0</li>
+<li>net.ipv4.conf.all.accept_source_route: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.15</span>Ensure net.ipv4.conf.default.accept_source_route is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.default.accept_source_route: running=0, expected 0</li>
+<li>net.ipv4.conf.default.accept_source_route: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.16</span>Ensure net.ipv4.conf.all.log_martians is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.all.log_martians: running=1, expected 1</li>
+<li>net.ipv4.conf.all.log_martians: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.17</span>Ensure net.ipv4.conf.default.log_martians is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.default.log_martians: running=1, expected 1</li>
+<li>net.ipv4.conf.default.log_martians: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.18</span>Ensure net.ipv4.tcp_syncookies is configured</summary>
+<ul class="ev">
+<li>net.ipv4.tcp_syncookies: running=1, expected 1</li>
+<li>net.ipv4.tcp_syncookies: persisted=1 (/etc/sysctl.d/60-cis.conf), expected 1</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.1.19</span>Ensure net.ipv4.conf.all.route_localnet is configured</summary>
+<ul class="ev">
+<li>net.ipv4.conf.all.route_localnet: running=0, expected 0</li>
+<li>net.ipv4.conf.all.route_localnet: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.2.1</span>Ensure net.ipv6.conf.all.forwarding is configured</summary>
+<ul class="ev">
+<li>net.ipv6.conf.all.forwarding: running=0, expected 0</li>
+<li>net.ipv6.conf.all.forwarding: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.2.2</span>Ensure net.ipv6.conf.default.forwarding is configured</summary>
+<ul class="ev">
+<li>net.ipv6.conf.default.forwarding: running=0, expected 0</li>
+<li>net.ipv6.conf.default.forwarding: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.2.3</span>Ensure net.ipv6.conf.all.accept_redirects is configured</summary>
+<ul class="ev">
+<li>net.ipv6.conf.all.accept_redirects: running=0, expected 0</li>
+<li>net.ipv6.conf.all.accept_redirects: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.2.4</span>Ensure net.ipv6.conf.default.accept_redirects is configured</summary>
+<ul class="ev">
+<li>net.ipv6.conf.default.accept_redirects: running=0, expected 0</li>
+<li>net.ipv6.conf.default.accept_redirects: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.2.5</span>Ensure net.ipv6.conf.all.accept_source_route is configured</summary>
+<ul class="ev">
+<li>net.ipv6.conf.all.accept_source_route: running=0, expected 0</li>
+<li>net.ipv6.conf.all.accept_source_route: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.2.6</span>Ensure net.ipv6.conf.default.accept_source_route is configured</summary>
+<ul class="ev">
+<li>net.ipv6.conf.default.accept_source_route: running=0, expected 0</li>
+<li>net.ipv6.conf.default.accept_source_route: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.2.7</span>Ensure net.ipv6.conf.all.accept_ra is configured</summary>
+<ul class="ev">
+<li>net.ipv6.conf.all.accept_ra: running=0, expected 0</li>
+<li>net.ipv6.conf.all.accept_ra: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">3.3.2.8</span>Ensure net.ipv6.conf.default.accept_ra is configured</summary>
+<ul class="ev">
+<li>net.ipv6.conf.default.accept_ra: running=0, expected 0</li>
+<li>net.ipv6.conf.default.accept_ra: persisted=0 (/etc/sysctl.d/60-cis.conf), expected 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">4.1.1</span>Ensure ufw is installed</summary>
+<ul class="ev">
+<li>ufw 0.36.2-9 installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">4.1.2</span>Ensure ufw service is configured</summary>
+<ul class="ev">
+<li>ufw.service: enabled/active (enabled/active)</li>
+<li>ufw status: Status: active</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">4.1.3</span>Ensure ufw incoming default is configured</summary>
+<ul class="ev">
+<li>ufw default policy for incoming: deny, expected deny or reject</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">4.1.5</span>Ensure ufw routed default is configured</summary>
+<ul class="ev">
+<li>ufw shows &#39;disabled (routed)&#39; because kernel forwarding is off</li>
+<li>/etc/default/ufw: DEFAULT_FORWARD_POLICY=&quot;DROP&quot; (DROP means deny)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.1</span>Ensure access to /etc/ssh/sshd_config is configured</summary>
+<ul class="ev">
+<li>/etc/ssh/sshd_config: mode 0600 owner root group root (max 0600, root:root)</li>
+<li>/etc/ssh/sshd_config.d/60-cis.conf: mode 0600 owner root group root (max 0600, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.2</span>Ensure access to /etc/ssh/sshd_config.d/ directory is configured</summary>
+<ul class="ev">
+<li>/etc/ssh/sshd_config.d: mode 0700 owner root group root (max 0700, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.3</span>Ensure access to SSH private host key files is configured</summary>
+<ul class="ev">
+<li>/etc/ssh/ssh_host_rsa_key: mode 0600 owner root group root (max 0600, root:root)</li>
+<li>/etc/ssh/ssh_host_ecdsa_key: mode 0600 owner root group root (max 0600, root:root)</li>
+<li>/etc/ssh/ssh_host_ed25519_key: mode 0600 owner root group root (max 0600, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.4</span>Ensure access to SSH public host key files is configured</summary>
+<ul class="ev">
+<li>/etc/ssh/ssh_host_rsa_key.pub: mode 0644 owner root group root (max 0644, root:root)</li>
+<li>/etc/ssh/ssh_host_ecdsa_key.pub: mode 0644 owner root group root (max 0644, root:root)</li>
+<li>/etc/ssh/ssh_host_ed25519_key.pub: mode 0644 owner root group root (max 0644, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.5</span>Ensure sshd access is configured</summary>
+<ul class="ev">
+<li>access directive set: allowusers deploy</li>
+<li>review the lists against site policy</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.6</span>Ensure sshd Banner is configured</summary>
+<ul class="ev">
+<li>banner /etc/issue.net: set, no OS information; content must still match site policy</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.7</span>Ensure sshd Ciphers are configured</summary>
+<ul class="ev">
+<li>ciphers: no weak entries (value: chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.8</span>Ensure sshd ClientAliveInterval and ClientAliveCountMax are configured</summary>
+<ul class="ev">
+<li>clientaliveinterval: 15, expected greater than 0</li>
+<li>clientalivecountmax: 3, expected greater than 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.9</span>Ensure sshd DisableForwarding is enabled</summary>
+<ul class="ev">
+<li>disableforwarding: yes, expected yes</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.10</span>Ensure sshd GSSAPIAuthentication is disabled</summary>
+<ul class="ev">
+<li>gssapiauthentication: no, expected no</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.11</span>Ensure sshd HostbasedAuthentication is disabled</summary>
+<ul class="ev">
+<li>hostbasedauthentication: no, expected no</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.12</span>Ensure sshd IgnoreRhosts is enabled</summary>
+<ul class="ev">
+<li>ignorerhosts: yes, expected yes</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.13</span>Ensure sshd KexAlgorithms is configured</summary>
+<ul class="ev">
+<li>kexalgorithms: no weak entries (value: mlkem768x25519-sha256,sntrup761x25519-sha512,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512)</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">5.1.14</span>Ensure sshd post-quantum cryptography key exchange algorithms are configured</summary>
+<ul class="ev">
+<li>kexalgorithms: mlkem768x25519-sha256,sntrup761x25519-sha512,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512</li>
+<li>sntrup761x25519-sha512 is offered</li>
+<li>mlkem768x25519-sha256 is offered</li>
+<li>Decision required: Confirm the post-quantum key exchange algorithms sntrup761x25519-sha512 (and mlkem768x25519-sha256 from OpenSSH 9.9) are offered in KexAlgorithms</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.15</span>Ensure sshd LoginGraceTime is configured</summary>
+<ul class="ev">
+<li>logingracetime: 60, expected 1 to 60</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.16</span>Ensure sshd LogLevel is configured</summary>
+<ul class="ev">
+<li>loglevel: VERBOSE, expected one of verbose, info</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.17</span>Ensure sshd MACs are configured</summary>
+<ul class="ev">
+<li>macs: no weak entries (value: hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128@openssh.com)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.18</span>Ensure sshd MaxAuthTries is configured</summary>
+<ul class="ev">
+<li>maxauthtries: 4, expected 4 or less</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.19</span>Ensure sshd MaxSessions is configured</summary>
+<ul class="ev">
+<li>maxsessions: 10, expected 10 or less</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.20</span>Ensure sshd MaxStartups is configured</summary>
+<ul class="ev">
+<li>maxstartups: 10:30:60, expected 10:30:60 or more restrictive</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.21</span>Ensure sshd PermitEmptyPasswords is disabled</summary>
+<ul class="ev">
+<li>permitemptypasswords: no, expected no</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.22</span>Ensure sshd PermitRootLogin is disabled</summary>
+<ul class="ev">
+<li>permitrootlogin: no, expected no</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.23</span>Ensure sshd PermitUserEnvironment is disabled</summary>
+<ul class="ev">
+<li>permituserenvironment: no, expected no</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.1.24</span>Ensure sshd UsePAM is enabled</summary>
+<ul class="ev">
+<li>usepam: yes, expected yes</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.2.1</span>Ensure sudo is installed</summary>
+<ul class="ev">
+<li>sudo-rs 0.2.8-1 installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.2.2</span>Ensure sudo commands use pty</summary>
+<ul class="ev">
+<li>use_pty is set explicitly:</li>
+<li>/etc/sudoers: Defaults	use_pty</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.2.3</span>Ensure sudo log file exists</summary>
+<ul class="ev">
+<li>implementation: sudo-rs</li>
+<li>Method B does not apply: sudo-rs ignores or rejects the logfile option</li>
+<li>Method A: sudo events found in the journal (1 recent lines)</li>
+<li>the audit does not generate a test event; existing entries were used</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.2.5</span>Ensure re-authentication for privilege escalation is not disabled globally</summary>
+<ul class="ev">
+<li>no uncommented &#39;!authenticate&#39; in /etc/sudoers /etc/sudoers.d/90-deploy /etc/sudoers.d/90-deploy</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.2.6</span>Ensure sudo timestamp_timeout is configured</summary>
+<ul class="ev">
+<li>/etc/sudoers: timestamp_timeout=15</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.2.7</span>Ensure access to the su command is restricted</summary>
+<ul class="ev">
+<li>/etc/pam.d/su: auth       required   pam_wheel.so use_uid group=sugroup</li>
+<li>group sugroup exists and has no members</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.1.1</span>Ensure latest version of pam is installed</summary>
+<ul class="ev">
+<li>libpam-runtime 1.7.0-3 installed</li>
+<li>libpam-runtime: installed 1.7.0-3 is the newest version known to the local apt cache (no network check)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.1.2</span>Ensure latest version of libpam-modules is installed</summary>
+<ul class="ev">
+<li>libpam-modules 1.7.0-3 installed</li>
+<li>libpam-modules: installed 1.7.0-3 is the newest version known to the local apt cache (no network check)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.1.3</span>Ensure latest version of libpam-pwquality is installed</summary>
+<ul class="ev">
+<li>libpam-pwquality 1.4.5-5 installed</li>
+<li>libpam-pwquality: installed 1.4.5-5 is the newest version known to the local apt cache (no network check)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.1.4</span>Ensure latest version of cracklib-runtime is installed</summary>
+<ul class="ev">
+<li>cracklib-runtime 2.10.3-2 installed</li>
+<li>cracklib-runtime: installed 2.10.3-2 is the newest version known to the local apt cache (no network check)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.2.1</span>Ensure pam_unix module is enabled</summary>
+<ul class="ev">
+<li>/etc/pam.d/common-account: account	[success=1 new_authtok_reqd=done default=ignore]	pam_unix.so</li>
+<li>/etc/pam.d/common-auth: auth	[success=2 default=ignore]	pam_unix.so try_first_pass</li>
+<li>/etc/pam.d/common-password: password	[success=1 default=ignore]	pam_unix.so obscure use_authtok try_first_pass yescrypt</li>
+<li>/etc/pam.d/common-session: session	required	pam_unix.so</li>
+<li>/etc/pam.d/common-session-noninteractive: session	required	pam_unix.so</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.2.2</span>Ensure pam_faillock module is enabled</summary>
+<ul class="ev">
+<li>/etc/pam.d/common-auth: auth	requisite			pam_faillock.so preauth</li>
+<li>/etc/pam.d/common-account: account	required			pam_faillock.so</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.2.3</span>Ensure pam_pwquality module is enabled</summary>
+<ul class="ev">
+<li>/etc/pam.d/common-password: password	requisite			pam_pwquality.so retry=3</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.2.4</span>Ensure pam_pwhistory module is enabled</summary>
+<ul class="ev">
+<li>/etc/pam.d/common-password: password	requisite			pam_pwhistory.so</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.1.1</span>Ensure password failed attempts lockout is configured</summary>
+<ul class="ev">
+<li>assignments (last wins): /etc/security/faillock.conf: deny=5</li>
+<li>deny=5 (/etc/security/faillock.conf), expected 1 to 5</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.1.2</span>Ensure password unlock time is configured</summary>
+<ul class="ev">
+<li>assignments (last wins): /etc/security/faillock.conf: unlock_time=900</li>
+<li>unlock_time=900 (/etc/security/faillock.conf), expected 0 (never) or 900 or more</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.2.1</span>Ensure password number of changed characters is configured</summary>
+<ul class="ev">
+<li>assignments (last wins): /etc/security/pwquality.conf.d/50-cis.conf: difok=2</li>
+<li>difok=2 (/etc/security/pwquality.conf.d/50-cis.conf), expected 2 or more</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.2.2</span>Ensure password length is configured</summary>
+<ul class="ev">
+<li>assignments (last wins): /etc/security/pwquality.conf.d/50-cis.conf: minlen=14</li>
+<li>minlen=14 (/etc/security/pwquality.conf.d/50-cis.conf), expected 14 or more</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">5.3.3.2.3</span>Ensure password complexity is configured</summary>
+<ul class="ev">
+<li>/etc/security/pwquality.conf.d/50-cis.conf: minclass = 3</li>
+<li>Decision required: Confirm minclass and the dcredit/ucredit/lcredit/ocredit settings (none greater than 0) follow site policy and are not overridden on the pam_pwquality line</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.2.4</span>Ensure password same consecutive characters is configured</summary>
+<ul class="ev">
+<li>assignments (last wins): /etc/security/pwquality.conf.d/50-cis.conf: maxrepeat=3</li>
+<li>maxrepeat=3 (/etc/security/pwquality.conf.d/50-cis.conf), expected 1 to 3</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.2.5</span>Ensure password maximum sequential characters is configured</summary>
+<ul class="ev">
+<li>assignments (last wins): /etc/security/pwquality.conf.d/50-cis.conf: maxsequence=3</li>
+<li>maxsequence=3 (/etc/security/pwquality.conf.d/50-cis.conf), expected 1 to 3</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.2.6</span>Ensure password dictionary check is enabled</summary>
+<ul class="ev">
+<li>assignments (last wins): /etc/security/pwquality.conf.d/50-cis.conf: dictcheck=1</li>
+<li>dictcheck=1 (/etc/security/pwquality.conf.d/50-cis.conf), expected anything but 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.2.7</span>Ensure password quality checking is enforced</summary>
+<ul class="ev">
+<li>assignments (last wins): /etc/security/pwquality.conf.d/50-cis.conf: enforcing=1</li>
+<li>enforcing=1 (/etc/security/pwquality.conf.d/50-cis.conf), expected anything but 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.2.8</span>Ensure password quality is enforced for the root user</summary>
+<ul class="ev">
+<li>assignments (last wins): /etc/security/pwquality.conf.d/50-cis.conf: enforce_for_root</li>
+<li>enforce_for_root is set (in /etc/security/pwquality.conf.d/50-cis.conf)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.3.1</span>Ensure password history remember is configured</summary>
+<ul class="ev">
+<li>/etc/security/pwhistory.conf: remember = 24</li>
+<li>expected ge ge 24</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.3.2</span>Ensure password history is enforced for the root user</summary>
+<ul class="ev">
+<li>/etc/security/pwhistory.conf: enforce_for_root = set</li>
+<li>expected option present </li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.3.3</span>Ensure pam_pwhistory includes use_authtok</summary>
+<ul class="ev">
+<li>/etc/security/pwhistory.conf: use_authtok = set</li>
+<li>expected option present </li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.4.1</span>Ensure pam_unix does not include nullok</summary>
+<ul class="ev">
+<li>/etc/pam.d/common-password: no forbidden argument (nullok) on: password	[success=1 default=ignore]	pam_unix.so obscure use_authtok try_first_pass yescrypt</li>
+<li>/etc/pam.d/common-auth: no forbidden argument (nullok) on: auth	[success=2 default=ignore]	pam_unix.so try_first_pass</li>
+<li>/etc/pam.d/common-account: no forbidden argument (nullok) on: account	[success=1 new_authtok_reqd=done default=ignore]	pam_unix.so</li>
+<li>/etc/pam.d/common-session: no forbidden argument (nullok) on: session	required	pam_unix.so</li>
+<li>/etc/pam.d/common-session-noninteractive: no forbidden argument (nullok) on: session	required	pam_unix.so</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.4.2</span>Ensure pam_unix does not include remember</summary>
+<ul class="ev">
+<li>/etc/pam.d/common-password: no forbidden argument (remember=\d+) on: password	[success=1 default=ignore]	pam_unix.so obscure use_authtok try_first_pass yescrypt</li>
+<li>/etc/pam.d/common-auth: no forbidden argument (remember=\d+) on: auth	[success=2 default=ignore]	pam_unix.so try_first_pass</li>
+<li>/etc/pam.d/common-account: no forbidden argument (remember=\d+) on: account	[success=1 new_authtok_reqd=done default=ignore]	pam_unix.so</li>
+<li>/etc/pam.d/common-session: no forbidden argument (remember=\d+) on: session	required	pam_unix.so</li>
+<li>/etc/pam.d/common-session-noninteractive: no forbidden argument (remember=\d+) on: session	required	pam_unix.so</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.4.3</span>Ensure pam_unix includes a strong password hashing algorithm</summary>
+<ul class="ev">
+<li>/etc/pam.d/common-password: password	[success=1 default=ignore]	pam_unix.so obscure use_authtok try_first_pass yescrypt</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.3.3.4.4</span>Ensure pam_unix includes use_authtok</summary>
+<ul class="ev">
+<li>/etc/pam.d/common-password: password	[success=1 default=ignore]	pam_unix.so obscure use_authtok try_first_pass yescrypt</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.1.1</span>Ensure password expiration is configured</summary>
+<ul class="ev">
+<li>/etc/login.defs: PASS_MAX_DAYS 365 (expected 1 to 365)</li>
+<li>every account with a password has a maximum password age of 1 to 365 days</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.1.3</span>Ensure password expiration warning days is configured</summary>
+<ul class="ev">
+<li>/etc/login.defs: PASS_WARN_AGE 7 (expected 7 or more)</li>
+<li>every account with a password has a warning period of 7 days or more</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.1.4</span>Ensure strong password hashing algorithm is configured</summary>
+<ul class="ev">
+<li>/etc/login.defs: ENCRYPT_METHOD YESCRYPT, expected SHA512 or YESCRYPT</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.1.5</span>Ensure inactive password lock is configured</summary>
+<ul class="ev">
+<li>/etc/default/useradd: INACTIVE=45 (expected 0 to 45)</li>
+<li>every account with a password locks after 45 inactive days or fewer</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.1.6</span>Ensure all users last password change date is in the past</summary>
+<ul class="ev">
+<li>no account with a password has a last-change date in the future</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.2.1</span>Ensure root is the only UID 0 account</summary>
+<ul class="ev">
+<li>only root has UID 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.2.2</span>Ensure root is the only GID 0 account</summary>
+<ul class="ev">
+<li>only root has primary GID 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.2.3</span>Ensure group root is the only GID 0 group</summary>
+<ul class="ev">
+<li>only group root has GID 0</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.2.4</span>Ensure root account access is controlled</summary>
+<ul class="ev">
+<li>root password status: L (P = password set, L = locked)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.2.5</span>Ensure root path integrity</summary>
+<ul class="ev">
+<li>root PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin: all elements are root-owned directories, mode 0755 or stricter</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.2.6</span>Ensure root user umask is configured</summary>
+<ul class="ev">
+<li>no umask less restrictive than 027 in /root/.profile /root/.bashrc</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.2.7</span>Ensure system accounts do not have a valid login shell</summary>
+<ul class="ev">
+<li>no system account (UID below 1000) has a valid login shell</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.2.8</span>Ensure accounts without a valid login shell are locked</summary>
+<ul class="ev">
+<li>every non-root account without a valid login shell is locked</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.3.2</span>Ensure default user shell timeout is configured</summary>
+<ul class="ev">
+<li>/etc/profile.d/60-cis-tmout.sh: TMOUT=900, readonly and exported</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">5.4.3.3</span>Ensure default user umask is configured</summary>
+<ul class="ev">
+<li>no umask less restrictive than 027 in /etc/profile /etc/profile.d/60-cis-tmout.sh /etc/bash.bashrc or /etc/login.defs</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">6.1.1.1.1</span>Ensure journald service is active</summary>
+<ul class="ev">
+<li>systemd-journald.service: static/active (enabled-state/active-state), expected active</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">6.1.1.1.2</span>Ensure systemd-journal-remote service is not in use</summary>
+<ul class="ev">
+<li>no package; the service units are neither enabled nor active</li>
+<li>systemd-journal-remote.socket: not-found/inactive (not enabled, not active)</li>
+<li>systemd-journal-remote.service: not-found/inactive (not enabled, not active)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">6.1.1.1.3</span>Ensure journald is configured to send logs to rsyslog</summary>
+<ul class="ev">
+<li>not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">6.1.1.1.4</span>Ensure journald log file access is configured</summary>
+<ul class="ev">
+<li>Decision required: Review the journald log file modes defined through tmpfiles.d (0640 or more restrictive) against site policy</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">6.1.1.1.5</span>Ensure journald log file rotation is configured</summary>
+<ul class="ev">
+<li>Decision required: Confirm journald log rotation limits (SystemMaxUse, SystemKeepFree, RuntimeMaxUse, RuntimeKeepFree, MaxFileSec) follow site policy</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">6.1.1.1.6</span>Ensure journald Storage is configured</summary>
+<ul class="ev">
+<li>Storage=persistent (/etc/systemd/journald.conf.d/60-cis.conf), expected persistent</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">6.1.1.1.7</span>Ensure journald Compress is configured</summary>
+<ul class="ev">
+<li>Compress=yes (/etc/systemd/journald.conf.d/60-cis.conf), expected yes</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">6.1.2.1</span>Ensure rsyslog is installed</summary>
+<ul class="ev">
+<li>not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">6.1.2.2</span>Ensure rsyslog service is enabled and active</summary>
+<ul class="ev">
+<li>not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">6.1.2.3</span>Ensure rsyslog log file creation mode is configured</summary>
+<ul class="ev">
+<li>not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">6.1.2.4</span>Ensure rsyslog logging is configured</summary>
+<ul class="ev">
+<li>not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">6.1.2.5</span>Ensure rsyslog is configured to send logs to a remote log host</summary>
+<ul class="ev">
+<li>not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">6.1.2.6</span>Ensure rsyslog is not configured to receive logs from a remote client</summary>
+<ul class="ev">
+<li>not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)</li>
+</ul></details>
+<details class="ctl s-NA" data-state="NA"><summary><span class="st">N/A</span><span class="id">6.1.2.7</span>Ensure logrotate is configured</summary>
+<ul class="ev">
+<li>not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">6.1.3.1</span>Ensure access to all logfiles has been configured</summary>
+<ul class="ev">
+<li>all files in /var/log have appropriate permissions and ownership</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">6.3.1</span>Ensure AIDE is installed</summary>
+<ul class="ev">
+<li>aide 0.19.1-1 installed; aide-common 0.19.1-1 installed</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">6.3.2</span>Ensure filesystem integrity is regularly checked</summary>
+<ul class="ev">
+<li>dailyaidecheck.timer is enabled</li>
+<li>dailyaidecheck.service is static</li>
+<li>dailyaidecheck.timer is active</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.1</span>Ensure access to /etc/passwd is configured</summary>
+<ul class="ev">
+<li>/etc/passwd: mode 0644 owner root group root (max 0644, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.2</span>Ensure access to /etc/passwd- is configured</summary>
+<ul class="ev">
+<li>/etc/passwd-: mode 0644 owner root group root (max 0644, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.3</span>Ensure access to /etc/group is configured</summary>
+<ul class="ev">
+<li>/etc/group: mode 0644 owner root group root (max 0644, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.4</span>Ensure access to /etc/group- is configured</summary>
+<ul class="ev">
+<li>/etc/group-: mode 0644 owner root group root (max 0644, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.5</span>Ensure access to /etc/shadow is configured</summary>
+<ul class="ev">
+<li>/etc/shadow: mode 0640 owner root group shadow (max 0640, root:root or shadow)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.6</span>Ensure access to /etc/shadow- is configured</summary>
+<ul class="ev">
+<li>/etc/shadow-: mode 0640 owner root group shadow (max 0640, root:root or shadow)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.7</span>Ensure access to /etc/gshadow is configured</summary>
+<ul class="ev">
+<li>/etc/gshadow: mode 0640 owner root group shadow (max 0640, root:root or shadow)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.8</span>Ensure access to /etc/gshadow- is configured</summary>
+<ul class="ev">
+<li>/etc/gshadow-: mode 0640 owner root group shadow (max 0640, root:root or shadow)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.9</span>Ensure access to /etc/shells is configured</summary>
+<ul class="ev">
+<li>/etc/shells: mode 0644 owner root group root (max 0644, root:root)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.10</span>Ensure access to /etc/security/opasswd is configured</summary>
+<ul class="ev">
+<li>/etc/security/opasswd: mode 0600 owner root group root (max 0600, root:root)</li>
+<li>/etc/security/opasswd.old: does not exist</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.11</span>Ensure world writable files and directories are secured</summary>
+<ul class="ev">
+<li>no world writable files and no world writable directories without the sticky bit on local filesystems</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.1.12</span>Ensure no files or directories without an owner and a group exist</summary>
+<ul class="ev">
+<li>no files or directories without an owner or a group exist on local filesystems</li>
+</ul></details>
+<details class="ctl s-MANUAL" data-state="MANUAL"><summary><span class="st">MANUAL</span><span class="id">7.1.13</span>Ensure SUID and SGID files are reviewed</summary>
+<ul class="ev">
+<li>suid: /usr/bin/sudo</li>
+<li>suid: /usr/bin/passwd</li>
+<li>sgid: /usr/bin/crontab</li>
+<li>2 SUID and 1 SGID files found</li>
+<li>Decision required: Review the list of SUID and SGID files for programs that are not expected on this host</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.1</span>Ensure accounts in /etc/passwd use shadowed passwords</summary>
+<ul class="ev">
+<li>all accounts in /etc/passwd use &#39;x&#39; (shadowed passwords)</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.2</span>Ensure /etc/shadow password fields are not empty</summary>
+<ul class="ev">
+<li>no account has an empty password field in /etc/shadow</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.3</span>Ensure all groups in /etc/passwd exist in /etc/group</summary>
+<ul class="ev">
+<li>every primary GID in /etc/passwd exists in /etc/group</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.4</span>Ensure shadow group is empty</summary>
+<ul class="ev">
+<li>group shadow (GID 42) has no members and is no user&#39;s primary group</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.5</span>Ensure no duplicate UIDs exist</summary>
+<ul class="ev">
+<li>no UID is used by more than one account</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.6</span>Ensure no duplicate GIDs exist</summary>
+<ul class="ev">
+<li>no GID is used by more than one group</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.7</span>Ensure no duplicate user names exist</summary>
+<ul class="ev">
+<li>no user name appears more than once in /etc/passwd</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.8</span>Ensure no duplicate group names exist</summary>
+<ul class="ev">
+<li>no group name appears more than once in /etc/group</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.9</span>Ensure local interactive user home directories are configured</summary>
+<ul class="ev">
+<li>2 interactive users: all home directories exist, are owned by the user and are mode 0750 or stricter</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.10</span>Ensure local interactive user dot files access is configured</summary>
+<ul class="ev">
+<li>dot files of 1 local interactive users are configured correctly</li>
+</ul></details>
+<details class="ctl s-PASS" data-state="PASS"><summary><span class="st">PASS</span><span class="id">7.2.11</span>Ensure local interactive user dot directories access is configured</summary>
+<ul class="ev">
+<li>dot directories of 1 local interactive users are configured correctly</li>
+</ul></details>
+</div>
+<script>
+(function(){
+var btns=document.querySelectorAll('[data-filter]'),q=document.getElementById('q'),
+    ctls=document.querySelectorAll('#full .ctl'),active={};
+function apply(){var any=Object.keys(active).length,t=(q.value||'').toLowerCase();
+ ctls.forEach(function(c){var ok=(!any||active[c.getAttribute('data-state')]),
+  h=c.querySelector('summary').textContent.toLowerCase();
+  c.classList.toggle('hide',!(ok&&(!t||h.indexOf(t)>-1)));});}
+btns.forEach(function(b){b.addEventListener('click',function(){var s=b.getAttribute('data-filter');
+ if(s==='ALL'){active={};btns.forEach(function(x){x.classList.remove('on')});}
+ else{if(active[s]){delete active[s];b.classList.remove('on');}else{active[s]=1;b.classList.add('on');}}
+ apply();});});
+q.addEventListener('input',apply);
+document.getElementById('expand').addEventListener('click',function(){ctls.forEach(function(c){c.open=true})});
+document.getElementById('collapse').addEventListener('click',function(){ctls.forEach(function(c){c.open=false})});
+})();
+</script>
+</main></body></html>

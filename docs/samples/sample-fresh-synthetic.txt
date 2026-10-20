@@ -1,0 +1,1324 @@
+====================================================================================================
+CIS Ubuntu Linux 26.04 LTS Benchmark v1.0.0 - Level 1 Server audit report
+====================================================================================================
+
+Host:                  cis-fresh
+FQDN:                  cis-fresh
+OS release:            Ubuntu 26.04 LTS
+Kernel:                Linux 6.14.0-30-generic
+Run started:           2026-10-20 16:35:23
+Run finished:          2026-10-20 16:35:37
+Duration:              14s
+Benchmark:             CIS Ubuntu Linux 26.04 LTS Benchmark v1.0.0
+Profile / level:       Server / Level 1 (cumulative)
+Script version:        cis-audit 1.0.0
+Catalog SHA-256:       55466936a6add5a940ccbbbfe6c7d5c0cddb081f0922133030481d5d82c88b1f
+site.conf SHA-256:     (not used)
+exceptions.conf SHA-256: (not used)
+Options:               --output /tmp/tmp.mj2juskT0o/fresh --no-color --quiet
+
+Internal compliance check, not an official CIS-CAT result.
+
+1. SUMMARY
+----------
+  PASS         106
+  FAIL         121
+  EXCEPTION      0
+  MANUAL        11
+  N/A           36
+  SKIPPED        0
+  ERROR          0
+  SCORE      46.6%   (PASS / (PASS + FAIL))
+
+  Sec  Section                                     PASS  FAIL  MAN.   N/A OTHER   SCORE
+  1    Initial Setup                                 26    25     3    24     0   50.9%
+  2    Services                                      28    11     1     4     0   71.7%
+  3    Network                                        6    29     2     0     0   17.1%
+  4    Host Based Firewall                            1     3     0     0     0   25.0%
+  5    Access, Authentication and Authorization      30    38     2     0     0   44.1%
+  6    Logging and Auditing                           3     4     2     8     0   42.8%
+  7    System Maintenance                            12    11     1     0     0   52.1%
+
+2. FINDINGS (FAIL and ERROR)
+
+----------------------------
+[FAIL] 1.1.1.1 Ensure cramfs kernel module is not available
+    - missing 'blacklist cramfs' in modprobe configuration
+    - missing 'install cramfs /bin/false' (or /bin/true) in modprobe configuration
+    - module files for cramfs exist under kernel/fs/cramfs; checking that it is not loaded and not
+      loadable
+    - cramfs is not loaded (lsmod)
+[FAIL] 1.1.1.2 Ensure freevxfs kernel module is not available
+    - missing 'blacklist freevxfs' in modprobe configuration
+    - missing 'install freevxfs /bin/false' (or /bin/true) in modprobe configuration
+    - module files for freevxfs exist under kernel/fs/freevxfs; checking that it is not loaded and
+      not loadable
+    - freevxfs is not loaded (lsmod)
+[FAIL] 1.1.1.5 Ensure jffs2 kernel module is not available
+    - missing 'blacklist jffs2' in modprobe configuration
+    - missing 'install jffs2 /bin/false' (or /bin/true) in modprobe configuration
+    - module files for jffs2 exist under kernel/fs/jffs2; checking that it is not loaded and not
+      loadable
+    - jffs2 is not loaded (lsmod)
+[FAIL] 1.1.1.9 Ensure firewire-core kernel module is not available
+    - missing 'blacklist firewire_core' in modprobe configuration
+    - missing 'install firewire_core /bin/false' (or /bin/true) in modprobe configuration
+    - module files for firewire_core exist under kernel/drivers/firewire; checking that it is not
+      loaded and not loadable
+    - firewire_core is not loaded (lsmod)
+[FAIL] 1.1.1.10 Ensure usb-storage kernel module is not available
+    - missing 'blacklist usb_storage' in modprobe configuration
+    - missing 'install usb_storage /bin/false' (or /bin/true) in modprobe configuration
+    - module files for usb_storage exist under kernel/drivers/usb/storage; checking that it is not
+      loaded and not loadable
+    - usb_storage is not loaded (lsmod)
+[FAIL] 1.1.2.1.1 Ensure /tmp is tmpfs or a separate partition
+    - /tmp is not a mount point (neither tmpfs nor a separate partition)
+[FAIL] 1.1.2.2.4 Ensure noexec option set on /dev/shm partition
+    - /dev/shm (tmpfs): options rw,nosuid,nodev do not include noexec
+[FAIL] 1.2.1.3 Ensure access to gpg key files are configured
+    - /usr/share/keyrings/extra.gpg: mode 0664 owner root group root; expected 0644 or stricter and
+      root:root
+    - step 2: no Signed-By key files outside the standard keyring directories
+[FAIL] 1.2.1.11 Ensure repositories are set to https in /etc/apt/sources.list.d directory
+    - plain http repositories, expected https:
+    - /etc/apt/sources.list.d/ubuntu.sources:2:URIs: http://archive.ubuntu.com/ubuntu
+[FAIL] 1.2.1.12 Ensure AllowInsecureRepositories is configured
+    - Acquire::AllowInsecureRepositories is not set in 'apt-config dump', expected
+      Acquire::AllowInsecureRepositories "0";
+[FAIL] 1.2.1.13 Ensure AllowWeakRepositories is configured
+    - Acquire::AllowWeakRepositories is not set in 'apt-config dump', expected
+      Acquire::AllowWeakRepositories "0";
+[FAIL] 1.2.1.14 Ensure AllowDowngradeToInsecureRepositories is configured
+    - Acquire::AllowDowngradeToInsecureRepositories is not set in 'apt-config dump', expected
+      Acquire::AllowDowngradeToInsecureRepositories "0";
+[FAIL] 1.2.1.15 Ensure Acquire::Check-Date is configured
+    - Acquire::Check-Date is not set in 'apt-config dump', expected Acquire::Check-Date "true";
+[FAIL] 1.3.1.4 Ensure kernel.apparmor_restrict_unprivileged_unconfined is enabled
+    - kernel.apparmor_restrict_unprivileged_unconfined: running=0, expected 1
+    - kernel.apparmor_restrict_unprivileged_unconfined: persisted=not set in any file read by
+      systemd-sysctl (a reboot would reset it), expected 1
+[FAIL] 1.4.1 Ensure bootloader password is set
+    - grub.cfg: no 'set superusers="<username>"' line
+    - grub.cfg: no 'password_pbkdf2 <username> grub.pbkdf2.sha512...' line
+[FAIL] 1.4.2 Ensure access to bootloader config is configured
+    - /boot/grub/grub.cfg: mode 0444 grants 0044 beyond allowed 0600
+[FAIL] 1.5.4 Ensure fs.suid_dumpable is configured
+    - fs.suid_dumpable: running=2, expected 0
+    - fs.suid_dumpable: persisted=2 (/usr/lib/sysctl.d/50-default.conf), expected 0
+    - all assignments seen by systemd-sysctl (last wins): /usr/lib/sysctl.d/50-default.conf: 2;
+[FAIL] 1.5.5 Ensure kernel.dmesg_restrict is configured
+    - kernel.dmesg_restrict: persisted=not set in any file read by systemd-sysctl (a reboot would
+      reset it), expected 1
+    - kernel.dmesg_restrict: running=1, expected 1
+[FAIL] 1.5.7 Ensure Automatic Error Reporting is configured
+    - /etc/default/apport: enabled=1, expected enabled=0
+    - apport.service is not active
+[FAIL] 1.5.9 Ensure kernel.randomize_va_space is configured
+    - kernel.randomize_va_space: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 2
+    - kernel.randomize_va_space: running=2, expected 2
+[FAIL] 1.5.10 Ensure core file size is configured
+    - no '* hard core 0' line in /etc/security/limits.conf or /etc/security/limits.d/*.conf
+[FAIL] 1.6.2 Ensure /etc/issue is configured
+    - OS information or escape codes (\m \r \s \v, OS name) found:
+    - /etc/issue: 1:Ubuntu 26.04 LTS \n \l
+[FAIL] 1.6.3 Ensure /etc/issue.net is configured
+    - OS information or escape codes (\m \r \s \v, OS name) found:
+    - /etc/issue.net: 1:Ubuntu 26.04 LTS
+[FAIL] 1.6.5 Ensure sshd warning Banner is configured
+    - banner: 'none', expected a file path such as /etc/issue.net
+[FAIL] 1.6.12 Ensure update-notifier-motd.timer is not in use
+    - no package
+    - update-notifier-motd.timer: enabled/active (enabled-state/active-state), expected neither
+      enabled nor active
+[FAIL] 2.1.13 Ensure rsync services are not in use
+    - installed: rsync
+    - rsync.service: enabled/active (enabled-state/active-state), expected neither enabled nor
+      active
+[FAIL] 2.1.22 Ensure mail transfer agents are configured for local-only mode
+    - port 25 listens on 0.0.0.0:25 (non-loopback)
+    - MTA is bound to a non-loopback interface setting: postconf: inet_interfaces = all
+    - nothing listens on port 465
+    - nothing listens on port 587
+[FAIL] 2.2.4 Ensure telnet client is not installed
+    - installed: telnet, expected none of telnet, inetutils-telnet, telnet-ssl
+[FAIL] 2.3.2.1 Ensure systemd-timesyncd configured with authorized timeserver
+    - NTP is not set
+    - FallbackNTP is not set
+    - expected at least one of NTP, FallbackNTP to be set to an approved time server
+[FAIL] 2.4.1.2 Ensure access to /etc/crontab is configured
+    - /etc/crontab: mode 0644 grants 0044 beyond allowed 0700
+[FAIL] 2.4.1.3 Ensure access to /etc/cron.hourly is configured
+    - /etc/cron.hourly: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 2.4.1.4 Ensure access to /etc/cron.daily is configured
+    - /etc/cron.daily: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 2.4.1.5 Ensure access to /etc/cron.weekly is configured
+    - /etc/cron.weekly: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 2.4.1.6 Ensure access to /etc/cron.monthly is configured
+    - /etc/cron.monthly: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 2.4.1.8 Ensure access to /etc/cron.d is configured
+    - /etc/cron.d: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 2.4.1.9 Ensure access to crontab is configured
+    - /etc/cron.allow does not exist, expected it with mode 0640 or stricter, root:root or
+      root:crontab
+    - /etc/cron.deny does not exist
+[FAIL] 3.2.3 Ensure dccp kernel module is not available
+    - missing 'blacklist dccp' in modprobe configuration
+    - missing 'install dccp /bin/false' (or /bin/true) in modprobe configuration
+    - module files for dccp exist under kernel/net/dccp; checking that it is not loaded and not
+      loadable
+    - dccp is not loaded (lsmod)
+[FAIL] 3.2.5 Ensure sctp kernel module is not available
+    - missing 'blacklist sctp' in modprobe configuration
+    - missing 'install sctp /bin/false' (or /bin/true) in modprobe configuration
+    - module files for sctp exist under kernel/net/sctp; checking that it is not loaded and not
+      loadable
+    - sctp is not loaded (lsmod)
+[FAIL] 3.2.6 Ensure tipc kernel module is not available
+    - missing 'blacklist tipc' in modprobe configuration
+    - missing 'install tipc /bin/false' (or /bin/true) in modprobe configuration
+    - module files for tipc exist under kernel/net/tipc; checking that it is not loaded and not
+      loadable
+    - tipc is not loaded (lsmod)
+[FAIL] 3.3.1.1 Ensure net.ipv4.ip_forward is configured
+    - net.ipv4.ip_forward: persisted=not set in any file read by systemd-sysctl (a reboot would
+      reset it), expected 0
+    - net.ipv4.ip_forward: running=0, expected 0
+[FAIL] 3.3.1.2 Ensure net.ipv4.conf.all.forwarding is configured
+    - net.ipv4.conf.all.forwarding: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 0
+    - net.ipv4.conf.all.forwarding: running=0, expected 0
+[FAIL] 3.3.1.3 Ensure net.ipv4.conf.default.forwarding is configured
+    - net.ipv4.conf.default.forwarding: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv4.conf.default.forwarding: running=0, expected 0
+[FAIL] 3.3.1.4 Ensure net.ipv4.conf.all.send_redirects is configured
+    - net.ipv4.conf.all.send_redirects: running=1, expected 0
+    - net.ipv4.conf.all.send_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.1.5 Ensure net.ipv4.conf.default.send_redirects is configured
+    - net.ipv4.conf.default.send_redirects: running=1, expected 0
+    - net.ipv4.conf.default.send_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.1.6 Ensure net.ipv4.icmp_ignore_bogus_error_responses is configured
+    - net.ipv4.icmp_ignore_bogus_error_responses: persisted=not set in any file read by
+      systemd-sysctl (a reboot would reset it), expected 1
+    - net.ipv4.icmp_ignore_bogus_error_responses: running=1, expected 1
+[FAIL] 3.3.1.7 Ensure net.ipv4.icmp_echo_ignore_broadcasts is configured
+    - net.ipv4.icmp_echo_ignore_broadcasts: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 1
+    - net.ipv4.icmp_echo_ignore_broadcasts: running=1, expected 1
+[FAIL] 3.3.1.8 Ensure net.ipv4.conf.all.accept_redirects is configured
+    - net.ipv4.conf.all.accept_redirects: running=1, expected 0
+    - net.ipv4.conf.all.accept_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.1.9 Ensure net.ipv4.conf.default.accept_redirects is configured
+    - net.ipv4.conf.default.accept_redirects: running=1, expected 0
+    - net.ipv4.conf.default.accept_redirects: persisted=not set in any file read by systemd-sysctl
+      (a reboot would reset it), expected 0
+[FAIL] 3.3.1.10 Ensure net.ipv4.conf.all.secure_redirects is configured
+    - net.ipv4.conf.all.secure_redirects: running=1, expected 0
+    - net.ipv4.conf.all.secure_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.1.11 Ensure net.ipv4.conf.default.secure_redirects is configured
+    - net.ipv4.conf.default.secure_redirects: running=1, expected 0
+    - net.ipv4.conf.default.secure_redirects: persisted=not set in any file read by systemd-sysctl
+      (a reboot would reset it), expected 0
+[FAIL] 3.3.1.12 Ensure net.ipv4.conf.all.rp_filter is configured
+    - net.ipv4.conf.all.rp_filter: running=2, expected 1
+    - net.ipv4.conf.all.rp_filter: persisted=2 (/usr/lib/sysctl.d/50-default.conf), expected 1
+    - all assignments seen by systemd-sysctl (last wins): /usr/lib/sysctl.d/50-default.conf: 2;
+[FAIL] 3.3.1.13 Ensure net.ipv4.conf.default.rp_filter is configured
+    - net.ipv4.conf.default.rp_filter: running=2, expected 1
+    - net.ipv4.conf.default.rp_filter: persisted=2 (/usr/lib/sysctl.d/50-default.conf), expected 1
+    - all assignments seen by systemd-sysctl (last wins): /usr/lib/sysctl.d/50-default.conf: 2;
+[FAIL] 3.3.1.14 Ensure net.ipv4.conf.all.accept_source_route is configured
+    - net.ipv4.conf.all.accept_source_route: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv4.conf.all.accept_source_route: running=0, expected 0
+[FAIL] 3.3.1.15 Ensure net.ipv4.conf.default.accept_source_route is configured
+    - net.ipv4.conf.default.accept_source_route: persisted=not set in any file read by
+      systemd-sysctl (a reboot would reset it), expected 0
+    - net.ipv4.conf.default.accept_source_route: running=0, expected 0
+[FAIL] 3.3.1.16 Ensure net.ipv4.conf.all.log_martians is configured
+    - net.ipv4.conf.all.log_martians: running=0, expected 1
+    - net.ipv4.conf.all.log_martians: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 1
+[FAIL] 3.3.1.17 Ensure net.ipv4.conf.default.log_martians is configured
+    - net.ipv4.conf.default.log_martians: running=0, expected 1
+    - net.ipv4.conf.default.log_martians: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 1
+[FAIL] 3.3.1.19 Ensure net.ipv4.conf.all.route_localnet is configured
+    - net.ipv4.conf.all.route_localnet: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv4.conf.all.route_localnet: running=0, expected 0
+[FAIL] 3.3.2.1 Ensure net.ipv6.conf.all.forwarding is configured
+    - net.ipv6.conf.all.forwarding: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 0
+    - net.ipv6.conf.all.forwarding: running=0, expected 0
+[FAIL] 3.3.2.2 Ensure net.ipv6.conf.default.forwarding is configured
+    - net.ipv6.conf.default.forwarding: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv6.conf.default.forwarding: running=0, expected 0
+[FAIL] 3.3.2.3 Ensure net.ipv6.conf.all.accept_redirects is configured
+    - net.ipv6.conf.all.accept_redirects: running=1, expected 0
+    - net.ipv6.conf.all.accept_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.2.4 Ensure net.ipv6.conf.default.accept_redirects is configured
+    - net.ipv6.conf.default.accept_redirects: running=1, expected 0
+    - net.ipv6.conf.default.accept_redirects: persisted=not set in any file read by systemd-sysctl
+      (a reboot would reset it), expected 0
+[FAIL] 3.3.2.5 Ensure net.ipv6.conf.all.accept_source_route is configured
+    - net.ipv6.conf.all.accept_source_route: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv6.conf.all.accept_source_route: running=0, expected 0
+[FAIL] 3.3.2.6 Ensure net.ipv6.conf.default.accept_source_route is configured
+    - net.ipv6.conf.default.accept_source_route: persisted=not set in any file read by
+      systemd-sysctl (a reboot would reset it), expected 0
+    - net.ipv6.conf.default.accept_source_route: running=0, expected 0
+[FAIL] 3.3.2.7 Ensure net.ipv6.conf.all.accept_ra is configured
+    - net.ipv6.conf.all.accept_ra: running=1, expected 0
+    - net.ipv6.conf.all.accept_ra: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 0
+[FAIL] 3.3.2.8 Ensure net.ipv6.conf.default.accept_ra is configured
+    - net.ipv6.conf.default.accept_ra: running=1, expected 0
+    - net.ipv6.conf.default.accept_ra: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 4.1.2 Ensure ufw service is configured
+    - ufw status: Status: inactive, expected 'Status: active'
+    - ufw.service: enabled/active (enabled/active)
+[FAIL] 4.1.3 Ensure ufw incoming default is configured
+    - ufw reports no default policies (ufw is probably inactive), expected 'Default: deny
+      (incoming)'
+    - ufw status: Status: inactive
+[FAIL] 4.1.5 Ensure ufw routed default is configured
+    - ufw reports no default policies (ufw is probably inactive), expected 'deny (routed)'
+[FAIL] 5.1.1 Ensure access to /etc/ssh/sshd_config is configured
+    - /etc/ssh/sshd_config: mode 0644 grants 0044 beyond allowed 0600
+    - /etc/ssh/sshd_config.d/60-cis.conf: mode 0600 owner root group root (max 0600, root:root)
+[FAIL] 5.1.2 Ensure access to /etc/ssh/sshd_config.d/ directory is configured
+    - /etc/ssh/sshd_config.d: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 5.1.3 Ensure access to SSH private host key files is configured
+    - /etc/ssh/ssh_host_rsa_key: mode 0640 grants 0040 beyond allowed 0600, group ssh_keys, expected
+      root
+    - /etc/ssh/ssh_host_ecdsa_key: mode 0600 owner root group root (max 0600, root:root)
+    - /etc/ssh/ssh_host_ed25519_key: mode 0600 owner root group root (max 0600, root:root)
+[FAIL] 5.1.5 Ensure sshd access is configured
+    - none of allowusers, allowgroups, denyusers, denygroups is set in the effective sshd
+      configuration, expected at least one
+[FAIL] 5.1.6 Ensure sshd Banner is configured
+    - banner: 'none', expected a file path such as /etc/issue.net
+[FAIL] 5.1.8 Ensure sshd ClientAliveInterval and ClientAliveCountMax are configured
+    - clientaliveinterval: 0, expected greater than 0
+    - clientalivecountmax: 3, expected greater than 0
+[FAIL] 5.1.9 Ensure sshd DisableForwarding is enabled
+    - disableforwarding: no, expected yes
+[FAIL] 5.1.15 Ensure sshd LoginGraceTime is configured
+    - logingracetime: 120, expected 1 to 60
+[FAIL] 5.1.17 Ensure sshd MACs are configured
+    - macs: weak entries in use: umac-64-etm@openssh.com umac-128-etm@openssh.com
+[FAIL] 5.1.18 Ensure sshd MaxAuthTries is configured
+    - maxauthtries: 6, expected 4 or less
+[FAIL] 5.1.20 Ensure sshd MaxStartups is configured
+    - maxstartups: 10:30:100, expected 10:30:60 or more restrictive
+[FAIL] 5.1.22 Ensure sshd PermitRootLogin is disabled
+    - permitrootlogin: without-password, expected no
+[FAIL] 5.2.2 Ensure sudo commands use pty
+    - no explicit 'Defaults use_pty' in /etc/sudoers, expected at least one (also required on
+      sudo-rs)
+[FAIL] 5.2.3 Ensure sudo log file exists
+    - no evidence that sudo events are logged: no journal or auth.log entries from sudo / sudo-rs
+      and no logfile setting
+    - implementation: sudo-rs
+    - Method B does not apply: sudo-rs ignores or rejects the logfile option
+    - if sudo has not been used yet, run 'sudo true' once and audit again
+[FAIL] 5.2.6 Ensure sudo timestamp_timeout is configured
+    - timestamp_timeout is not explicitly configured in sudoers, expected a value from 0 to 15
+[FAIL] 5.2.7 Ensure access to the su command is restricted
+    - /etc/pam.d/su has no 'auth required pam_wheel.so use_uid group=<name>' line (required or
+      requisite, with use_uid and group=)
+[FAIL] 5.3.1.1 Ensure latest version of pam is installed
+    - libpam-runtime: installed 1.7.0-3, candidate 1.7.0-3ubuntu1 in the local apt cache: upgrade
+      available
+    - libpam-runtime 1.7.0-3 installed
+[FAIL] 5.3.2.2 Ensure pam_faillock module is enabled
+    - /etc/pam.d/common-auth: no active pam_faillock.so line
+    - /etc/pam.d/common-account: no active pam_faillock.so line
+    - /etc/pam.d/common-auth: no pam_faillock.so line with argument 'preauth'
+    - /etc/pam.d/common-auth: no pam_faillock.so line with argument 'authfail'
+[FAIL] 5.3.2.4 Ensure pam_pwhistory module is enabled
+    - /etc/pam.d/common-password: no active pam_pwhistory.so line
+[FAIL] 5.3.3.1.1 Ensure password failed attempts lockout is configured
+    - deny is not set, expected 1 to 5
+[FAIL] 5.3.3.1.2 Ensure password unlock time is configured
+    - unlock_time is not set, expected 0 (never) or 900 or more
+[FAIL] 5.3.3.2.1 Ensure password number of changed characters is configured
+    - difok is not set, expected 2 or more
+[FAIL] 5.3.3.2.2 Ensure password length is configured
+    - minlen is not set, expected 14 or more
+[FAIL] 5.3.3.2.4 Ensure password same consecutive characters is configured
+    - maxrepeat is not set, expected 1 to 3
+[FAIL] 5.3.3.2.5 Ensure password maximum sequential characters is configured
+    - maxsequence is not set, expected 1 to 3
+[FAIL] 5.3.3.2.8 Ensure password quality is enforced for the root user
+    - enforce_for_root is not set, expected it to be present
+[FAIL] 5.3.3.3.1 Ensure password history remember is configured
+    - remember is set neither in /etc/security/pwhistory.conf nor on the pam_pwhistory.so line in
+      /etc/pam.d/common-password
+[FAIL] 5.3.3.3.2 Ensure password history is enforced for the root user
+    - enforce_for_root is set neither in /etc/security/pwhistory.conf nor on the pam_pwhistory.so
+      line in /etc/pam.d/common-password
+[FAIL] 5.3.3.3.3 Ensure pam_pwhistory includes use_authtok
+    - use_authtok is set neither in /etc/security/pwhistory.conf nor on the pam_pwhistory.so line in
+      /etc/pam.d/common-password
+[FAIL] 5.3.3.4.1 Ensure pam_unix does not include nullok
+    - /etc/pam.d/common-auth: auth [success=1 default=ignore] pam_unix.so nullok
+    - /etc/pam.d/common-password: no forbidden argument (nullok) on: password [success=1
+      default=ignore] pam_unix.so obscure use_authtok try_first_pass yescrypt
+    - /etc/pam.d/common-account: no forbidden argument (nullok) on: account [success=1
+      new_authtok_reqd=done default=ignore] pam_unix.so
+    - /etc/pam.d/common-session: no forbidden argument (nullok) on: session required pam_unix.so
+    - /etc/pam.d/common-session-noninteractive: no forbidden argument (nullok) on: session required
+      pam_unix.so
+[FAIL] 5.4.1.1 Ensure password expiration is configured
+    - /etc/login.defs: PASS_MAX_DAYS 99999, expected 1 to 365
+    - user ubuntu: PASS_MAX_DAYS '99999' in /etc/shadow, expected 1 to 365
+[FAIL] 5.4.1.5 Ensure inactive password lock is configured
+    - /etc/default/useradd: INACTIVE=-1, expected 0 to 45
+    - user ubuntu: INACTIVE 'empty' days in /etc/shadow, expected 0 to 45
+[FAIL] 5.4.2.1 Ensure root is the only UID 0 account
+    - accounts with UID 0: root toor, expected only root
+[FAIL] 5.4.2.2 Ensure root is the only GID 0 account
+    - accounts with primary GID 0: root toor, expected only root
+[FAIL] 5.4.2.6 Ensure root user umask is configured
+    - /root/.profile: umask 022, less restrictive than umask 027
+[FAIL] 5.4.2.7 Ensure system accounts do not have a valid login shell
+    - service account "games" (UID 5) has a valid shell: /bin/bash
+    - service account "toor" (UID 0) has a valid shell: /bin/bash
+[FAIL] 5.4.3.2 Ensure default user shell timeout is configured
+    - TMOUT is not configured in /etc/bash.bashrc /etc/profile, expected readonly exported TMOUT of
+      at most 900 seconds
+[FAIL] 5.4.3.3 Ensure default user umask is configured
+    - /etc/login.defs: UMASK 022, expected 027 or more restrictive
+[FAIL] 6.1.1.1.6 Ensure journald Storage is configured
+    - Storage=auto (built-in default, not set explicitly), expected persistent
+[FAIL] 6.1.3.1 Ensure access to all logfiles has been configured
+    - /var/log/syslog: mode 0644 should be 0640 or more restrictive
+    - /var/log/custom.log: mode 0666 should be 0640 or more restrictive
+[FAIL] 6.3.1 Ensure AIDE is installed
+    - aide NOT installed; aide-common NOT installed, expected installed
+[FAIL] 6.3.2 Ensure filesystem integrity is regularly checked
+    - dailyaidecheck.timer: not found, expected enabled
+    - dailyaidecheck.service: not found, expected static or enabled
+    - dailyaidecheck.timer is not active
+[FAIL] 7.1.10 Ensure access to /etc/security/opasswd is configured
+    - /etc/security/opasswd: mode 0644 grants 0044 beyond allowed 0600
+[FAIL] 7.1.11 Ensure world writable files and directories are secured
+    - 1 world writable files, expected none:
+    - /srv/scratch.txt
+    - 1 world writable directories without the sticky bit, expected none:
+    - /srv/shared
+[FAIL] 7.1.12 Ensure no files or directories without an owner and a group exist
+    - 1 files or directories without an owner, expected none:
+    - /opt/orphan
+[FAIL] 7.2.2 Ensure /etc/shadow password fields are not empty
+    - games does not have a password
+    - ghost does not have a password
+[FAIL] 7.2.3 Ensure all groups in /etc/passwd exist in /etc/group
+    - User "bin" has GID "2" which does not exist in /etc/group
+    - User "games" has GID "60" which does not exist in /etc/group
+    - User "ghost" has GID "9999" which does not exist in /etc/group
+[FAIL] 7.2.4 Ensure shadow group is empty
+    - group shadow has members: ubuntu
+[FAIL] 7.2.5 Ensure no duplicate UIDs exist
+    - Duplicate UID: "0" Names: "root toor"
+[FAIL] 7.2.6 Ensure no duplicate GIDs exist
+    - Duplicate GID: "1000" Names: "ubuntu ubuntu2"
+[FAIL] 7.2.9 Ensure local interactive user home directories are configured
+    - User "games" home directory "/usr/games" doesn't exist
+    - User "ubuntu" home "/home/ubuntu" is mode 0755, should be 0750 or more restrictive
+    - User "ghost" home directory "/home/ghost" doesn't exist
+    - User "toor" home "/root" is owned by "root"
+[FAIL] 7.2.10 Ensure local interactive user dot files access is configured
+    - User "ubuntu": "/home/ubuntu/.bashrc" is mode 0664 and should be mode 0644 or more restrictive
+    - User "ubuntu": "/home/ubuntu/.bash_history" is mode 0644 and should be mode 0600 or more
+      restrictive
+    - User "ubuntu": file "/home/ubuntu/.netrc" exists (mode and owner are fine; confirm it follows
+      site policy)
+[FAIL] 7.2.11 Ensure local interactive user dot directories access is configured
+    - User "ubuntu": "/home/ubuntu/.config" is mode 0775 and should be mode 0750 or more restrictive
+
+3. MANUAL REVIEW
+
+----------------
+[MANUAL] 1.1.1.11 Ensure unused filesystems kernel modules are not available
+    - filesystem types currently mounted: ext4 tmpfs
+    - loaded filesystem module: ext4
+    - filesystem modules without both blacklist and install override: 4 (first: cramfs ext4 freevxfs
+      jffs2)
+    - Decision required: Review the filesystem kernel modules available, loaded and mounted on this
+      host and confirm every unused one is blacklisted and set to /bin/false or /bin/true
+[MANUAL] 1.2.1.1 Ensure the source.list and .source files use the Signed-By option
+    - /etc/apt/sources.list.d/ubuntu.sources: stanza ending near line 4 has URIs but no Signed-By
+    - Decision required: Confirm every deb/deb-src entry and every deb822 stanza names a Signed-By
+      key
+[MANUAL] 1.2.2.1 Ensure updates, patches, and additional security software are installed
+    - pending updates are not checked: that needs apt update (network)
+    - Decision required: Confirm no updates are pending and no reboot is required
+[MANUAL] 2.1.23 Ensure only approved services are listening on a network interface
+    - listening sockets (ss -plntu): 3
+    - tcp 0.0.0.0:22 users:(("sshd",pid=801,fd=3))
+    - tcp 0.0.0.0:25 users:(("master",pid=950,fd=13))
+    - udp 127.0.0.54:53 users:(("systemd-resolve",pid=500,fd=15))
+    - APPROVED_LISTENERS is not set in site.conf; compare the list with site policy by hand
+    - Decision required: List the listening sockets (ss -plntu) and confirm each service, port and
+      interface is required and approved by site policy
+[MANUAL] 3.1.1 Ensure IPv6 status is identified
+    - IPv6 is enabled
+    - Decision required: Confirm whether IPv6 is meant to be enabled on this host
+[MANUAL] 3.2.7 Ensure unneeded network protocol kernel modules are not available
+    - network modules available to the running kernel: 3
+    - Decision required: Compare the network protocol modules available to the running kernel with
+      the site's documented list of unneeded protocols and confirm each is blacklisted and set to
+      /bin/false or /bin/true
+[MANUAL] 5.1.14 Ensure sshd post-quantum cryptography key exchange algorithms are configured
+    - kexalgorithms:
+      mlkem768x25519-sha256,sntrup761x25519-sha512,curve25519-sha256,curve25519-sha256@libssh.org,di
+      ffie-hellman-group16-sha512
+    - sntrup761x25519-sha512 is offered
+    - mlkem768x25519-sha256 is offered
+    - Decision required: Confirm the post-quantum key exchange algorithms sntrup761x25519-sha512
+      (and mlkem768x25519-sha256 from OpenSSH 9.9) are offered in KexAlgorithms
+[MANUAL] 5.3.3.2.3 Ensure password complexity is configured
+    - Decision required: Confirm minclass and the dcredit/ucredit/lcredit/ocredit settings (none
+      greater than 0) follow site policy and are not overridden on the pam_pwquality line
+[MANUAL] 6.1.1.1.4 Ensure journald log file access is configured
+    - Decision required: Review the journald log file modes defined through tmpfiles.d (0640 or more
+      restrictive) against site policy
+[MANUAL] 6.1.1.1.5 Ensure journald log file rotation is configured
+    - Decision required: Confirm journald log rotation limits (SystemMaxUse, SystemKeepFree,
+      RuntimeMaxUse, RuntimeKeepFree, MaxFileSec) follow site policy
+[MANUAL] 7.1.13 Ensure SUID and SGID files are reviewed
+    - suid: /usr/bin/sudo
+    - 1 SUID and 0 SGID files found
+    - Decision required: Review the list of SUID and SGID files for programs that are not expected
+      on this host
+
+4. EXCEPTIONS
+
+-------------
+  none
+
+5. FULL RESULTS
+
+---------------
+[FAIL] 1.1.1.1 Ensure cramfs kernel module is not available
+    - missing 'blacklist cramfs' in modprobe configuration
+    - missing 'install cramfs /bin/false' (or /bin/true) in modprobe configuration
+    - module files for cramfs exist under kernel/fs/cramfs; checking that it is not loaded and not
+      loadable
+    - cramfs is not loaded (lsmod)
+[FAIL] 1.1.1.2 Ensure freevxfs kernel module is not available
+    - missing 'blacklist freevxfs' in modprobe configuration
+    - missing 'install freevxfs /bin/false' (or /bin/true) in modprobe configuration
+    - module files for freevxfs exist under kernel/fs/freevxfs; checking that it is not loaded and
+      not loadable
+    - freevxfs is not loaded (lsmod)
+[PASS] 1.1.1.3 Ensure hfs kernel module is not available
+    - no kernel/fs/hfs module directory under /usr/lib/modules: hfs is built in or absent
+[PASS] 1.1.1.4 Ensure hfsplus kernel module is not available
+    - no kernel/fs/hfsplus module directory under /usr/lib/modules: hfsplus is built in or absent
+[FAIL] 1.1.1.5 Ensure jffs2 kernel module is not available
+    - missing 'blacklist jffs2' in modprobe configuration
+    - missing 'install jffs2 /bin/false' (or /bin/true) in modprobe configuration
+    - module files for jffs2 exist under kernel/fs/jffs2; checking that it is not loaded and not
+      loadable
+    - jffs2 is not loaded (lsmod)
+[FAIL] 1.1.1.9 Ensure firewire-core kernel module is not available
+    - missing 'blacklist firewire_core' in modprobe configuration
+    - missing 'install firewire_core /bin/false' (or /bin/true) in modprobe configuration
+    - module files for firewire_core exist under kernel/drivers/firewire; checking that it is not
+      loaded and not loadable
+    - firewire_core is not loaded (lsmod)
+[FAIL] 1.1.1.10 Ensure usb-storage kernel module is not available
+    - missing 'blacklist usb_storage' in modprobe configuration
+    - missing 'install usb_storage /bin/false' (or /bin/true) in modprobe configuration
+    - module files for usb_storage exist under kernel/drivers/usb/storage; checking that it is not
+      loaded and not loadable
+    - usb_storage is not loaded (lsmod)
+[MANUAL] 1.1.1.11 Ensure unused filesystems kernel modules are not available
+    - filesystem types currently mounted: ext4 tmpfs
+    - loaded filesystem module: ext4
+    - filesystem modules without both blacklist and install override: 4 (first: cramfs ext4 freevxfs
+      jffs2)
+    - Decision required: Review the filesystem kernel modules available, loaded and mounted on this
+      host and confirm every unused one is blacklisted and set to /bin/false or /bin/true
+[FAIL] 1.1.2.1.1 Ensure /tmp is tmpfs or a separate partition
+    - /tmp is not a mount point (neither tmpfs nor a separate partition)
+[N/A] 1.1.2.1.2 Ensure nodev option set on /tmp partition
+    - /tmp is not a separate mount point; the benchmark applies this only to a separate partition
+[N/A] 1.1.2.1.3 Ensure nosuid option set on /tmp partition
+    - /tmp is not a separate mount point; the benchmark applies this only to a separate partition
+[N/A] 1.1.2.1.4 Ensure noexec option set on /tmp partition
+    - /tmp is not a separate mount point; the benchmark applies this only to a separate partition
+[PASS] 1.1.2.2.1 Ensure /dev/shm is tmpfs or a separate partition
+    - /dev/shm is mounted: tmpfs (tmpfs) rw,nosuid,nodev
+[PASS] 1.1.2.2.2 Ensure nodev option set on /dev/shm partition
+    - /dev/shm (tmpfs): options rw,nosuid,nodev include nodev
+[PASS] 1.1.2.2.3 Ensure nosuid option set on /dev/shm partition
+    - /dev/shm (tmpfs): options rw,nosuid,nodev include nosuid
+[FAIL] 1.1.2.2.4 Ensure noexec option set on /dev/shm partition
+    - /dev/shm (tmpfs): options rw,nosuid,nodev do not include noexec
+[N/A] 1.1.2.3.2 Ensure nodev option set on /home partition
+    - /home is not a separate mount point; the benchmark applies this only to a separate partition
+[N/A] 1.1.2.3.3 Ensure nosuid option set on /home partition
+    - /home is not a separate mount point; the benchmark applies this only to a separate partition
+[N/A] 1.1.2.4.2 Ensure nodev option set on /var partition
+    - /var is not a separate mount point; the benchmark applies this only to a separate partition
+[N/A] 1.1.2.4.3 Ensure nosuid option set on /var partition
+    - /var is not a separate mount point; the benchmark applies this only to a separate partition
+[N/A] 1.1.2.5.2 Ensure nodev option set on /var/tmp partition
+    - /var/tmp is not a separate mount point; the benchmark applies this only to a separate
+      partition
+[N/A] 1.1.2.5.3 Ensure nosuid option set on /var/tmp partition
+    - /var/tmp is not a separate mount point; the benchmark applies this only to a separate
+      partition
+[N/A] 1.1.2.5.4 Ensure noexec option set on /var/tmp partition
+    - /var/tmp is not a separate mount point; the benchmark applies this only to a separate
+      partition
+[N/A] 1.1.2.6.2 Ensure nodev option set on /var/log partition
+    - /var/log is not a separate mount point; the benchmark applies this only to a separate
+      partition
+[N/A] 1.1.2.6.3 Ensure nosuid option set on /var/log partition
+    - /var/log is not a separate mount point; the benchmark applies this only to a separate
+      partition
+[N/A] 1.1.2.6.4 Ensure noexec option set on /var/log partition
+    - /var/log is not a separate mount point; the benchmark applies this only to a separate
+      partition
+[N/A] 1.1.2.7.2 Ensure nodev option set on /var/log/audit partition
+    - /var/log/audit is not a separate mount point; the benchmark applies this only to a separate
+      partition
+[N/A] 1.1.2.7.3 Ensure nosuid option set on /var/log/audit partition
+    - /var/log/audit is not a separate mount point; the benchmark applies this only to a separate
+      partition
+[N/A] 1.1.2.7.4 Ensure noexec option set on /var/log/audit partition
+    - /var/log/audit is not a separate mount point; the benchmark applies this only to a separate
+      partition
+[MANUAL] 1.2.1.1 Ensure the source.list and .source files use the Signed-By option
+    - /etc/apt/sources.list.d/ubuntu.sources: stanza ending near line 4 has URIs but no Signed-By
+    - Decision required: Confirm every deb/deb-src entry and every deb822 stanza names a Signed-By
+      key
+[FAIL] 1.2.1.3 Ensure access to gpg key files are configured
+    - /usr/share/keyrings/extra.gpg: mode 0664 owner root group root; expected 0644 or stricter and
+      root:root
+    - step 2: no Signed-By key files outside the standard keyring directories
+[PASS] 1.2.1.4 Ensure access to /etc/apt/trusted.gpg.d directory is configured
+    - /etc/apt/trusted.gpg.d: mode 0755 owner root group root (max 0755, root:root)
+[PASS] 1.2.1.5 Ensure access to /etc/apt/auth.conf.d directory is configured
+    - /etc/apt/auth.conf.d: mode 0755 owner root group root (max 0755, root:root)
+[PASS] 1.2.1.6 Ensure access to files in the /etc/apt/auth.conf.d/ directory is configured
+    - /etc/apt/auth.conf.d/*: does not exist
+    - (nothing to check; benchmark treats a missing path as passing)
+[PASS] 1.2.1.7 Ensure access to /usr/share/keyrings directory is configured
+    - /usr/share/keyrings: mode 0755 owner root group root (max 0755, root:root)
+[PASS] 1.2.1.8 Ensure access to /etc/apt/sources.list.d directory is configured
+    - /etc/apt/sources.list.d: mode 0755 owner root group root (max 0755, root:root)
+[PASS] 1.2.1.9 Ensure access to files in /etc/apt/sources.list.d are configured
+    - /etc/apt/sources.list.d/ubuntu.sources: mode 0644 owner root group root (max 0644, root:root)
+[PASS] 1.2.1.10 Ensure repositories are set to https in /etc/apt/sources.list
+    - /etc/apt/sources.list does not exist; nothing to check
+[FAIL] 1.2.1.11 Ensure repositories are set to https in /etc/apt/sources.list.d directory
+    - plain http repositories, expected https:
+    - /etc/apt/sources.list.d/ubuntu.sources:2:URIs: http://archive.ubuntu.com/ubuntu
+[FAIL] 1.2.1.12 Ensure AllowInsecureRepositories is configured
+    - Acquire::AllowInsecureRepositories is not set in 'apt-config dump', expected
+      Acquire::AllowInsecureRepositories "0";
+[FAIL] 1.2.1.13 Ensure AllowWeakRepositories is configured
+    - Acquire::AllowWeakRepositories is not set in 'apt-config dump', expected
+      Acquire::AllowWeakRepositories "0";
+[FAIL] 1.2.1.14 Ensure AllowDowngradeToInsecureRepositories is configured
+    - Acquire::AllowDowngradeToInsecureRepositories is not set in 'apt-config dump', expected
+      Acquire::AllowDowngradeToInsecureRepositories "0";
+[FAIL] 1.2.1.15 Ensure Acquire::Check-Date is configured
+    - Acquire::Check-Date is not set in 'apt-config dump', expected Acquire::Check-Date "true";
+[MANUAL] 1.2.2.1 Ensure updates, patches, and additional security software are installed
+    - pending updates are not checked: that needs apt update (network)
+    - Decision required: Confirm no updates are pending and no reboot is required
+[PASS] 1.3.1.1 Ensure apparmor packages are installed
+    - apparmor 4.1.0-1 installed; apparmor-utils 4.1.0-1 installed
+[PASS] 1.3.1.2 Ensure AppArmor is enabled
+    - /boot/grub/grub.cfg: no linux line contains apparmor=0
+    - apparmor.service: enabled/active (enabled/active)
+    - 42 AppArmor profiles are loaded
+[FAIL] 1.3.1.4 Ensure kernel.apparmor_restrict_unprivileged_unconfined is enabled
+    - kernel.apparmor_restrict_unprivileged_unconfined: running=0, expected 1
+    - kernel.apparmor_restrict_unprivileged_unconfined: persisted=not set in any file read by
+      systemd-sysctl (a reboot would reset it), expected 1
+[FAIL] 1.4.1 Ensure bootloader password is set
+    - grub.cfg: no 'set superusers="<username>"' line
+    - grub.cfg: no 'password_pbkdf2 <username> grub.pbkdf2.sha512...' line
+[FAIL] 1.4.2 Ensure access to bootloader config is configured
+    - /boot/grub/grub.cfg: mode 0444 grants 0044 beyond allowed 0600
+[PASS] 1.5.1 Ensure fs.protected_hardlinks is configured
+    - fs.protected_hardlinks: running=1, expected 1
+    - fs.protected_hardlinks: persisted=1 (/usr/lib/sysctl.d/50-default.conf), expected 1
+[PASS] 1.5.3 Ensure kernel.yama.ptrace_scope is configured
+    - kernel.yama.ptrace_scope: running=1, expected 1 or 2 or 3
+    - kernel.yama.ptrace_scope: persisted=1 (/usr/lib/sysctl.d/10-kernel-hardening.conf), expected 1
+      or 2 or 3
+[FAIL] 1.5.4 Ensure fs.suid_dumpable is configured
+    - fs.suid_dumpable: running=2, expected 0
+    - fs.suid_dumpable: persisted=2 (/usr/lib/sysctl.d/50-default.conf), expected 0
+    - all assignments seen by systemd-sysctl (last wins): /usr/lib/sysctl.d/50-default.conf: 2;
+[FAIL] 1.5.5 Ensure kernel.dmesg_restrict is configured
+    - kernel.dmesg_restrict: persisted=not set in any file read by systemd-sysctl (a reboot would
+      reset it), expected 1
+    - kernel.dmesg_restrict: running=1, expected 1
+[PASS] 1.5.6 Ensure prelink is not installed
+    - none of prelink is installed
+[FAIL] 1.5.7 Ensure Automatic Error Reporting is configured
+    - /etc/default/apport: enabled=1, expected enabled=0
+    - apport.service is not active
+[PASS] 1.5.8 Ensure kernel.kptr_restrict is configured
+    - kernel.kptr_restrict: running=1, expected 1 or 2
+    - kernel.kptr_restrict: persisted=1 (/usr/lib/sysctl.d/10-kernel-hardening.conf), expected 1 or
+      2
+[FAIL] 1.5.9 Ensure kernel.randomize_va_space is configured
+    - kernel.randomize_va_space: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 2
+    - kernel.randomize_va_space: running=2, expected 2
+[FAIL] 1.5.10 Ensure core file size is configured
+    - no '* hard core 0' line in /etc/security/limits.conf or /etc/security/limits.d/*.conf
+[N/A] 1.5.11 Ensure systemd-coredump ProcessSizeMax is configured
+    - not applicable: condition HAS_COREDUMP=1 is false (HAS_COREDUMP=0)
+[N/A] 1.5.12 Ensure systemd-coredump Storage is configured
+    - not applicable: condition HAS_COREDUMP=1 is false (HAS_COREDUMP=0)
+[PASS] 1.6.1 Ensure /etc/motd is configured
+    - no motd files exist (a message of the day is optional)
+[FAIL] 1.6.2 Ensure /etc/issue is configured
+    - OS information or escape codes (\m \r \s \v, OS name) found:
+    - /etc/issue: 1:Ubuntu 26.04 LTS \n \l
+[FAIL] 1.6.3 Ensure /etc/issue.net is configured
+    - OS information or escape codes (\m \r \s \v, OS name) found:
+    - /etc/issue.net: 1:Ubuntu 26.04 LTS
+[PASS] 1.6.4 Ensure pam_motd is configured
+    - no pam_motd.so line with an explicit motd= argument found in sshd, login, su or gdm-password
+[FAIL] 1.6.5 Ensure sshd warning Banner is configured
+    - banner: 'none', expected a file path such as /etc/issue.net
+[PASS] 1.6.6 Ensure access to /etc/motd is configured
+    - /etc/motd: does not exist
+    - /run/motd: does not exist
+    - /usr/lib/motd: does not exist
+    - /etc/motd.d/*: does not exist
+    - /run/motd.d/*: does not exist
+    - /usr/lib/motd.d/*: does not exist
+    - /etc/update-motd.d/*: does not exist
+    - (nothing to check; benchmark treats a missing path as passing)
+[PASS] 1.6.7 Ensure access to /etc/issue is configured
+    - /etc/issue: mode 0644 owner root group root (max 0644, root:root)
+    - /usr/lib/issue.d/*: does not exist
+    - /etc/issue.d/*: does not exist
+    - /run/issue.d/*: does not exist
+[PASS] 1.6.8 Ensure access to /etc/issue.net is configured
+    - /etc/issue.net: mode 0644 owner root group root (max 0644, root:root)
+[PASS] 1.6.9 Ensure access to pam_motd file is configured
+    - /run/motd.dynamic: does not exist
+    - (nothing to check; benchmark treats a missing path as passing)
+[PASS] 1.6.10 Ensure access to sshd warning banner is configured
+    - sshd -T shows no Banner file (rule 1.6.5 covers the missing directive)
+[PASS] 1.6.11 Ensure update-notifier-motd.service is not in use
+    - no package; the service units are neither enabled nor active
+    - update-notifier-motd.service: static/inactive (not enabled, not active)
+[FAIL] 1.6.12 Ensure update-notifier-motd.timer is not in use
+    - no package
+    - update-notifier-motd.timer: enabled/active (enabled-state/active-state), expected neither
+      enabled nor active
+[N/A] 1.7.1 Ensure GDM login banner is configured
+    - not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)
+[N/A] 1.7.2 Ensure GDM disable-user-list is configured
+    - not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)
+[N/A] 1.7.3 Ensure GDM screen lock is configured
+    - not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)
+[N/A] 1.7.4 Ensure GDM automount is configured
+    - not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)
+[N/A] 1.7.5 Ensure GDM autorun-never is configured
+    - not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)
+[N/A] 1.7.6 Ensure XDMCP is not enabled
+    - not applicable: condition HAS_GDM=1 is false (HAS_GDM=0)
+[PASS] 2.1.1 Ensure autofs services are not in use
+    - none of the packages (autofs) is installed
+[PASS] 2.1.2 Ensure avahi daemon services are not in use
+    - none of the packages (avahi-daemon) is installed
+[PASS] 2.1.3 Ensure dhcp server services are not in use
+    - none of the packages (kea, kea-*) is installed
+[PASS] 2.1.4 Ensure dns server services are not in use
+    - none of the packages (bind9) is installed
+[PASS] 2.1.5 Ensure dnsmasq services are not in use
+    - none of the packages (dnsmasq) is installed
+[PASS] 2.1.6 Ensure ftp server services are not in use
+    - none of the packages (vsftpd) is installed
+[PASS] 2.1.7 Ensure ldap server services are not in use
+    - none of the packages (slapd) is installed
+[PASS] 2.1.8 Ensure message access server services are not in use
+    - none of the packages (dovecot-imapd, dovecot-pop3d) is installed
+[PASS] 2.1.9 Ensure network file system services are not in use
+    - none of the packages (nfs-kernel-server) is installed
+[PASS] 2.1.10 Ensure nis server services are not in use
+    - none of the packages (ypserv) is installed
+[PASS] 2.1.11 Ensure print server services are not in use
+    - none of the packages (cups) is installed
+[PASS] 2.1.12 Ensure rpcbind services are not in use
+    - none of the packages (rpcbind) is installed
+[FAIL] 2.1.13 Ensure rsync services are not in use
+    - installed: rsync
+    - rsync.service: enabled/active (enabled-state/active-state), expected neither enabled nor
+      active
+[PASS] 2.1.14 Ensure samba file server services are not in use
+    - none of the packages (samba) is installed
+[PASS] 2.1.15 Ensure snmp services are not in use
+    - none of the packages (snmpd) is installed
+[PASS] 2.1.16 Ensure telnet server services are not in use
+    - none of the packages (telnetd, telnetd-ssl) is installed
+[PASS] 2.1.17 Ensure tftp server services are not in use
+    - none of the packages (tftpd-hpa) is installed
+[PASS] 2.1.18 Ensure web proxy server services are not in use
+    - none of the packages (squid) is installed
+[PASS] 2.1.19 Ensure web server services are not in use
+    - none of the packages (apache2, nginx) is installed
+[PASS] 2.1.20 Ensure xinetd services are not in use
+    - none of the packages (xinetd) is installed
+[FAIL] 2.1.22 Ensure mail transfer agents are configured for local-only mode
+    - port 25 listens on 0.0.0.0:25 (non-loopback)
+    - MTA is bound to a non-loopback interface setting: postconf: inet_interfaces = all
+    - nothing listens on port 465
+    - nothing listens on port 587
+[MANUAL] 2.1.23 Ensure only approved services are listening on a network interface
+    - listening sockets (ss -plntu): 3
+    - tcp 0.0.0.0:22 users:(("sshd",pid=801,fd=3))
+    - tcp 0.0.0.0:25 users:(("master",pid=950,fd=13))
+    - udp 127.0.0.54:53 users:(("systemd-resolve",pid=500,fd=15))
+    - APPROVED_LISTENERS is not set in site.conf; compare the list with site policy by hand
+    - Decision required: List the listening sockets (ss -plntu) and confirm each service, port and
+      interface is required and approved by site policy
+[PASS] 2.2.1 Ensure nis client is not installed
+    - none of nis is installed
+[PASS] 2.2.2 Ensure rsh client is not installed
+    - none of rsh-client is installed
+[PASS] 2.2.3 Ensure talk client is not installed
+    - none of talk is installed
+[FAIL] 2.2.4 Ensure telnet client is not installed
+    - installed: telnet, expected none of telnet, inetutils-telnet, telnet-ssl
+[PASS] 2.2.5 Ensure ldap client is not installed
+    - none of ldap-utils is installed
+[PASS] 2.2.6 Ensure ftp client is not installed
+    - none of ftp, tnftp, atftp, inetutils-ftp, ftp-ssl is installed
+[PASS] 2.3.1.1 Ensure a single time synchronization daemon is in use
+    - only one time sync daemon is in use: systemd-timesyncd.service
+    - systemd-timesyncd.service is in use (enabled/active enabled-state/active-state)
+    - chrony.service is not enabled and not active (not-found/inactive)
+[FAIL] 2.3.2.1 Ensure systemd-timesyncd configured with authorized timeserver
+    - NTP is not set
+    - FallbackNTP is not set
+    - expected at least one of NTP, FallbackNTP to be set to an approved time server
+[PASS] 2.3.2.2 Ensure systemd-timesyncd is enabled and running
+    - systemd-timesyncd.service: enabled/active (enabled-state/active-state), expected enabled and
+      active
+[N/A] 2.3.3.1 Ensure chrony is configured
+    - not applicable: condition TIME_DAEMON~chrony is false (TIME_DAEMON=timesyncd)
+[N/A] 2.3.3.2 Ensure chrony is running as user _chrony
+    - not applicable: condition TIME_DAEMON~chrony is false (TIME_DAEMON=timesyncd)
+[N/A] 2.3.3.3 Ensure chrony is enabled and running
+    - not applicable: condition TIME_DAEMON~chrony is false (TIME_DAEMON=timesyncd)
+[PASS] 2.4.1.1 Ensure cron daemon is enabled and active
+    - cron.service: enabled/active (enabled-state/active-state), expected enabled and active
+[FAIL] 2.4.1.2 Ensure access to /etc/crontab is configured
+    - /etc/crontab: mode 0644 grants 0044 beyond allowed 0700
+[FAIL] 2.4.1.3 Ensure access to /etc/cron.hourly is configured
+    - /etc/cron.hourly: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 2.4.1.4 Ensure access to /etc/cron.daily is configured
+    - /etc/cron.daily: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 2.4.1.5 Ensure access to /etc/cron.weekly is configured
+    - /etc/cron.weekly: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 2.4.1.6 Ensure access to /etc/cron.monthly is configured
+    - /etc/cron.monthly: mode 0755 grants 0055 beyond allowed 0700
+[PASS] 2.4.1.7 Ensure access to /etc/cron.yearly is configured
+    - /etc/cron.yearly: does not exist
+    - (nothing to check; benchmark treats a missing path as passing)
+[FAIL] 2.4.1.8 Ensure access to /etc/cron.d is configured
+    - /etc/cron.d: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 2.4.1.9 Ensure access to crontab is configured
+    - /etc/cron.allow does not exist, expected it with mode 0640 or stricter, root:root or
+      root:crontab
+    - /etc/cron.deny does not exist
+[N/A] 2.4.2.1 Ensure access to at is configured
+    - not applicable: condition HAS_AT=1 is false (HAS_AT=0)
+[MANUAL] 3.1.1 Ensure IPv6 status is identified
+    - IPv6 is enabled
+    - Decision required: Confirm whether IPv6 is meant to be enabled on this host
+[PASS] 3.1.2 Ensure wireless interfaces are not available
+    - the system has no wireless interfaces
+[PASS] 3.1.3 Ensure bluetooth services are not in use
+    - none of the packages (bluez) is installed
+[PASS] 3.2.1 Ensure atm kernel module is not available
+    - no kernel/net/atm module directory under /usr/lib/modules: atm is built in or absent
+[PASS] 3.2.2 Ensure can kernel module is not available
+    - no kernel/net/can module directory under /usr/lib/modules: can is built in or absent
+[FAIL] 3.2.3 Ensure dccp kernel module is not available
+    - missing 'blacklist dccp' in modprobe configuration
+    - missing 'install dccp /bin/false' (or /bin/true) in modprobe configuration
+    - module files for dccp exist under kernel/net/dccp; checking that it is not loaded and not
+      loadable
+    - dccp is not loaded (lsmod)
+[PASS] 3.2.4 Ensure rds kernel module is not available
+    - no kernel/net/rds module directory under /usr/lib/modules: rds is built in or absent
+[FAIL] 3.2.5 Ensure sctp kernel module is not available
+    - missing 'blacklist sctp' in modprobe configuration
+    - missing 'install sctp /bin/false' (or /bin/true) in modprobe configuration
+    - module files for sctp exist under kernel/net/sctp; checking that it is not loaded and not
+      loadable
+    - sctp is not loaded (lsmod)
+[FAIL] 3.2.6 Ensure tipc kernel module is not available
+    - missing 'blacklist tipc' in modprobe configuration
+    - missing 'install tipc /bin/false' (or /bin/true) in modprobe configuration
+    - module files for tipc exist under kernel/net/tipc; checking that it is not loaded and not
+      loadable
+    - tipc is not loaded (lsmod)
+[MANUAL] 3.2.7 Ensure unneeded network protocol kernel modules are not available
+    - network modules available to the running kernel: 3
+    - Decision required: Compare the network protocol modules available to the running kernel with
+      the site's documented list of unneeded protocols and confirm each is blacklisted and set to
+      /bin/false or /bin/true
+[FAIL] 3.3.1.1 Ensure net.ipv4.ip_forward is configured
+    - net.ipv4.ip_forward: persisted=not set in any file read by systemd-sysctl (a reboot would
+      reset it), expected 0
+    - net.ipv4.ip_forward: running=0, expected 0
+[FAIL] 3.3.1.2 Ensure net.ipv4.conf.all.forwarding is configured
+    - net.ipv4.conf.all.forwarding: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 0
+    - net.ipv4.conf.all.forwarding: running=0, expected 0
+[FAIL] 3.3.1.3 Ensure net.ipv4.conf.default.forwarding is configured
+    - net.ipv4.conf.default.forwarding: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv4.conf.default.forwarding: running=0, expected 0
+[FAIL] 3.3.1.4 Ensure net.ipv4.conf.all.send_redirects is configured
+    - net.ipv4.conf.all.send_redirects: running=1, expected 0
+    - net.ipv4.conf.all.send_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.1.5 Ensure net.ipv4.conf.default.send_redirects is configured
+    - net.ipv4.conf.default.send_redirects: running=1, expected 0
+    - net.ipv4.conf.default.send_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.1.6 Ensure net.ipv4.icmp_ignore_bogus_error_responses is configured
+    - net.ipv4.icmp_ignore_bogus_error_responses: persisted=not set in any file read by
+      systemd-sysctl (a reboot would reset it), expected 1
+    - net.ipv4.icmp_ignore_bogus_error_responses: running=1, expected 1
+[FAIL] 3.3.1.7 Ensure net.ipv4.icmp_echo_ignore_broadcasts is configured
+    - net.ipv4.icmp_echo_ignore_broadcasts: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 1
+    - net.ipv4.icmp_echo_ignore_broadcasts: running=1, expected 1
+[FAIL] 3.3.1.8 Ensure net.ipv4.conf.all.accept_redirects is configured
+    - net.ipv4.conf.all.accept_redirects: running=1, expected 0
+    - net.ipv4.conf.all.accept_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.1.9 Ensure net.ipv4.conf.default.accept_redirects is configured
+    - net.ipv4.conf.default.accept_redirects: running=1, expected 0
+    - net.ipv4.conf.default.accept_redirects: persisted=not set in any file read by systemd-sysctl
+      (a reboot would reset it), expected 0
+[FAIL] 3.3.1.10 Ensure net.ipv4.conf.all.secure_redirects is configured
+    - net.ipv4.conf.all.secure_redirects: running=1, expected 0
+    - net.ipv4.conf.all.secure_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.1.11 Ensure net.ipv4.conf.default.secure_redirects is configured
+    - net.ipv4.conf.default.secure_redirects: running=1, expected 0
+    - net.ipv4.conf.default.secure_redirects: persisted=not set in any file read by systemd-sysctl
+      (a reboot would reset it), expected 0
+[FAIL] 3.3.1.12 Ensure net.ipv4.conf.all.rp_filter is configured
+    - net.ipv4.conf.all.rp_filter: running=2, expected 1
+    - net.ipv4.conf.all.rp_filter: persisted=2 (/usr/lib/sysctl.d/50-default.conf), expected 1
+    - all assignments seen by systemd-sysctl (last wins): /usr/lib/sysctl.d/50-default.conf: 2;
+[FAIL] 3.3.1.13 Ensure net.ipv4.conf.default.rp_filter is configured
+    - net.ipv4.conf.default.rp_filter: running=2, expected 1
+    - net.ipv4.conf.default.rp_filter: persisted=2 (/usr/lib/sysctl.d/50-default.conf), expected 1
+    - all assignments seen by systemd-sysctl (last wins): /usr/lib/sysctl.d/50-default.conf: 2;
+[FAIL] 3.3.1.14 Ensure net.ipv4.conf.all.accept_source_route is configured
+    - net.ipv4.conf.all.accept_source_route: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv4.conf.all.accept_source_route: running=0, expected 0
+[FAIL] 3.3.1.15 Ensure net.ipv4.conf.default.accept_source_route is configured
+    - net.ipv4.conf.default.accept_source_route: persisted=not set in any file read by
+      systemd-sysctl (a reboot would reset it), expected 0
+    - net.ipv4.conf.default.accept_source_route: running=0, expected 0
+[FAIL] 3.3.1.16 Ensure net.ipv4.conf.all.log_martians is configured
+    - net.ipv4.conf.all.log_martians: running=0, expected 1
+    - net.ipv4.conf.all.log_martians: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 1
+[FAIL] 3.3.1.17 Ensure net.ipv4.conf.default.log_martians is configured
+    - net.ipv4.conf.default.log_martians: running=0, expected 1
+    - net.ipv4.conf.default.log_martians: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 1
+[PASS] 3.3.1.18 Ensure net.ipv4.tcp_syncookies is configured
+    - net.ipv4.tcp_syncookies: running=1, expected 1
+    - net.ipv4.tcp_syncookies: persisted=1 (/usr/lib/sysctl.d/50-default.conf), expected 1
+[FAIL] 3.3.1.19 Ensure net.ipv4.conf.all.route_localnet is configured
+    - net.ipv4.conf.all.route_localnet: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv4.conf.all.route_localnet: running=0, expected 0
+[FAIL] 3.3.2.1 Ensure net.ipv6.conf.all.forwarding is configured
+    - net.ipv6.conf.all.forwarding: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 0
+    - net.ipv6.conf.all.forwarding: running=0, expected 0
+[FAIL] 3.3.2.2 Ensure net.ipv6.conf.default.forwarding is configured
+    - net.ipv6.conf.default.forwarding: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv6.conf.default.forwarding: running=0, expected 0
+[FAIL] 3.3.2.3 Ensure net.ipv6.conf.all.accept_redirects is configured
+    - net.ipv6.conf.all.accept_redirects: running=1, expected 0
+    - net.ipv6.conf.all.accept_redirects: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[FAIL] 3.3.2.4 Ensure net.ipv6.conf.default.accept_redirects is configured
+    - net.ipv6.conf.default.accept_redirects: running=1, expected 0
+    - net.ipv6.conf.default.accept_redirects: persisted=not set in any file read by systemd-sysctl
+      (a reboot would reset it), expected 0
+[FAIL] 3.3.2.5 Ensure net.ipv6.conf.all.accept_source_route is configured
+    - net.ipv6.conf.all.accept_source_route: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+    - net.ipv6.conf.all.accept_source_route: running=0, expected 0
+[FAIL] 3.3.2.6 Ensure net.ipv6.conf.default.accept_source_route is configured
+    - net.ipv6.conf.default.accept_source_route: persisted=not set in any file read by
+      systemd-sysctl (a reboot would reset it), expected 0
+    - net.ipv6.conf.default.accept_source_route: running=0, expected 0
+[FAIL] 3.3.2.7 Ensure net.ipv6.conf.all.accept_ra is configured
+    - net.ipv6.conf.all.accept_ra: running=1, expected 0
+    - net.ipv6.conf.all.accept_ra: persisted=not set in any file read by systemd-sysctl (a reboot
+      would reset it), expected 0
+[FAIL] 3.3.2.8 Ensure net.ipv6.conf.default.accept_ra is configured
+    - net.ipv6.conf.default.accept_ra: running=1, expected 0
+    - net.ipv6.conf.default.accept_ra: persisted=not set in any file read by systemd-sysctl (a
+      reboot would reset it), expected 0
+[PASS] 4.1.1 Ensure ufw is installed
+    - ufw 0.36.2-9 installed
+[FAIL] 4.1.2 Ensure ufw service is configured
+    - ufw status: Status: inactive, expected 'Status: active'
+    - ufw.service: enabled/active (enabled/active)
+[FAIL] 4.1.3 Ensure ufw incoming default is configured
+    - ufw reports no default policies (ufw is probably inactive), expected 'Default: deny
+      (incoming)'
+    - ufw status: Status: inactive
+[FAIL] 4.1.5 Ensure ufw routed default is configured
+    - ufw reports no default policies (ufw is probably inactive), expected 'deny (routed)'
+[FAIL] 5.1.1 Ensure access to /etc/ssh/sshd_config is configured
+    - /etc/ssh/sshd_config: mode 0644 grants 0044 beyond allowed 0600
+    - /etc/ssh/sshd_config.d/60-cis.conf: mode 0600 owner root group root (max 0600, root:root)
+[FAIL] 5.1.2 Ensure access to /etc/ssh/sshd_config.d/ directory is configured
+    - /etc/ssh/sshd_config.d: mode 0755 grants 0055 beyond allowed 0700
+[FAIL] 5.1.3 Ensure access to SSH private host key files is configured
+    - /etc/ssh/ssh_host_rsa_key: mode 0640 grants 0040 beyond allowed 0600, group ssh_keys, expected
+      root
+    - /etc/ssh/ssh_host_ecdsa_key: mode 0600 owner root group root (max 0600, root:root)
+    - /etc/ssh/ssh_host_ed25519_key: mode 0600 owner root group root (max 0600, root:root)
+[PASS] 5.1.4 Ensure access to SSH public host key files is configured
+    - /etc/ssh/ssh_host_rsa_key.pub: mode 0644 owner root group root (max 0644, root:root)
+    - /etc/ssh/ssh_host_ecdsa_key.pub: mode 0644 owner root group root (max 0644, root:root)
+    - /etc/ssh/ssh_host_ed25519_key.pub: mode 0644 owner root group root (max 0644, root:root)
+[FAIL] 5.1.5 Ensure sshd access is configured
+    - none of allowusers, allowgroups, denyusers, denygroups is set in the effective sshd
+      configuration, expected at least one
+[FAIL] 5.1.6 Ensure sshd Banner is configured
+    - banner: 'none', expected a file path such as /etc/issue.net
+[PASS] 5.1.7 Ensure sshd Ciphers are configured
+    - ciphers: no weak entries (value:
+      chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-
+      ctr,aes128-ctr)
+[FAIL] 5.1.8 Ensure sshd ClientAliveInterval and ClientAliveCountMax are configured
+    - clientaliveinterval: 0, expected greater than 0
+    - clientalivecountmax: 3, expected greater than 0
+[FAIL] 5.1.9 Ensure sshd DisableForwarding is enabled
+    - disableforwarding: no, expected yes
+[PASS] 5.1.10 Ensure sshd GSSAPIAuthentication is disabled
+    - gssapiauthentication: no, expected no
+[PASS] 5.1.11 Ensure sshd HostbasedAuthentication is disabled
+    - hostbasedauthentication: no, expected no
+[PASS] 5.1.12 Ensure sshd IgnoreRhosts is enabled
+    - ignorerhosts: yes, expected yes
+[PASS] 5.1.13 Ensure sshd KexAlgorithms is configured
+    - kexalgorithms: no weak entries (value:
+      mlkem768x25519-sha256,sntrup761x25519-sha512,curve25519-sha256,curve25519-sha256@libssh.org,di
+      ffie-hellman-group16-sha512)
+[MANUAL] 5.1.14 Ensure sshd post-quantum cryptography key exchange algorithms are configured
+    - kexalgorithms:
+      mlkem768x25519-sha256,sntrup761x25519-sha512,curve25519-sha256,curve25519-sha256@libssh.org,di
+      ffie-hellman-group16-sha512
+    - sntrup761x25519-sha512 is offered
+    - mlkem768x25519-sha256 is offered
+    - Decision required: Confirm the post-quantum key exchange algorithms sntrup761x25519-sha512
+      (and mlkem768x25519-sha256 from OpenSSH 9.9) are offered in KexAlgorithms
+[FAIL] 5.1.15 Ensure sshd LoginGraceTime is configured
+    - logingracetime: 120, expected 1 to 60
+[PASS] 5.1.16 Ensure sshd LogLevel is configured
+    - loglevel: INFO, expected one of verbose, info
+[FAIL] 5.1.17 Ensure sshd MACs are configured
+    - macs: weak entries in use: umac-64-etm@openssh.com umac-128-etm@openssh.com
+[FAIL] 5.1.18 Ensure sshd MaxAuthTries is configured
+    - maxauthtries: 6, expected 4 or less
+[PASS] 5.1.19 Ensure sshd MaxSessions is configured
+    - maxsessions: 10, expected 10 or less
+[FAIL] 5.1.20 Ensure sshd MaxStartups is configured
+    - maxstartups: 10:30:100, expected 10:30:60 or more restrictive
+[PASS] 5.1.21 Ensure sshd PermitEmptyPasswords is disabled
+    - permitemptypasswords: no, expected no
+[FAIL] 5.1.22 Ensure sshd PermitRootLogin is disabled
+    - permitrootlogin: without-password, expected no
+[PASS] 5.1.23 Ensure sshd PermitUserEnvironment is disabled
+    - permituserenvironment: no, expected no
+[PASS] 5.1.24 Ensure sshd UsePAM is enabled
+    - usepam: yes, expected yes
+[PASS] 5.2.1 Ensure sudo is installed
+    - sudo-rs 0.2.8-1 installed
+[FAIL] 5.2.2 Ensure sudo commands use pty
+    - no explicit 'Defaults use_pty' in /etc/sudoers, expected at least one (also required on
+      sudo-rs)
+[FAIL] 5.2.3 Ensure sudo log file exists
+    - no evidence that sudo events are logged: no journal or auth.log entries from sudo / sudo-rs
+      and no logfile setting
+    - implementation: sudo-rs
+    - Method B does not apply: sudo-rs ignores or rejects the logfile option
+    - if sudo has not been used yet, run 'sudo true' once and audit again
+[PASS] 5.2.5 Ensure re-authentication for privilege escalation is not disabled globally
+    - no uncommented '!authenticate' in /etc/sudoers
+[FAIL] 5.2.6 Ensure sudo timestamp_timeout is configured
+    - timestamp_timeout is not explicitly configured in sudoers, expected a value from 0 to 15
+[FAIL] 5.2.7 Ensure access to the su command is restricted
+    - /etc/pam.d/su has no 'auth required pam_wheel.so use_uid group=<name>' line (required or
+      requisite, with use_uid and group=)
+[FAIL] 5.3.1.1 Ensure latest version of pam is installed
+    - libpam-runtime: installed 1.7.0-3, candidate 1.7.0-3ubuntu1 in the local apt cache: upgrade
+      available
+    - libpam-runtime 1.7.0-3 installed
+[PASS] 5.3.1.2 Ensure latest version of libpam-modules is installed
+    - libpam-modules 1.7.0-3 installed
+    - libpam-modules: installed 1.7.0-3 is the newest version known to the local apt cache (no
+      network check)
+[PASS] 5.3.1.3 Ensure latest version of libpam-pwquality is installed
+    - libpam-pwquality 1.4.5-5 installed
+    - libpam-pwquality: installed 1.4.5-5 is the newest version known to the local apt cache (no
+      network check)
+[PASS] 5.3.1.4 Ensure latest version of cracklib-runtime is installed
+    - cracklib-runtime 2.10.3-2 installed
+    - cracklib-runtime: installed 2.10.3-2 is the newest version known to the local apt cache (no
+      network check)
+[PASS] 5.3.2.1 Ensure pam_unix module is enabled
+    - /etc/pam.d/common-account: account [success=1 new_authtok_reqd=done default=ignore]
+      pam_unix.so
+    - /etc/pam.d/common-auth: auth [success=1 default=ignore] pam_unix.so nullok
+    - /etc/pam.d/common-password: password [success=1 default=ignore] pam_unix.so obscure
+      use_authtok try_first_pass yescrypt
+    - /etc/pam.d/common-session: session required pam_unix.so
+    - /etc/pam.d/common-session-noninteractive: session required pam_unix.so
+[FAIL] 5.3.2.2 Ensure pam_faillock module is enabled
+    - /etc/pam.d/common-auth: no active pam_faillock.so line
+    - /etc/pam.d/common-account: no active pam_faillock.so line
+    - /etc/pam.d/common-auth: no pam_faillock.so line with argument 'preauth'
+    - /etc/pam.d/common-auth: no pam_faillock.so line with argument 'authfail'
+[PASS] 5.3.2.3 Ensure pam_pwquality module is enabled
+    - /etc/pam.d/common-password: password requisite pam_pwquality.so retry=3
+[FAIL] 5.3.2.4 Ensure pam_pwhistory module is enabled
+    - /etc/pam.d/common-password: no active pam_pwhistory.so line
+[FAIL] 5.3.3.1.1 Ensure password failed attempts lockout is configured
+    - deny is not set, expected 1 to 5
+[FAIL] 5.3.3.1.2 Ensure password unlock time is configured
+    - unlock_time is not set, expected 0 (never) or 900 or more
+[FAIL] 5.3.3.2.1 Ensure password number of changed characters is configured
+    - difok is not set, expected 2 or more
+[FAIL] 5.3.3.2.2 Ensure password length is configured
+    - minlen is not set, expected 14 or more
+[MANUAL] 5.3.3.2.3 Ensure password complexity is configured
+    - Decision required: Confirm minclass and the dcredit/ucredit/lcredit/ocredit settings (none
+      greater than 0) follow site policy and are not overridden on the pam_pwquality line
+[FAIL] 5.3.3.2.4 Ensure password same consecutive characters is configured
+    - maxrepeat is not set, expected 1 to 3
+[FAIL] 5.3.3.2.5 Ensure password maximum sequential characters is configured
+    - maxsequence is not set, expected 1 to 3
+[PASS] 5.3.3.2.6 Ensure password dictionary check is enabled
+    - dictcheck is not set; the module default is compliant
+[PASS] 5.3.3.2.7 Ensure password quality checking is enforced
+    - enforcing is not set; the module default is compliant
+[FAIL] 5.3.3.2.8 Ensure password quality is enforced for the root user
+    - enforce_for_root is not set, expected it to be present
+[FAIL] 5.3.3.3.1 Ensure password history remember is configured
+    - remember is set neither in /etc/security/pwhistory.conf nor on the pam_pwhistory.so line in
+      /etc/pam.d/common-password
+[FAIL] 5.3.3.3.2 Ensure password history is enforced for the root user
+    - enforce_for_root is set neither in /etc/security/pwhistory.conf nor on the pam_pwhistory.so
+      line in /etc/pam.d/common-password
+[FAIL] 5.3.3.3.3 Ensure pam_pwhistory includes use_authtok
+    - use_authtok is set neither in /etc/security/pwhistory.conf nor on the pam_pwhistory.so line in
+      /etc/pam.d/common-password
+[FAIL] 5.3.3.4.1 Ensure pam_unix does not include nullok
+    - /etc/pam.d/common-auth: auth [success=1 default=ignore] pam_unix.so nullok
+    - /etc/pam.d/common-password: no forbidden argument (nullok) on: password [success=1
+      default=ignore] pam_unix.so obscure use_authtok try_first_pass yescrypt
+    - /etc/pam.d/common-account: no forbidden argument (nullok) on: account [success=1
+      new_authtok_reqd=done default=ignore] pam_unix.so
+    - /etc/pam.d/common-session: no forbidden argument (nullok) on: session required pam_unix.so
+    - /etc/pam.d/common-session-noninteractive: no forbidden argument (nullok) on: session required
+      pam_unix.so
+[PASS] 5.3.3.4.2 Ensure pam_unix does not include remember
+    - /etc/pam.d/common-password: no forbidden argument (remember=\d+) on: password [success=1
+      default=ignore] pam_unix.so obscure use_authtok try_first_pass yescrypt
+    - /etc/pam.d/common-auth: no forbidden argument (remember=\d+) on: auth [success=1
+      default=ignore] pam_unix.so nullok
+    - /etc/pam.d/common-account: no forbidden argument (remember=\d+) on: account [success=1
+      new_authtok_reqd=done default=ignore] pam_unix.so
+    - /etc/pam.d/common-session: no forbidden argument (remember=\d+) on: session required
+      pam_unix.so
+    - /etc/pam.d/common-session-noninteractive: no forbidden argument (remember=\d+) on: session
+      required pam_unix.so
+[PASS] 5.3.3.4.3 Ensure pam_unix includes a strong password hashing algorithm
+    - /etc/pam.d/common-password: password [success=1 default=ignore] pam_unix.so obscure
+      use_authtok try_first_pass yescrypt
+[PASS] 5.3.3.4.4 Ensure pam_unix includes use_authtok
+    - /etc/pam.d/common-password: password [success=1 default=ignore] pam_unix.so obscure
+      use_authtok try_first_pass yescrypt
+[FAIL] 5.4.1.1 Ensure password expiration is configured
+    - /etc/login.defs: PASS_MAX_DAYS 99999, expected 1 to 365
+    - user ubuntu: PASS_MAX_DAYS '99999' in /etc/shadow, expected 1 to 365
+[PASS] 5.4.1.3 Ensure password expiration warning days is configured
+    - /etc/login.defs: PASS_WARN_AGE 7 (expected 7 or more)
+    - every account with a password has a warning period of 7 days or more
+[PASS] 5.4.1.4 Ensure strong password hashing algorithm is configured
+    - /etc/login.defs: ENCRYPT_METHOD YESCRYPT, expected SHA512 or YESCRYPT
+[FAIL] 5.4.1.5 Ensure inactive password lock is configured
+    - /etc/default/useradd: INACTIVE=-1, expected 0 to 45
+    - user ubuntu: INACTIVE 'empty' days in /etc/shadow, expected 0 to 45
+[PASS] 5.4.1.6 Ensure all users last password change date is in the past
+    - no account with a password has a last-change date in the future
+[FAIL] 5.4.2.1 Ensure root is the only UID 0 account
+    - accounts with UID 0: root toor, expected only root
+[FAIL] 5.4.2.2 Ensure root is the only GID 0 account
+    - accounts with primary GID 0: root toor, expected only root
+[PASS] 5.4.2.3 Ensure group root is the only GID 0 group
+    - only group root has GID 0
+[PASS] 5.4.2.4 Ensure root account access is controlled
+    - root password status: L (P = password set, L = locked)
+[PASS] 5.4.2.5 Ensure root path integrity
+    - root PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin: all elements are
+      root-owned directories, mode 0755 or stricter
+[FAIL] 5.4.2.6 Ensure root user umask is configured
+    - /root/.profile: umask 022, less restrictive than umask 027
+[FAIL] 5.4.2.7 Ensure system accounts do not have a valid login shell
+    - service account "games" (UID 5) has a valid shell: /bin/bash
+    - service account "toor" (UID 0) has a valid shell: /bin/bash
+[PASS] 5.4.2.8 Ensure accounts without a valid login shell are locked
+    - every non-root account without a valid login shell is locked
+[FAIL] 5.4.3.2 Ensure default user shell timeout is configured
+    - TMOUT is not configured in /etc/bash.bashrc /etc/profile, expected readonly exported TMOUT of
+      at most 900 seconds
+[FAIL] 5.4.3.3 Ensure default user umask is configured
+    - /etc/login.defs: UMASK 022, expected 027 or more restrictive
+[PASS] 6.1.1.1.1 Ensure journald service is active
+    - systemd-journald.service: static/active (enabled-state/active-state), expected active
+[PASS] 6.1.1.1.2 Ensure systemd-journal-remote service is not in use
+    - no package; the service units are neither enabled nor active
+    - systemd-journal-remote.socket: not-found/inactive (not enabled, not active)
+    - systemd-journal-remote.service: not-found/inactive (not enabled, not active)
+[N/A] 6.1.1.1.3 Ensure journald is configured to send logs to rsyslog
+    - not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)
+[MANUAL] 6.1.1.1.4 Ensure journald log file access is configured
+    - Decision required: Review the journald log file modes defined through tmpfiles.d (0640 or more
+      restrictive) against site policy
+[MANUAL] 6.1.1.1.5 Ensure journald log file rotation is configured
+    - Decision required: Confirm journald log rotation limits (SystemMaxUse, SystemKeepFree,
+      RuntimeMaxUse, RuntimeKeepFree, MaxFileSec) follow site policy
+[FAIL] 6.1.1.1.6 Ensure journald Storage is configured
+    - Storage=auto (built-in default, not set explicitly), expected persistent
+[PASS] 6.1.1.1.7 Ensure journald Compress is configured
+    - Compress=yes (built-in default, not set explicitly), expected yes
+[N/A] 6.1.2.1 Ensure rsyslog is installed
+    - not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)
+[N/A] 6.1.2.2 Ensure rsyslog service is enabled and active
+    - not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)
+[N/A] 6.1.2.3 Ensure rsyslog log file creation mode is configured
+    - not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)
+[N/A] 6.1.2.4 Ensure rsyslog logging is configured
+    - not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)
+[N/A] 6.1.2.5 Ensure rsyslog is configured to send logs to a remote log host
+    - not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)
+[N/A] 6.1.2.6 Ensure rsyslog is not configured to receive logs from a remote client
+    - not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)
+[N/A] 6.1.2.7 Ensure logrotate is configured
+    - not applicable: condition LOGGER=rsyslog is false (LOGGER=journald)
+[FAIL] 6.1.3.1 Ensure access to all logfiles has been configured
+    - /var/log/syslog: mode 0644 should be 0640 or more restrictive
+    - /var/log/custom.log: mode 0666 should be 0640 or more restrictive
+[FAIL] 6.3.1 Ensure AIDE is installed
+    - aide NOT installed; aide-common NOT installed, expected installed
+[FAIL] 6.3.2 Ensure filesystem integrity is regularly checked
+    - dailyaidecheck.timer: not found, expected enabled
+    - dailyaidecheck.service: not found, expected static or enabled
+    - dailyaidecheck.timer is not active
+[PASS] 7.1.1 Ensure access to /etc/passwd is configured
+    - /etc/passwd: mode 0644 owner root group root (max 0644, root:root)
+[PASS] 7.1.2 Ensure access to /etc/passwd- is configured
+    - /etc/passwd-: mode 0644 owner root group root (max 0644, root:root)
+[PASS] 7.1.3 Ensure access to /etc/group is configured
+    - /etc/group: mode 0644 owner root group root (max 0644, root:root)
+[PASS] 7.1.4 Ensure access to /etc/group- is configured
+    - /etc/group-: mode 0644 owner root group root (max 0644, root:root)
+[PASS] 7.1.5 Ensure access to /etc/shadow is configured
+    - /etc/shadow: mode 0640 owner root group shadow (max 0640, root:root or shadow)
+[PASS] 7.1.6 Ensure access to /etc/shadow- is configured
+    - /etc/shadow-: mode 0640 owner root group shadow (max 0640, root:root or shadow)
+[PASS] 7.1.7 Ensure access to /etc/gshadow is configured
+    - /etc/gshadow: mode 0640 owner root group shadow (max 0640, root:root or shadow)
+[PASS] 7.1.8 Ensure access to /etc/gshadow- is configured
+    - /etc/gshadow-: mode 0640 owner root group shadow (max 0640, root:root or shadow)
+[PASS] 7.1.9 Ensure access to /etc/shells is configured
+    - /etc/shells: mode 0644 owner root group root (max 0644, root:root)
+[FAIL] 7.1.10 Ensure access to /etc/security/opasswd is configured
+    - /etc/security/opasswd: mode 0644 grants 0044 beyond allowed 0600
+[FAIL] 7.1.11 Ensure world writable files and directories are secured
+    - 1 world writable files, expected none:
+    - /srv/scratch.txt
+    - 1 world writable directories without the sticky bit, expected none:
+    - /srv/shared
+[FAIL] 7.1.12 Ensure no files or directories without an owner and a group exist
+    - 1 files or directories without an owner, expected none:
+    - /opt/orphan
+[MANUAL] 7.1.13 Ensure SUID and SGID files are reviewed
+    - suid: /usr/bin/sudo
+    - 1 SUID and 0 SGID files found
+    - Decision required: Review the list of SUID and SGID files for programs that are not expected
+      on this host
+[PASS] 7.2.1 Ensure accounts in /etc/passwd use shadowed passwords
+    - all accounts in /etc/passwd use 'x' (shadowed passwords)
+[FAIL] 7.2.2 Ensure /etc/shadow password fields are not empty
+    - games does not have a password
+    - ghost does not have a password
+[FAIL] 7.2.3 Ensure all groups in /etc/passwd exist in /etc/group
+    - User "bin" has GID "2" which does not exist in /etc/group
+    - User "games" has GID "60" which does not exist in /etc/group
+    - User "ghost" has GID "9999" which does not exist in /etc/group
+[FAIL] 7.2.4 Ensure shadow group is empty
+    - group shadow has members: ubuntu
+[FAIL] 7.2.5 Ensure no duplicate UIDs exist
+    - Duplicate UID: "0" Names: "root toor"
+[FAIL] 7.2.6 Ensure no duplicate GIDs exist
+    - Duplicate GID: "1000" Names: "ubuntu ubuntu2"
+[PASS] 7.2.7 Ensure no duplicate user names exist
+    - no user name appears more than once in /etc/passwd
+[PASS] 7.2.8 Ensure no duplicate group names exist
+    - no group name appears more than once in /etc/group
+[FAIL] 7.2.9 Ensure local interactive user home directories are configured
+    - User "games" home directory "/usr/games" doesn't exist
+    - User "ubuntu" home "/home/ubuntu" is mode 0755, should be 0750 or more restrictive
+    - User "ghost" home directory "/home/ghost" doesn't exist
+    - User "toor" home "/root" is owned by "root"
+[FAIL] 7.2.10 Ensure local interactive user dot files access is configured
+    - User "ubuntu": "/home/ubuntu/.bashrc" is mode 0664 and should be mode 0644 or more restrictive
+    - User "ubuntu": "/home/ubuntu/.bash_history" is mode 0644 and should be mode 0600 or more
+      restrictive
+    - User "ubuntu": file "/home/ubuntu/.netrc" exists (mode and owner are fine; confirm it follows
+      site policy)
+[FAIL] 7.2.11 Ensure local interactive user dot directories access is configured
+    - User "ubuntu": "/home/ubuntu/.config" is mode 0775 and should be mode 0750 or more restrictive
