@@ -1,0 +1,17 @@
+apparmor	installed	4.1.0-1
+apparmor-utils	installed	4.1.0-1
+ufw	installed	0.36.2-9
+sudo-rs	installed	0.2.8-1
+libpam-runtime	installed	1.7.0-3
+libpam-modules	installed	1.7.0-3
+libpam-modules-bin	installed	1.7.0-3
+libpam-pwquality	installed	1.4.5-5
+cracklib-runtime	installed	2.10.3-2
+aide	installed	0.19.1-1
+aide-common	installed	0.19.1-1
+chrony	installed	4.6.1-1
+cron	installed	3.0pl1-200
+openssh-server	installed	1:10.0p1-5
+nginx	installed	1.28.0-1
+systemd-coredump	installed	258-1
+bash	installed	5.3-1

@@ -1,0 +1,8 @@
+apparmor.service loaded active exited Load AppArmor profiles
+ufw.service loaded active exited Uncomplicated firewall
+systemd-timesyncd.service loaded active running Network Time Synchronization
+cron.service loaded active running Regular background program processing daemon
+ssh.service loaded active running OpenBSD Secure Shell server
+rsync.service loaded active running fast remote file copy program daemon
+systemd-journald.service loaded active running Journal Service
+update-notifier-motd.timer loaded active waiting Check for a new version of Ubuntu

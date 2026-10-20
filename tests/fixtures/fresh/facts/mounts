@@ -1,0 +1,3 @@
+TARGET="/" SOURCE="/dev/sda2" FSTYPE="ext4" OPTIONS="rw,relatime"
+TARGET="/boot" SOURCE="/dev/sda3" FSTYPE="ext4" OPTIONS="rw,relatime"
+TARGET="/dev/shm" SOURCE="tmpfs" FSTYPE="tmpfs" OPTIONS="rw,nosuid,nodev"

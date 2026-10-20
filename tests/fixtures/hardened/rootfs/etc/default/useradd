@@ -1,0 +1,4 @@
+GROUP=100
+HOME=/home
+INACTIVE=45
+SHELL=/bin/sh

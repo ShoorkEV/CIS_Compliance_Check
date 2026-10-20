@@ -1,0 +1,3 @@
+@include common-auth
+session    optional     pam_motd.so  motd=/run/motd.dynamic
+session    optional     pam_motd.so noupdate

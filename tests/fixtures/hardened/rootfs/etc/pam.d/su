@@ -1,0 +1,3 @@
+auth       sufficient pam_rootok.so
+auth       required   pam_wheel.so use_uid group=sugroup
+@include common-auth

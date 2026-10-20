@@ -1,0 +1,7 @@
+home	ubuntu	/home/ubuntu	ext4
+f	ubuntu	664	ubuntu	ubuntu	/home/ubuntu/.bashrc
+f	ubuntu	644	ubuntu	ubuntu	/home/ubuntu/.profile
+f	ubuntu	644	ubuntu	ubuntu	/home/ubuntu/.bash_history
+f	ubuntu	600	ubuntu	ubuntu	/home/ubuntu/.netrc
+d	ubuntu	775	ubuntu	ubuntu	/home/ubuntu/.config
+d	ubuntu	700	ubuntu	ubuntu	/home/ubuntu/.ssh

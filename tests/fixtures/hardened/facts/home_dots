@@ -1,0 +1,6 @@
+home	deploy	/home/deploy	ext4
+f	deploy	600	deploy	deploy	/home/deploy/.bash_history
+f	deploy	644	deploy	deploy	/home/deploy/.bashrc
+f	deploy	644	deploy	deploy	/home/deploy/.profile
+d	deploy	700	deploy	deploy	/home/deploy/.ssh
+d	deploy	750	deploy	deploy	/home/deploy/.config

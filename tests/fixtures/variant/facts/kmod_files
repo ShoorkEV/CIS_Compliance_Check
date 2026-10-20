@@ -1,0 +1,9 @@
+/usr/lib/modules/6.14.0-30-generic/kernel/fs/cramfs/cramfs.ko.zst
+/usr/lib/modules/6.14.0-30-generic/kernel/fs/freevxfs/freevxfs.ko.zst
+/usr/lib/modules/6.14.0-30-generic/kernel/fs/jffs2/jffs2.ko.zst
+/usr/lib/modules/6.14.0-30-generic/kernel/fs/ext4/ext4.ko.zst
+/usr/lib/modules/6.14.0-30-generic/kernel/net/sctp/sctp.ko.zst
+/usr/lib/modules/6.14.0-30-generic/kernel/net/dccp/dccp_ipv4.ko.zst
+/usr/lib/modules/6.14.0-30-generic/kernel/net/tipc/tipc.ko.zst
+/usr/lib/modules/6.14.0-30-generic/kernel/drivers/usb/storage/usb-storage.ko.zst
+/usr/lib/modules/6.14.0-30-generic/kernel/drivers/firewire/firewire-core.ko.zst

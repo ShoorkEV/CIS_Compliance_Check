@@ -1,0 +1,3 @@
+suid	/usr/bin/sudo
+suid	/usr/bin/passwd
+sgid	/usr/bin/crontab

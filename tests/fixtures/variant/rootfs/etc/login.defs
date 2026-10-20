@@ -1,0 +1,7 @@
+MAIL_DIR        /var/mail
+PASS_MAX_DAYS   365
+PASS_MIN_DAYS   1
+PASS_WARN_AGE   7
+UID_MIN                  1000
+UMASK           027
+ENCRYPT_METHOD YESCRYPT

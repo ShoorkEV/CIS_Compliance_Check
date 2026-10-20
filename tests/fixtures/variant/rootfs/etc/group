@@ -1,0 +1,12 @@
+root:x:0:
+daemon:x:1:
+bin:x:2:
+adm:x:4:syslog
+shadow:x:42:
+crontab:x:107:
+syslog:x:102:
+_chrony:x:105:
+www-data:x:33:
+nogroup:x:65534:
+sugroup:x:2000:
+deploy:x:1000:

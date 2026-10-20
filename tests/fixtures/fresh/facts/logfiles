@@ -1,0 +1,3 @@
+644	root	root	/var/log/syslog
+640	root	adm	/var/log/auth.log
+666	root	root	/var/log/custom.log

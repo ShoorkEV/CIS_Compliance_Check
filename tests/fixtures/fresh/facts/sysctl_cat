@@ -1,0 +1,10 @@
+# /usr/lib/sysctl.d/10-kernel-hardening.conf
+kernel.kptr_restrict = 1
+kernel.yama.ptrace_scope = 1
+# /usr/lib/sysctl.d/50-default.conf
+kernel.sysrq = 176
+net.ipv4.conf.default.rp_filter = 2
+net.ipv4.conf.all.rp_filter = 2
+net.ipv4.tcp_syncookies = 1
+fs.protected_hardlinks = 1
+fs.suid_dumpable = 2

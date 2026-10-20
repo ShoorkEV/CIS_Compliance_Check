@@ -1,0 +1,4 @@
+Types: deb
+URIs: http://archive.ubuntu.com/ubuntu
+Suites: questing
+Components: main restricted universe multiverse

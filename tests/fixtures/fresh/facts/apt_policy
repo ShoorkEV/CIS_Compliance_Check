@@ -1,0 +1,12 @@
+libpam-runtime:
+  Installed: 1.7.0-3
+  Candidate: 1.7.0-3ubuntu1
+libpam-modules:
+  Installed: 1.7.0-3
+  Candidate: 1.7.0-3
+libpam-pwquality:
+  Installed: 1.4.5-5
+  Candidate: 1.4.5-5
+cracklib-runtime:
+  Installed: 2.10.3-2
+  Candidate: 2.10.3-2

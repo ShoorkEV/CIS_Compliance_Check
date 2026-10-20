@@ -1,0 +1,5 @@
+Acquire::AllowInsecureRepositories "0";
+Acquire::AllowWeakRepositories "0";
+Acquire::AllowDowngradeToInsecureRepositories "0";
+Acquire::Check-Date "true";
+APT::Install-Recommends "1";

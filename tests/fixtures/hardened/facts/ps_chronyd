@@ -1,0 +1,3 @@
+root     /sbin/init
+_chrony  /usr/sbin/chronyd -F 1
+deploy   -bash
